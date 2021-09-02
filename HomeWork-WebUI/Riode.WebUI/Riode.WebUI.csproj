@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\DataContexts\" />
-    <Folder Include="AppCode\" />
+    <Compile Remove="AppCode\**" />
+    <Compile Remove="Model\DataContexts\**" />
+    <Content Remove="AppCode\**" />
+    <Content Remove="Model\DataContexts\**" />
+    <EmbeddedResource Remove="AppCode\**" />
+    <EmbeddedResource Remove="Model\DataContexts\**" />
+    <None Remove="AppCode\**" />
+    <None Remove="Model\DataContexts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\uploads\video\" />
   </ItemGroup>
 
