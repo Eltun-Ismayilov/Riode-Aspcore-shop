@@ -7,5 +7,6 @@ namespace Riode.WebUI.Model.Entity
 {
     public class Contect
     {
+        public int Id { get; set; }
     }
 }
