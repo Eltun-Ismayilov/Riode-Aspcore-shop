@@ -27,5 +27,6 @@ namespace Riode.WebUI.Model.DataContexts
             }
         }
         public DbSet<Contect> contects { get; set; }
+        public DbSet<Brands> brands { get; set; }
     }
 }

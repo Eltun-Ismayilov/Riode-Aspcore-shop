@@ -139,7 +139,7 @@
                             </div>
                         </a>
                         <span class="divider"></span>
-                        <a asp-controller="wishlist" asp-action="index" class="wishlist">
+                        <a asp-controller="myaccount" asp-action="wishlist" class="wishlist">
                             <i class="d-icon-heart"></i>
                         </a>
                         <span class="divider"></span>
@@ -244,196 +244,71 @@
                                     <a asp-controller="Home" asp-action="index">Home</a>
                                 </li>
                                 <li>
-                                    <a asp-controller="Categories" asp-action="index">Categories</a>
+                                    <a asp-controller="home" asp-action="aboutus">About</a>
+                                </li>
+
+                                <li class="submenu">
+                                    <a asp-controller="Shop" asp-action="index">Shop</a>
                                     <div class="megamenu">
                                         <div class="row">
                                             <div class="col-6 col-sm-4 col-md-3 col-lg-4">
                                                 <h4 class="menu-title">Variations 1</h4>
                                                 <ul>
-                                                    <li><a asp-controller="categories" asp-action="details">Banner With Sidebar</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">Boxed Banner</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">Infinite Ajaxscroll</a></li>
+                                                    <li><a href="shop-banner-sidebar.html">Banner With Sidebar</a></li>
+                                                    <li><a href="shop-boxed-banner.html">Boxed Banner</a></li>
+                                                    <li><a href="shop-infinite-scroll.html">Infinite Ajaxscroll</a></li>
                                                     <li>
-                                                        <a asp-controller="categories" asp-action="details">Horizontal Filter</a>
+                                                        <a href="shop-horizontal-filter.html">Horizontal Filter</a>
                                                     </li>
-                                                    <li>
-                                                        <a asp-controller="categories" asp-action="details">
-                                                            Navigation Filter<span class="tip tip-hot">Hot</span>
-                                                        </a>
-                                                    </li>
+                                                    <li><a href="shop-navigation-filter.html">Navigation Filter<span class="tip tip-hot">Hot</span></a></li>
 
-                                                    <li><a asp-controller="categories" asp-action="details">Off-Canvas Filter</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">Right Toggle Sidebar</a></li>
+                                                    <li><a href="shop-off-canvas.html">Off-Canvas Filter</a></li>
+                                                    <li><a href="shop-right-sidebar.html">Right Toggle Sidebar</a></li>
                                                 </ul>
                                             </div>
                                             <div class="col-6 col-sm-4 col-md-3 col-lg-4">
                                                 <h4 class="menu-title">Variations 2</h4>
                                                 <ul>
 
-                                                    <li>
-                                                        <a asp-controller="categories" asp-action="details">
-                                                            3 Columns Mode<span class="tip tip-new">New</span>
-                                                        </a>
-                                                    </li>
-                                                    <li><a asp-controller="categories" asp-action="details">4 Columns Mode</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">5 Columns Mode</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">6 Columns Mode</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">7 Columns Mode</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">8 Columns Mode</a></li>
-                                                    <li><a asp-controller="categories" asp-action="details">List Mode</a></li>
+                                                    <li><a href="shop-grid-3cols.html">3 Columns Mode<span class="tip tip-new">New</span></a></li>
+                                                    <li><a href="shop-grid-4cols.html">4 Columns Mode</a></li>
+                                                    <li><a href="shop-grid-5cols.html">5 Columns Mode</a></li>
+                                                    <li><a href="shop-grid-6cols.html">6 Columns Mode</a></li>
+                                                    <li><a href="shop-grid-7cols.html">7 Columns Mode</a></li>
+                                                    <li><a href="shop-grid-8cols.html">8 Columns Mode</a></li>
+                                                    <li><a href="shop-list.html">List Mode</a></li>
                                                 </ul>
                                             </div>
                                             <div class="col-6 col-sm-4 col-md-3 col-lg-4 menu-banner menu-banner1 banner banner-fixed">
                                                 <figure>
-                                                    <img src="~/uploads/images/menu/banner-1.jpg" alt="Menu banner" width="221"
-                                                         height="330" />
+                                                    <img src="images/menu/banner-1.jpg" alt="Menu banner" width="221" height="330">
                                                 </figure>
                                                 <div class="banner-content y-50">
                                                     <h4 class="banner-subtitle font-weight-bold text-primary ls-m">
                                                         Sale.
                                                     </h4>
-                                                    <h3 class="banner-title font-weight-bold">
-                                                        <span class="text-uppercase">Up to</span>70% Off
-                                                    </h3>
-                                                    <a asp-controller="Categories" asp-action="index" class="btn btn-link btn-underline">
-                                                        shop
-                                                        now<i class="d-icon-arrow-right"></i>
-                                                    </a>
+                                                    <h3 class="banner-title font-weight-bold"><span class="text-uppercase">Up to</span>70% Off</h3>
+                                                    <a href="#" class="btn btn-link btn-underline">shop now<i class="d-icon-arrow-right"></i></a>
                                                 </div>
                                             </div>
                                             <!-- End Megamenu -->
                                         </div>
                                     </div>
                                 </li>
+                                <li  >
+                                    <a asp-controller="Home" asp-action="faq">Faqs</a>
+                                </li>
                                 <li>
-                                    <a asp-controller="Product" asp-action="index">Products</a>
-                                    <div class="megamenu">
-                                        <div class="row">
-                                            <div class="col-6 col-sm-4 col-md-3 col-lg-4">
-                                                <h4 class="menu-title">Product Pages</h4>
-                                                <ul>
-                                                    <li><a asp-controller="Product" asp-action="index">Simple Product</a></li>
-                                                    <li><a asp-controller="Product" asp-action="index">Variable Product</a></li>
-                                                    <li><a asp-controller="Product" asp-action="index">Sale Product</a></li>
-                                                    <li><a asp-controller="Product" asp-action="index">Featured &amp; On Sale</a></li>
+                                    <a asp-controller="myaccount" asp-action="index">My Account</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="home" asp-action="contect">Contact Us</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Blog" asp-action="index">Blog</a>
+                                </li>
 
-                                                    <li><a asp-controller="Product" asp-action="index">With Left Sidebar</a></li>
-                                                    <li><a href="product-right-sidebar.html">With Right Sidebar</a></li>
-                                                    <li>
-                                                        <a asp-controller="Product" asp-action="index">
-                                                            Add Cart Sticky<span class="tip tip-hot">Hot</span>
-                                                        </a>
-                                                    </li>
-                                                    <li><a asp-controller="Product" asp-action="index">Tab Inside</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-6 col-sm-4 col-md-3 col-lg-4">
-                                                <h4 class="menu-title">Product Layouts</h4>
-                                                <ul>
-                                                    <li>
-                                                        <a asp-controller="Product" asp-action="index">
-                                                            Grid Images<span class="tip tip-new">New</span>
-                                                        </a>
-                                                    </li>
-                                                    <li><a asp-controller="Product" asp-action="index">Masonry</a></li>
-                                                    <li><a asp-controller="Product" asp-action="index">Gallery Type</a></li>
-                                                    <li><a asp-controller="Product" asp-action="index">Full Width Layout</a></li>
-                                                    <li><a asp-controller="Product" asp-action="index">Sticky Info</a></li>
-                                                    <li>
-                                                        <a asp-controller="Product" asp-action="index">Left &amp; Right Sticky</a>
-                                                    </li>
-                                                    <li><a asp-controller="Product" asp-action="index">Horizontal Thumb</a></li>
 
-                                                    <li><a href="#">Build Your Own</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-6 col-sm-4 col-md-3 col-lg-4 menu-banner menu-banner2 banner banner-fixed">
-                                                <figure>
-                                                    <img src="~/uploads/images/menu/banner-2.jpg" alt="Menu banner" width="221"
-                                                         height="330" />
-                                                </figure>
-                                                <div class="banner-content x-50 text-center">
-                                                    <h3 class="banner-title text-white text-uppercase">Sunglasses</h3>
-                                                    <h4 class="banner-subtitle font-weight-bold text-white mb-0">
-                                                        $23.00
-                                                        -
-                                                        $120.00
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                            <!-- End MegaMenu -->
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#">Pages</a>
-                                    <ul>
-                                        <li><a asp-controller="about" asp-action="index">About</a></li>
-                                        <li><a asp-controller="home" asp-action="contect">Contact Us</a></li>
-                                        <li><a asp-controller="account" asp-action="index">My Account</a></li>
-                                        <li><a asp-controller="wishlist" asp-action="index">Wishlist</a></li>
-                                        <li><a asp-controller="faq" asp-action="index">FAQs</a></li>
-                                        <li><a asp-controller="error404" asp-action="index">Error 404</a></li>
-                                        <li><a asp-controller="comingsoon" asp-action="index">Coming Soon</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="blog-classic.html">Blog</a>
-                                    <ul>
-                                        <li><a href="blog-classic.html">Classic</a></li>
-                                        <li><a href="blog-listing.html">Listing</a></li>
-                                        <li>
-                                            <a href="#">Grid</a>
-                                            <ul>
-                                                <li><a href="blog-grid-2col.html">Grid 2 columns</a></li>
-                                                <li><a href="blog-grid-3col.html">Grid 3 columns</a></li>
-                                                <li><a href="blog-grid-4col.html">Grid 4 columns</a></li>
-                                                <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Masonry</a>
-                                            <ul>
-                                                <li><a href="blog-masonry-2col.html">Masonry 2 columns</a></li>
-                                                <li><a href="blog-masonry-3col.html">Masonry 3 columns</a></li>
-                                                <li><a href="blog-masonry-4col.html">Masonry 4 columns</a></li>
-                                                <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Mask</a>
-                                            <ul>
-                                                <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                                <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="post-single.html">Single Post</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="d-xl-show">
-                                    <a href="#">Elements</a>
-                                    <ul>
-                                        <li><a asp-controller="element" asp-action="products">Products</a></li>
-                                        <li><a asp-controller="element" asp-action="typography">Typography</a></li>
-                                        <li><a asp-controller="element" asp-action="titles">Titles</a></li>
-                                        <li><a asp-controller="element" asp-action="productcategory">Product Category</a></li>
-                                        <li><a asp-controller="element" asp-action="Buttons">Buttons</a></li>
-                                        <li><a asp-controller="element" asp-action="Accordions">Accordions</a></li>
-                                        <li><a asp-controller="element" asp-action="AlertNotification">Alert &amp; Notification</a></li>
-                                        <li><a asp-controller="element" asp-action="Tabs">Tabs</a></li>
-                                        <li><a asp-controller="element" asp-action="Testimonials">Testimonials</a></li>
-                                        <li><a asp-controller="element" asp-action="BlogPosts">Blog Posts</a></li>
-                                        <li><a asp-controller="element" asp-action="Instagrams">Instagrams</a></li>
-                                        <li><a asp-controller="element" asp-action="CalltoAction">Call to Action</a></li>
-                                        <li><a asp-controller="element" asp-action="IconBoxes">Icon Boxes</a></li>
-                                        <li><a asp-controller="element" asp-action="Icons">Icons</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a asp-controller="about" asp-action="index">About Us</a>
-                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -513,7 +388,7 @@
                                 <h4 class="widget-title">About Us</h4>
                                 <ul class="widget-body">
                                     <li>
-                                        <a asp-controller="about" asp-action="index">About Us</a>
+                                        <a asp-controller="home" asp-action="aboutus">About Us</a>
                                     </li>
                                     <li>
                                         <a href="#">Order History</a>
@@ -542,7 +417,7 @@
                                         <a href="cart.html">View Cart</a>
                                     </li>
                                     <li>
-                                        <a asp-controller="wishlist" asp-action="index">My Wishlist</a>
+                                        <a asp-controller="myaccount" asp-action="wishlist">My Wishlist</a>
                                     </li>
                                     <li>
                                         <a href="#">Track My Order</a>
@@ -621,11 +496,11 @@
             <i class="d-icon-volume"></i>
             <span>Categories</span>
         </a>
-        <a asp-controller="wishlist" asp-action="index" class="sticky-link">
+        <a asp-controller="myaccount" asp-action="wishlist" class="sticky-link">
             <i class="d-icon-heart"></i>
             <span>Wishlist</span>
         </a>
-        <a asp-controller="account" asp-action="index" class="sticky-link">
+        <a asp-controller="myaccount" asp-action="index" class="sticky-link">
             <i class="d-icon-user"></i>
             <span>Account</span>
         </a>
@@ -749,10 +624,10 @@
                 <li>
                     <a href="#">Pages</a>
                     <ul>
-                        <li><a asp-controller="about" asp-action="index">About</a></li>
+                        <li><a asp-controller="home" asp-action="aboutus">About</a></li>
                         <li><a asp-controller="home" asp-action="contect">Contact Us</a></li>
-                        <li><a asp-controller="account" asp-action="index">Login</a></li>
-                        <li><a asp-controller="faq" asp-action="index">FAQs</a></li>
+                        <li><a asp-controller="myaccount" asp-action="index">Login</a></li>
+                        <li><a asp-controller="home" asp-action="faq">FAQs</a></li>
                         <li><a asp-controller="error404" asp-action="index">Error 404</a></li>
                         <li><a asp-controller="ComingSoon" asp-action="index">Coming Soon</a></li>
                     </ul>
@@ -850,6 +725,7 @@
     <script src="~/assets/vendor/jquery.countdown/jquery.countdown.min.js"></script>
     <!-- Main JS File -->
     <script src="~/assets/js/main.min.js"></script>
+    @RenderSection("addjs", required: false);
 </body>
 
 
