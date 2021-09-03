@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Riode.WebUI.Model.DataContexts;
 
 namespace Riode.WebUI.Migrations
 {
     [DbContext(typeof(RiodeDbContext))]
-    partial class RiodeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210903202549_xxx")]
+    partial class xxx
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,18 +82,7 @@ namespace Riode.WebUI.Migrations
                     b.Property<DateTime?>("DeleteData")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("OneCategories");
                 });
@@ -157,20 +148,6 @@ namespace Riode.WebUI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductSizes");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
-                {
-                    b.HasOne("Riode.WebUI.Model.Entity.OneCategory", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
-                {
-                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }

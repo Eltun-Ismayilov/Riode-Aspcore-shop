@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Riode.WebUI.Model.DataContexts;
 
 namespace Riode.WebUI.Migrations
 {
     [DbContext(typeof(RiodeDbContext))]
-    partial class RiodeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210903202307_init345")]
+    partial class init345
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,19 +51,7 @@ namespace Riode.WebUI.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.Contect", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("contects");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
+            modelBuilder.Entity("Riode.WebUI.Model.Entity.Cagetory1", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,20 +70,32 @@ namespace Riode.WebUI.Migrations
                     b.Property<DateTime?>("DeleteData")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("OneCategories");
+                    b.ToTable("Cagetories");
+                });
+
+            modelBuilder.Entity("Riode.WebUI.Model.Entity.Contect", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("contects");
                 });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.ProductColor", b =>
@@ -159,16 +161,16 @@ namespace Riode.WebUI.Migrations
                     b.ToTable("ProductSizes");
                 });
 
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
+            modelBuilder.Entity("Riode.WebUI.Model.Entity.Cagetory1", b =>
                 {
-                    b.HasOne("Riode.WebUI.Model.Entity.OneCategory", "Parent")
+                    b.HasOne("Riode.WebUI.Model.Entity.Cagetory1", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
+            modelBuilder.Entity("Riode.WebUI.Model.Entity.Cagetory1", b =>
                 {
                     b.Navigation("Children");
                 });

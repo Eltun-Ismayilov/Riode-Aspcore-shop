@@ -20,14 +20,21 @@ using Riode.WebUI.Model.Entity;
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\Views\_ViewImports.cshtml"
+#line 5 "C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\Views\_ViewImports.cshtml"
+using Riode.WebUI.Appcode;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\Views\_ViewImports.cshtml"
 using Riode.WebUI.Model.Entity.ViewModels;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c8fcd27086cb45ffdacc25c0e472b5e8ab82c82d", @"/Views/Home/Contect.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"74ad4df8f9c3f92e4e29d7f5a2122c596ba15cc2", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"50a5835647e8a39a6697d02b0e5e79d076f56a66", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Contect : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("pl-lg-2"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -98,7 +105,7 @@ using Riode.WebUI.Model.Entity.ViewModels;
                 <div class=""col-lg-9 col-md-8 col-sm-6 d-flex align-items-center mb-4"">
                     <div class=""w-100"">
                         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8fcd27086cb45ffdacc25c0e472b5e8ab82c82d5859", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c8fcd27086cb45ffdacc25c0e472b5e8ab82c82d6061", async() => {
                 WriteLiteral(@"
                             <h4 class=""ls-m font-weight-bold"">Let’s Connect</h4>
                             <p>

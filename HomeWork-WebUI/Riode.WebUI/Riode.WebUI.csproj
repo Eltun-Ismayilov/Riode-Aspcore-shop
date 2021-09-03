@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="AppCode\**" />
-    <Content Remove="AppCode\**" />
-    <EmbeddedResource Remove="AppCode\**" />
-    <None Remove="AppCode\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\uploads\video\" />
   </ItemGroup>
 

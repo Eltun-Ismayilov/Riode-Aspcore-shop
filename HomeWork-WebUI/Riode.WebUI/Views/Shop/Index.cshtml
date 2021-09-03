@@ -37,31 +37,10 @@
                         <div class="sticky-sidebar">
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">All Categories</h3>
-                                <ul class="widget-body filter-items search-ul">
-                                    <li><a href="#">Accessosries</a></li>
-                                    <li>
-                                        <a href="#">Bags</a>
-                                        <ul style="display: block">
-                                            <li><a href="#">Backpacks & Fashion Bags</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Electronics</a>
-                                        <ul>
-                                            <li><a href="#">Computer</a></li>
-                                            <li><a href="#">Gaming & Accessosries</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">For Fitness</a></li>
-                                    <li><a href="#">Home & Kitchen</a></li>
-                                    <li><a href="#">Men's</a></li>
-                                    <li><a href="#">Shoes</a></li>
-                                    <li><a href="#">Sporting Goods</a></li>
-                                    <li><a href="#">Summer Season's</a></li>
-                                    <li><a href="#">Travel & Clothing</a></li>
-                                    <li><a href="#">Watches</a></li>
-                                    <li><a href="#">Women’s</a></li>
+                                <ul class='widget-body filter-items search-ul'>
+                                    @Html.Raw(Model.OneCategories.GetCategoriesRaw())
                                 </ul>
+
                             </div>
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">Filter by Price</h3>
