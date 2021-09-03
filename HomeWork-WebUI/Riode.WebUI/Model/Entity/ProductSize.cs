@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Model.Entity
 {
-    public class Brands:BaseEntity
+    public class ProductSize:BaseEntity
     {
-
         public string Name { get; set; }
 
         public string description { get; set; }
 
-  
 
     }
 }
