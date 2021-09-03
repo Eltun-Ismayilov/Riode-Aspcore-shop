@@ -46,7 +46,7 @@ namespace Riode.WebUI
                     }
 
                 });
-                cfg.MapControllerRoute("default", "{controller=Home}/{action=index}/{id?}");
+                cfg.MapControllerRoute("default", "{controller=shop}/{action=index}/{id?}");
             });
         }
     }
