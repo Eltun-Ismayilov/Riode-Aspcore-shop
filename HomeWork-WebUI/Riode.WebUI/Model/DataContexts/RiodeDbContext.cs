@@ -27,9 +27,9 @@ namespace Riode.WebUI.Model.DataContexts
             }
         }
         public DbSet<Contect> contects { get; set; }
-        public DbSet<Brands> brands { get; set; }
-        public DbSet<ProductColor> productColors { get; set; }
-        public DbSet<ProductSize> productSizes { get; set; }
+        public DbSet<Brands> Brands { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<Cagetory> Cagetories { get; set; }
     }
 }
