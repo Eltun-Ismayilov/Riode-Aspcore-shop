@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace Riode.WebUI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // devoloper ucun Error cixarilmasi;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -30,8 +32,20 @@ namespace Riode.WebUI
             app.UseRouting();
             app.UseStaticFiles();
 
+
+            
             app.UseEndpoints(cfg =>
             {
+                // static fayilarin oxunmasi ucun yazilmis kod;
+                cfg.MapGet("/coming-soon.html", async (context) =>
+                {
+                    using (var sr = new StreamReader("views/Static/coming-soon.html"))
+                    {
+                        context.Response.ContentType = "text/html";
+                        await context.Response.WriteAsync(sr.ReadToEnd());
+                    }
+
+                });
                 cfg.MapControllerRoute("default", "{controller=Home}/{action=index}/{id?}");
             });
         }

@@ -23,9 +23,13 @@ namespace Riode.WebUI.Model.DataContexts
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source =.\SQLEXPRESS; Initial Catalog = RiodeWithGit; User Id = sa; Password = query;");
+                optionsBuilder.UseSqlServer(@"Data Source =.\SQLEXPRESS; Initial Catalog = RiodeWithGitshop; User Id = sa; Password = query;");
             }
         }
         public DbSet<Contect> contects { get; set; }
+        public DbSet<Brands> Brands { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<OneCategory> OneCategories { get; set; }
     }
 }

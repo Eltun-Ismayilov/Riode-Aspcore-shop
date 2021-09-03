@@ -9,11 +9,12 @@ namespace Riode.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        // ana seyfe
         public IActionResult Index()
         {
             return View();
         }
-
+        // contact
         public IActionResult Contect()
         {
             return View();
@@ -21,6 +22,16 @@ namespace Riode.WebUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Contect(Contect contact)
+        {
+            return View();
+        }
+        // about
+        public IActionResult AboutUS()
+        {
+            return View();
+        }
+        // Fak
+        public IActionResult Faq()
         {
             return View();
         }
