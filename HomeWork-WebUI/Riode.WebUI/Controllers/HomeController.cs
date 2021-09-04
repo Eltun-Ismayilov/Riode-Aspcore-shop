@@ -9,6 +9,8 @@ namespace Riode.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+
+      
         // ana seyfe
         public IActionResult Index()
         {
