@@ -12,7 +12,9 @@ namespace Riode.WebUI.Model.Entity
 
         public string description { get; set; }
 
-  
+        public  virtual  ICollection<Product> Products { get; set; }
+
+
 
     }
 }

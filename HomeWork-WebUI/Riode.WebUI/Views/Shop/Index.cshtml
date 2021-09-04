@@ -136,7 +136,7 @@
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/1.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-label-group">
@@ -167,7 +167,7 @@
                                     <a href="shop-grid-3col.html">Bags & Backpacks</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Women's Fashion Handbag</a>
+                                    <a asp-action="details" asp-route-id="1">Women's Fashion Handbag</a>
                                 </h3>
                                 <div class="product-price">
                                     <ins class="new-price">$53.99</ins><del class="old-price">$67.99</del>
@@ -177,7 +177,7 @@
                                         <span class="ratings" style="width:60%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 16 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 16 reviews )</a>
 
                                 </div>
                                 <p class="product-short-desc">
@@ -189,55 +189,60 @@
                             </div>
                         </div>
 
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="~/uploads/images/shop/2.jpg" alt="product" width="280" height="315">
+                        @foreach (var item in Model.Products)
+                                {
+                                    var imagepath = item.Images.FirstOrDefault()?.FileName;
+                    <div class="product">
+                        <figure class="product-media">
+                            <a asp-action="details" asp-route-id="1">
+                                <img src="~/uploads/images/product/@imagepath" alt="product" width="280" height="315">
+                            </a>
+                            <div class="product-label-group">
+                                <label class="product-label label-sale">25% OFF</label>
+                            </div>
+                            <div class="product-action">
+                                <a href="#" class=" btn-cart" title="Add to cart">
+                                    <i class="d-icon-bag"></i>
+                                    <label>
+                                        Add to cart
+                                    </label>
                                 </a>
-                                <div class="product-label-group">
-                                    <label class="product-label label-sale">25% OFF</label>
+                                <a href="#" class=" btn-wishlist"
+                                   title="Add to wishlist"><i class="d-icon-heart"></i></a>
+                                <a asp-controller="shop" asp-action="Details" class="btn-quickview" title="Quick View">
+                                    <i class="d-icon-search"></i>
+                                    <label>
+                                        Quick
+                                        View
+                                    </label>
+                                </a>
+                            </div>
+                        </figure>
+                        <div class="product-details">
+                            <div class="product-cat">
+                                <a href="shop-grid-3col.html">@item.Brands.Name</a>
+                            </div>
+                            <h3 class="product-name">
+                                <a asp-action="details" asp-route-id="1">@item.Name</a>
+                            </h3>
+                            <div class="product-price">
+                                <ins class="new-price">$125.99</ins><del class="old-price">$160.99</del>
+                            </div>
+                            <div class="ratings-container">
+                                <div class="ratings-full">
+                                    <span class="ratings" style="width:60%"></span>
+                                    <span class="tooltiptext tooltip-top"></span>
                                 </div>
-                                <div class="product-action">
-                                    <a href="#" class=" btn-cart" title="Add to cart">
-                                        <i class="d-icon-bag"></i>
-                                        <label>
-                                            Add to cart
-                                        </label>
-                                    </a>
-                                    <a href="#" class=" btn-wishlist"
-                                       title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                                    <a asp-controller="shop" asp-action="Details" class="btn-quickview" title="Quick View">
-                                        <i class="d-icon-search"></i>
-                                        <label>
-                                            Quick
-                                            View
-                                        </label>
-                                    </a>
-                                </div>
-                            </figure>
-                            <div class="product-details">
-                                <div class="product-cat">
-                                    <a href="shop-grid-3col.html">Bags & Backpacks</a>
-                                </div>
-                                <h3 class="product-name">
-                                    <a href="product.html">Mackintosh Poket Backpack</a>
-                                </h3>
-                                <div class="product-price">
-                                    <ins class="new-price">$125.99</ins><del class="old-price">$160.99</del>
-                                </div>
-                                <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width:60%"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href="product.html" class="rating-reviews">( 8 reviews )</a>
-                                </div>
+                                <a asp-action="details" asp-route-id="1" class="rating-reviews">( 8 reviews )</a>
                             </div>
                         </div>
+                    </div>
+	}
+                        
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/3.jpg" alt="product" width="280" height="315">
                                 </a>
 
@@ -264,7 +269,7 @@
                                     <a href="shop-grid-3col.html">Shoes</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Converse Blue Trainaing Shoes</a>
+                                    <a asp-action="details" asp-route-id="1">Converse Blue Trainaing Shoes</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$111.00</span>
@@ -274,14 +279,14 @@
                                         <span class="ratings" style="width:40%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 4 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 4 reviews )</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/4.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-action">
@@ -307,7 +312,7 @@
                                     <a href="shop-grid-3col.html">Clothing</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Fashionable Orginal Trucker</a>
+                                    <a asp-action="details" asp-route-id="1">Fashionable Orginal Trucker</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$78.64</span>
@@ -317,14 +322,14 @@
                                         <span class="ratings" style="width:40%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 2 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 2 reviews )</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/5.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-action">
@@ -350,7 +355,7 @@
                                     <a href="shop-grid-3col.html">Watches</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Fashion Man Watch</a>
+                                    <a asp-action="details" asp-route-id="1">Fashion Man Watch</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$314.41</span>
@@ -360,7 +365,7 @@
                                         <span class="ratings" style="width:20%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 14 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 14 reviews )</a>
                                 </div>
                             </div>
                         </div>
@@ -368,7 +373,7 @@
                     
                             <div class="product">
                                 <figure class="product-media">
-                                    <a href="product.html">
+                                    <a asp-action="details" asp-route-id="1">
                                         <img src="~/uploads/images/shop/6.jpg" alt="product" width="280" height="315">
                                     </a>
                                     <div class="product-label-group">
@@ -397,7 +402,7 @@
                                         <a href="shop-grid-3col.html">Clothing</a>
                                     </div>
                                     <h3 class="product-name">
-                                        <a href="product.html">Men Beautiful Clothing</a>
+                                        <a asp-action="details" asp-route-id="1">Men Beautiful Clothing</a>
                                     </h3>
                                     <div class="product-price">
                                         <ins class="new-price">$93.42</ins><del class="old-price">$127.72</del>
@@ -407,7 +412,7 @@
                                             <span class="ratings" style="width:100%"></span>
                                             <span class="tooltiptext tooltip-top"></span>
                                         </div>
-                                        <a href="product.html" class="rating-reviews">( 36 reviews )</a>
+                                        <a asp-action="details" asp-route-id="1" class="rating-reviews">( 36 reviews )</a>
                                     </div>
                                 </div>
                             </div>
@@ -415,7 +420,7 @@
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/7.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-label-group">
@@ -444,7 +449,7 @@
                                     <a href="shop-grid-3col.html">Shoes</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Converse Training Shoes</a>
+                                    <a asp-action="details" asp-route-id="1">Converse Training Shoes</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$113.00</span>
@@ -454,14 +459,14 @@
                                         <span class="ratings" style="width:80%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 11 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 11 reviews )</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/8.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-action">
@@ -487,7 +492,7 @@
                                     <a href="shop-grid-3col.html">Women</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Women Beautiful Headgear</a>
+                                    <a asp-action="details" asp-route-id="1">Women Beautiful Headgear</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$78.24</span>
@@ -497,14 +502,14 @@
                                         <span class="ratings" style="width:40%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 8 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 8 reviews )</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/9.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-action">
@@ -530,7 +535,7 @@
                                     <a href="shop-grid-3col.html">Accessories</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Hand Electric Cell</a>
+                                    <a asp-action="details" asp-route-id="1">Hand Electric Cell</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">26.00</span>
@@ -540,14 +545,14 @@
                                         <span class="ratings" style="width:100%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 6 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 6 reviews )</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/10.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-label-group">
@@ -576,7 +581,7 @@
                                     <a href="shop-grid-3col.html">Bags & Backpacks</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">A Dress-suit Valise</a>
+                                    <a asp-action="details" asp-route-id="1">A Dress-suit Valise</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$189.23</span>
@@ -586,14 +591,14 @@
                                         <span class="ratings" style="width:80%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 26 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 26 reviews )</a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/11.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-action">
@@ -619,7 +624,7 @@
                                     <a href="shop-grid-3col.html">men</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Converse Season Shoes</a>
+                                    <a asp-action="details" asp-route-id="1">Converse Season Shoes</a>
                                 </h3>
                                 <div class="product-price">
                                     <span class="price">$135.62</span>
@@ -629,13 +634,13 @@
                                         <span class="ratings" style="width:40%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 7 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 7 reviews )</a>
                                 </div>
                             </div>
                         </div>
                         <div class="product">
                             <figure class="product-media">
-                                <a href="product.html">
+                                <a asp-action="details" asp-route-id="1">
                                     <img src="~/uploads/images/shop/12.jpg" alt="product" width="280" height="315">
                                 </a>
                                 <div class="product-label-group">
@@ -664,7 +669,7 @@
                                     <a href="shop-grid-3col.html">Watches</a>
                                 </div>
                                 <h3 class="product-name">
-                                    <a href="product.html">Man's Black Wrist Watch</a>
+                                    <a asp-action="details" asp-route-id="1">Man's Black Wrist Watch</a>
                                 </h3>
                                 <div class="product-price">
                                     <ins class="new-price">$280.25</ins><del class="old-price">$310.24</del>
@@ -674,7 +679,7 @@
                                         <span class="ratings" style="width:40%"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="product.html" class="rating-reviews">( 3 reviews )</a>
+                                    <a asp-action="details" asp-route-id="1" class="rating-reviews">( 3 reviews )</a>
                                 </div>
                             </div>
                         </div>

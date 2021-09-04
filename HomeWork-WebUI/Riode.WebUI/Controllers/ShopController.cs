@@ -40,14 +40,33 @@ namespace Riode.WebUI.Controllers
                 .Where(c => c.ParentId == null && c.DeleteByUserId == null)
                 .ToList();
 
+            vm.Products = db.products
+                .Include(p=>p.Images.Where(i=>i.IsMain==true))
+                .Include(c => c.Brands)
+                .Where(c =>c.DeleteByUserId == null)
+                .ToList();
+
+
 
 
             return View(vm);
         }
         // etrafli
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return View();
+            RiodeDbContext db = new RiodeDbContext();
+
+            var product = db.products
+                .Include(i=>i.Images)
+                .Include(i=>i.Brands)
+                .FirstOrDefault(p => p.Id== id && p.DeleteByUserId==null);
+
+            if (product==null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

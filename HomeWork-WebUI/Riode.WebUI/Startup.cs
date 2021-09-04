@@ -18,6 +18,10 @@ namespace Riode.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+
+            // Patilarin Standart balaca herifnen yazilisi;
+            services.AddRouting(cfg => cfg.LowercaseUrls = true);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +41,7 @@ namespace Riode.WebUI
             app.UseEndpoints(cfg =>
             {
                 // static fayilarin oxunmasi ucun yazilmis kod;
+
                 cfg.MapGet("/coming-soon.html", async (context) =>
                 {
                     using (var sr = new StreamReader("views/Static/coming-soon.html"))
