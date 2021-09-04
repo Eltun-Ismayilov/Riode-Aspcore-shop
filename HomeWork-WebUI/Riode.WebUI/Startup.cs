@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Riode.WebUI.Model.DataContexts;
@@ -14,8 +16,13 @@ namespace Riode.WebUI
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
+        readonly IConfiguration configuration;
+        public Startup(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -26,7 +33,12 @@ namespace Riode.WebUI
 
 
             // Dependency Injection Isdifade edilmesi ucun yazilmisdir;
-            services.AddDbContext<RiodeDbContext>(cfg=>{ });
+            services.AddDbContext<RiodeDbContext>(cfg=>{
+
+                // Database Link Saxlamiyaq deye bele yaziriq;
+                cfg.UseSqlServer(configuration.GetConnectionString("cString"));
+            
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,11 +53,11 @@ namespace Riode.WebUI
 
             app.UseRouting();
 
+            // static fayilarin oxunmasi ucun yazilmis kod;
 
             app.UseStaticFiles();
             app.UseEndpoints(cfg =>
             {
-                // static fayilarin oxunmasi ucun yazilmis kod;
 
                 cfg.MapGet("/coming-soon.html", async (context) =>
                 {
