@@ -373,7 +373,6 @@ C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.TagHelpers.input.cache
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.TagHelpers.output.cache
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.RazorCoreGenerate.cache
-C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Home\Contect.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
@@ -426,3 +425,5 @@ C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Blog\Index.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Blog\Details.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\bin\Debug\net5.0\Views\Static\coming-soon.html
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\bin\Debug\net5.0\libman.json

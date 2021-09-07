@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 using System;
 using System.Collections.Generic;
@@ -9,23 +10,51 @@ namespace Riode.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        readonly RiodeDbContext db;
+        public HomeController(RiodeDbContext db)
+        {
+            this.db = db;
 
-      
+        }
+
         // ana seyfe
         public IActionResult Index()
         {
             return View();
         }
         // contact
-        public IActionResult Contect()
+        public IActionResult Contact()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Contect(Contect contact)
+        public IActionResult Contact(ContactPost model)
         {
-            return View();
+
+            if (ModelState.IsValid)
+            {
+                db.Add(model);
+                db.SaveChanges();
+
+
+                ModelState.Clear();
+
+                return Json(new
+                {
+                    error = false,
+                    message="Sorgunuz qeyde alindir"
+                }); 
+
+
+            }
+            return Json(new
+            {
+                error = true,
+                message = "Mellumatin dogrulugnu yoxluyun"
+            });
+
         }
         // about
         public IActionResult AboutUS()

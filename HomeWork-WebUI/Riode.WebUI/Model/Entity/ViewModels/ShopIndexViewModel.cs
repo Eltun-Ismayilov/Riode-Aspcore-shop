@@ -12,5 +12,6 @@ namespace Riode.WebUI.Model.Entity.ViewModels
         public List<ProductSize> productSizes { get; set; }
         public List<OneCategory> OneCategories { get; set; }
         public List<Product> Products { get; set; }
+
     }
 }

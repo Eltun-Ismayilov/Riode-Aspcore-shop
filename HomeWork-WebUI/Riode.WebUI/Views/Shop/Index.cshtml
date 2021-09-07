@@ -192,7 +192,7 @@
                         @foreach (var item in Model.Products)
                                 {
                                     var imagepath = item.Images.FirstOrDefault()?.FileName;
-                    <div class="product">
+                                      <div class="product">
                         <figure class="product-media">
                             <a asp-action="details" asp-route-id="1">
                                 <img src="~/uploads/images/product/@imagepath" alt="product" width="280" height="315">
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                     </div>
-	}
+	                            }
                         
 
                         <div class="product">

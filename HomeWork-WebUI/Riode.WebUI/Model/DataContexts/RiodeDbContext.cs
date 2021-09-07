@@ -28,7 +28,7 @@ namespace Riode.WebUI.Model.DataContexts
         //        optionsBuilder.UseSqlServer(@"Data Source =.\SQLEXPRESS; Initial Catalog = RiodeWithGitshop; User Id = sa; Password = query;");
         //    }
         //}
-        public DbSet<Contect> contects { get; set; }
+        public DbSet<ContactPost> ContactPosts { get; set; }
         public DbSet<Brands> Brands { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }

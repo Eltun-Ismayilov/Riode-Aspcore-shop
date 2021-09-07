@@ -32,16 +32,19 @@ namespace Riode.WebUI
             services.AddRouting(cfg => cfg.LowercaseUrls = true);
 
 
-            // Dependency Injection Isdifade edilmesi ucun yazilmisdir;
-            services.AddDbContext<RiodeDbContext>(cfg=>{
+
+
+
+           // Dependency Injection Isdifade edilmesi ucun yazilmisdir;
+            services.AddDbContext<RiodeDbContext>(cfg =>
+            {
 
                 // Database Link Saxlamiyaq deye bele yaziriq;
                 cfg.UseSqlServer(configuration.GetConnectionString("cString"));
-            
-            });
+
+            },ServiceLifetime.Scoped);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // devoloper ucun Error cixarilmasi;
@@ -49,7 +52,7 @@ namespace Riode.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+         
 
             app.UseRouting();
 
@@ -68,14 +71,14 @@ namespace Riode.WebUI
                     }
 
                 });
-                cfg.MapControllerRoute("default", "{controller=shop}/{action=index}/{id?}");
+                cfg.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
             });
         }
     }
 }
 
 // Dependency Injection bize komek eliyirki her defe DbContext inistansini(nusxesini) yaratmayaq ozu bize injent elesin;
-// her bir contrelleri ozu bizim ucun gondersin,MVC elave edilib kim isdiyir elesin kim isdiyir elemesi,
+// her bir contrelleri ozu bizim ucun gondersin,MVC elave edilib kim isdiyir elesin kim isdiyir elemesin,
 // 1-ci olaraq ctor yaradiriq(Controller icinde);
 // MES
 
