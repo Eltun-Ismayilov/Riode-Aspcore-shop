@@ -191,7 +191,7 @@
 
             $.ajax({
 
-                url: '@Url.Action("Contact")',
+                url: '@Url.Action("Contact")', // URL HELPERLER
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -206,7 +206,7 @@
 
                         if (gelenData.error == false) {
                             toastr.success(gelenData.message, 'ugurludur');
-                            e.currentTarget.reset();
+                            e.currentTarget.reset(); // FORM BOSALDIR
                         } else {
                             toastr.error(gelenData.message, 'xeta');
 
@@ -234,3 +234,4 @@
 @section addcss{
     <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
 }
+
