@@ -427,3 +427,14 @@ C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\bin\Debug\net5.0\Views\Static\coming-soon.html
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Home\Contact.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\bin\Debug\net5.0\libman.json
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Dashboard\Index.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Dashboard\EmptyPage.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Dashboard\MailBox.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Dashboard\Layouts.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Dashboard\Chat.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Dashboard\Invoice.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Login.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\ForgotPass.cshtml.g.cs

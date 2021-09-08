@@ -71,6 +71,10 @@ namespace Riode.WebUI
                     }
 
                 });
+                cfg.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+         );
                 cfg.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
             });
         }
