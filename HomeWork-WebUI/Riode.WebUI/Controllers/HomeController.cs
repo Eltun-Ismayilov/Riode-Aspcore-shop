@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
+using Riode.WebUI.Model.Entity.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +66,16 @@ namespace Riode.WebUI.Controllers
         // Fak
         public IActionResult Faq()
         {
-            return View();
+            ShopIndexViewModel vm = new ShopIndexViewModel();
+
+
+           
+            vm.Questions = db.Questions
+               .Where(a => a.DeleteByUserId == null)
+               .Include(a => a.Answers)
+               .ToList();
+
+            return View(vm);
         }
     }
 }

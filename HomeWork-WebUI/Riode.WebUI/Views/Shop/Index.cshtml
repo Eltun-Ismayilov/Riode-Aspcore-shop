@@ -665,7 +665,7 @@
             </div>
         </div>
     </div>
-    </div>
+    
 </main>
 
 
@@ -734,27 +734,20 @@
 
 
                    // datani obyect seklinde yox json seklinde gondermek ucun;
-
-                const filterObjectJson = JSON.stringify(filterogj);
+                   //const filterObjectJson = JSON.stringify(filterogj);
 
                 $.ajax({
-
-
-                    
-
-
-
                     url: '@Url.Action("Filter")', // sorgu hara gedecek
                     type: 'POST', // sorgunun tipi ne olacaq?
 
                    // obyect kimi gondermek isdiyirikse bu cur
-                    //contentType: 'application/x-www-form-urlencoded', // ne tip  gedecek?   2side model binding rolnu oynayir datani back gondermek ucun isdifade edilir  yeni back gonderilmeye xirmet edilir
-                    //data: filterogj, // gondereceyimiz data? // hansi dta type gedecek?  ve gelen datani biz json formasinda qebul edirik
+                    contentType: 'application/x-www-form-urlencoded', // ne tip  gedecek?   2side model binding rolnu oynayir datani back gondermek ucun isdifade edilir  yeni back gonderilmeye xirmet edilir
+                    data: filterogj, // gondereceyimiz data? // hansi dta type gedecek?  ve gelen datani biz json formasinda qebul edirik
 
 
-                    // obyecti json formada gondermek isdiyirikse bu cur
-                    data: filterObjectJson,
-                    contentType:'application/json',
+                    // obyecti json formada gondermek isdiyirikse bu cur[FormBody]
+                    //data: filterObjectJson,
+                    //contentType:'application/json',
 
                     dataType: 'json',
 

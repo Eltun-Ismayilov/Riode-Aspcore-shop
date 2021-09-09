@@ -75,7 +75,7 @@ namespace Riode.WebUI.Controllers
 
 
         [HttpPost]
-        public IActionResult Filter([FromBody]ShopFilterFormModel model)
+        public IActionResult Filter(ShopFilterFormModel model)
         {
             return Json(new { 
             

@@ -1,4 +1,4 @@
-﻿
+﻿@model ShopIndexViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -28,34 +28,35 @@
                         'layoutMode': 'fitRows'
                     }">
             <div class="grid-item col-sm-6 col-lg-4 lifestyle shopping winter-sale">
-                <article class="post">
-                    <figure class="post-media">
-                        <a asp-action="details">
-                            <img src="~/uploads/images/blog/3col/1.jpg" width="380" height="280" alt="post" />
-                        </a>
-                    </figure>
-                    <div class="post-details">
-                        <div class="post-meta">
-                            on <a href="#" class="post-date">Jun 22, 2018</a>
-                            | <a href="#" class="post-comment"><span>2</span> Comments</a>
-                        </div>
-                        <h4 class="post-title">
-                            <a asp-action="details">
-                                Explore Fashion Trending For Women
-                                In Autumn
-                                2020
+                @foreach (var item in Model.blogs)
+                {
+                    var imagepath = item.Images.FirstOrDefault()?.FileName;
+                    <article class="post">
+                        <figure class="post-media">
+                            <a asp-route-id="1" asp-action="details">
+                                <img src="~/uploads/images/blog/3col/@imagepath" width="380" height="280" alt="post" />
                             </a>
-                        </h4>
-                        <p class="post-content">
-                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                            eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
-                        </p>
-                        <a asp-action="details" class="btn btn-link btn-underline btn-primary">
-                            Read
-                            more<i class="d-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
+                        </figure>
+                        <div class="post-details">
+                            <div class="post-meta">
+                                on <a href="#" class="post-date">@item.DataTime</a>
+                                | <a href="#" class="post-comment"><span>@item.Comments</span> Comments</a>
+                            </div>
+                            <h4 class="post-title">
+                                <a asp-action="details">
+                                    @item.Name
+                                </a>
+                            </h4>
+                            <p class="post-content">
+                               @item.Description
+                            </p>
+                            <a asp-action="details" class="btn btn-link btn-underline btn-primary">
+                                Read
+                                more<i class="d-icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                }
             </div>
             <div class="grid-item col-sm-6 col-lg-4 lifestyle sport">
                 <article class="post post-video ">

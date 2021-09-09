@@ -1,4 +1,4 @@
-﻿
+﻿@model Blog
 @{
     ViewData["Title"] = "Details";
 }
@@ -18,38 +18,33 @@
             <div class="col-lg-9">
                 <article class="post-single">
                     <figure class="post-media">
-                        <a href="#">
-                            <img src="~/uploads/images/blog/single/1.jpg" width="880" height="450" alt="post" />
-                        </a>
+                     
+                       
+                            <a href="#">
+                                <img src="~/uploads/images/blog/single/@Model.Images.FirstOrDefault().FileName" width="880" height="450" alt="post" />
+                            </a>
+                    
+
                     </figure>
                     <div class="post-details">
                         <div class="post-meta">
-                            by <a href="#" class="post-author">John Doe</a>
-                            on <a href="#" class="post-date">Nov 22, 2018</a>
-                            | <a href="#" class="post-comment"><span>2</span> Comments</a>
+                            by <a href="#" class="post-author">@Model.PostAuthor</a>
+                            on <a href="#" class="post-date">@Model.DataTime</a>
+                            | <a href="#" class="post-comment"><span>@Model.Comments</span> Comments</a>
                         </div>
                         <h4 class="post-title">
                             <a href="#">
-                                Explore Fashion Trending For Women In Autumn
-                                2021
+                              @Model.Name
                             </a>
                         </h4>
                         <div class="post-body mb-7">
                             <p class="mb-5">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                                Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque,
-                                aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin
-                                laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu
-                                nibh. Nullam mollis. Ut justo. Suspendisse potenti.
+                               @Model.PostBody1
                             </p>
 
                             <p class="mb-6">
-                                Sed egestas, ante et vulputate volutpat, eros pede semper est,
-                                vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing,
-                                commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit
-                                tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a <a href="#">ultrices sagittis</a>, mi neque euismod dui, eu pulvinar nunc
-                                sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus
-                                sed, urna.
+                                @Model.PostBody2
+
                             </p>
                             <div class="with-img row align-items-center">
                                 <div class="col-md-6 mb-6">

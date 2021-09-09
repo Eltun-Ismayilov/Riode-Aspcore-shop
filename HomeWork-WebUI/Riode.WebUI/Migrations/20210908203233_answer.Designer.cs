@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Riode.WebUI.Model.DataContexts;
 
 namespace Riode.WebUI.Migrations
 {
     [DbContext(typeof(RiodeDbContext))]
-    partial class RiodeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210908203233_answer")]
+    partial class answer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,83 +51,6 @@ namespace Riode.WebUI.Migrations
                     b.HasIndex("questionsId");
 
                     b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.Blog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Comments")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreateByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DataTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DeleteByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeleteData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostAuthor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostBody1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostBody2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.BlogImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreateByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeleteData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogImages");
                 });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.Brands", b =>
@@ -454,17 +379,6 @@ namespace Riode.WebUI.Migrations
                     b.Navigation("questions");
                 });
 
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.BlogImage", b =>
-                {
-                    b.HasOne("Riode.WebUI.Model.Entity.Blog", "Blog")
-                        .WithMany("Images")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Blog");
-                });
-
             modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
                 {
                     b.HasOne("Riode.WebUI.Model.Entity.OneCategory", "Parent")
@@ -521,11 +435,6 @@ namespace Riode.WebUI.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Size");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.Blog", b =>
-                {
-                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.Brands", b =>

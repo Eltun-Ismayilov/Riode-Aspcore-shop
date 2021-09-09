@@ -37,6 +37,10 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<ProductImage> ProductImages { get; set; }
 
         public DbSet<ProductSizeColorItem> ProductSizeColorCollection { get; set; }
+        public DbSet<Questions> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogImage> BlogImages { get; set; }
 
     }
 }   

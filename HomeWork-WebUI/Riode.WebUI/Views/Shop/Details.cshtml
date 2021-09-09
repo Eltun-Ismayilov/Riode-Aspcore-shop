@@ -1,4 +1,4 @@
-﻿@model Product 
+﻿@model Product
 @{
     ViewData["Title"] = "Details";
 }
@@ -29,7 +29,7 @@
                                     </div>
                                 }
 
-                            
+
                             </div>
                             <button class="thumb-up disabled"><i class="fas fa-chevron-left"></i></button>
                             <button class="thumb-down disabled"><i class="fas fa-chevron-right"></i></button>
@@ -72,7 +72,7 @@
                         <h1 class="product-name">@Model.Name</h1>
                         <div class="product-meta">
                             SKU: <span class="product-sku">@Model.Sku</span>
-                            BRAND: <span class="product-brand">@Model.Brands.Name</span> 
+                            BRAND: <span class="product-brand">@Model.Brands.Name</span>
                         </div>
                         <div class="product-price">
                             <ins class="new-price">$184.00</ins><del class="old-price">$220.00</del>
