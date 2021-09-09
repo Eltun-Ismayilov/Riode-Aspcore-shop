@@ -77,11 +77,34 @@ namespace Riode.WebUI.Controllers
         [HttpPost]
         public IActionResult Filter(ShopFilterFormModel model)
         {
-            return Json(new { 
-            
-                error=false,
-                data =model
-            });
+            var query= db.products
+                .Include(p => p.Images.Where(i => i.IsMain == true))
+                .Include(c => c.Brands)
+                .Include(c => c.ProductSizeColorCollection)
+                .Where(c => c.DeleteByUserId == null)
+                .AsQueryable();
+
+            if (model?.brands?.Count()>0)
+            {
+                query = query.Where(p => model.brands.Contains(p.BrandsId)); //nie bu cur axralilir?
+            }
+            if (model?.sizes?.Count() > 0)
+            {
+                query = query.Where(p => p.ProductSizeColorCollection.Any(pscc=>model.sizes.Contains(pscc.SizeId)));
+            }
+            if (model?.colors?.Count() > 0)
+            {
+                query = query.Where(p => p.ProductSizeColorCollection.Any(pscc => model.colors.Contains(pscc.ColorId)));
+            }
+
+            return PartialView("_ProdactContainer", query.ToList());
+
+            //return Json(new
+            //{
+
+            //    error = false,
+            //    data = query.ToList()
+            //}) ;
         }
     }
 }

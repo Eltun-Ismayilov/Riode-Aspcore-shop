@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Riode.WebUI.Model.DataContexts;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,13 @@ namespace Riode.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(cfg=> {
+                    // productlari filter etmek ucundur loop olmasin
+                    cfg.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
+
+
 
 
             // Patilarin Standart balaca herifnen yazilisi;

@@ -155,6 +155,7 @@
 
                                         <label class="product-label label-sale">25% OFF</label>
                                     </div>
+
                                     <div class="product-action">
                                         <a href="#" class=" btn-cart" title="Add to cart">
                                             <i class="d-icon-bag"></i>
@@ -172,6 +173,8 @@
                                             </label>
                                         </a>
                                     </div>
+
+
                                 </figure>
                                 <div class="product-details">
                                     <div class="product-cat">
@@ -190,6 +193,7 @@
                                         </div>
                                         <a asp-action="details" asp-route-id="1" class="rating-reviews">( 8 reviews )</a>
                                     </div>
+                                 
                                 </div>
                             </div>
                         }
@@ -236,6 +240,7 @@
                                     </div>
                                     <a asp-action="details" asp-route-id="1" class="rating-reviews">( 4 reviews )</a>
                                 </div>
+                              
                             </div>
                         </div>
 
@@ -692,7 +697,7 @@
                 $(container).find('.product').each(function (index, item) {
                     const actionContainer = $(item).find('.product-action');
                     if (ilListLyaut == true) {
-                        $(item).find('.product.details').append(actionContainer);
+                        $(item).find('.product-details').append(actionContainer);
 
                     }
                     else {
@@ -717,7 +722,8 @@
 
              
 
-                const filterogj = {};
+                const filterogj = {}; // bos obyect yaratdiq 1-ci
+
                 $('ul[data-entity-name]').each(function (index, item) {
 
                     const entityPropertyName = $(item).data('entity-name');
@@ -749,17 +755,23 @@
                     //data: filterObjectJson,
                     //contentType:'application/json',
 
-                    dataType: 'json',
+                    dataType: 'html',
 
                     beforeSend: function () {
                         console.log("sorgudan evvel")   // loadir acmaq
 
                     },
-                    success: function (data) {   // sorgunun neticesi ugurlu olsa
-                        console.log(data)
+                    success: function (response) {   // sorgunun neticesi ugurlu olsa
+                        console.log(response)
+
+                        $('#productContainer').html(response);
+                        const el = $('a[href="#product-list"].active');
+                        if (el != undefined) {
+                            $(el)[0].click(' ');
+                        }
                     },
-                    error: function (data) {   // sorgunun neticesi ugursuz olsa
-                        console.log(data)
+                    error: function (datas) {   // sorgunun neticesi ugursuz olsa
+                        console.log(datas)
                     },
 
 

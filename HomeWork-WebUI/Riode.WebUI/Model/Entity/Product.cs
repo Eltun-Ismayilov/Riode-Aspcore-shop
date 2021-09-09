@@ -21,5 +21,7 @@ namespace Riode.WebUI.Model.Entity
 
         public virtual  ICollection<ProductImage>  Images { get; set; }
 
+        public virtual  ICollection<ProductSizeColorItem>  ProductSizeColorCollection { get; set; }  // nie yaziriq?
+
     }
 }
