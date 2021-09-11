@@ -14,7 +14,6 @@ namespace Riode.WebUI.Model.Entity
 
         public string PostAuthor { get; set; }
 
-
         public string PostBody1 { get; set; }
         public string PostBody2 { get; set; }
 

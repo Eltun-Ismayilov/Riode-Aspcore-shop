@@ -10,7 +10,6 @@ namespace Riode.WebUI.Model.Entity
         public int Id { get; set; }
         public int? CreateByUserId { get; set; }
         public DateTime CreateData { get; set; } = DateTime.Now;
-
         public int? DeleteByUserId { get; set; }
         public DateTime? DeleteData { get; set; }
     }

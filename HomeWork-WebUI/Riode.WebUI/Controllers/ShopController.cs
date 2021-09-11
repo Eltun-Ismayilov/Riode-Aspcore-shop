@@ -63,6 +63,8 @@ namespace Riode.WebUI.Controllers
             var product = db.products
                 .Include(i=>i.Images)
                 .Include(i=>i.Brands)
+                .Include(i=>i.SpecificationValues.Where(s=>s.DeleteByUserId==null))
+                .ThenInclude(i=>i.Specification)
                 .FirstOrDefault(p => p.Id== id && p.DeleteByUserId==null);
 
             if (product==null)
@@ -99,12 +101,6 @@ namespace Riode.WebUI.Controllers
 
             return PartialView("_ProdactContainer", query.ToList());
 
-            //return Json(new
-            //{
-
-            //    error = false,
-            //    data = query.ToList()
-            //}) ;
         }
     }
 }

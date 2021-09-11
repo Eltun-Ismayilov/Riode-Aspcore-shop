@@ -8,15 +8,15 @@ namespace Riode.WebUI.Model.Entity
 {
     public class ContactPost:BaseEntity
     {
-        [Required (ErrorMessage ="Bosh buraxmayin")] // bos ola bilmez not null  bularin name Annotations adlanir
+        [Required] // bos ola bilmez not null  bularin name Annotations adlanir
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Bosh buraxmayin")]
+        [Required]
         [EmailAddress] // ancaq email yaza bilsiner  amma database dusmur front yoxlanilir
 
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Bosh buraxmayin")]
+        [Required]
 
         public string Comment { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model ShopIndexViewModel
+﻿@model List<Blog>
 @{
     ViewData["Title"] = "Index";
 }
@@ -28,7 +28,7 @@
                         'layoutMode': 'fitRows'
                     }">
             <div class="grid-item col-sm-6 col-lg-4 lifestyle shopping winter-sale">
-                @foreach (var item in Model.blogs)
+                @foreach (var item in Model)
                 {
                     var imagepath = item.Images.FirstOrDefault()?.FileName;
                     <article class="post">
@@ -61,7 +61,7 @@
             <div class="grid-item col-sm-6 col-lg-4 lifestyle sport">
                 <article class="post post-video ">
                     <figure class="post-media">
-                        <a asp-action="details">
+                        <a asp-route-id="1" asp-action="details">
                             <img src="~/uploads/images/blog/3col/2.jpg" width="380" height="280" alt="post" />
                         </a>
                         <span class="video-play"></span>
@@ -104,7 +104,7 @@
                             | <a href="#" class="post-comment"><span>9</span> Comments</a>
                         </div>
                         <h4 class="post-title">
-                            <a asp-action="details">
+                            <a asp-route-id="1" asp-action="details">
                                 Women's Trending Sunglasses And
                                 Clothing
                             </a>
@@ -113,7 +113,7 @@
                             Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
                             eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
                         </p>
-                        <a asp-action="details" class="btn btn-link btn-underline btn-primary">
+                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
                             Read
                             more<i class="d-icon-arrow-right"></i>
                         </a>
@@ -123,7 +123,7 @@
             <div class="grid-item col-sm-6 col-lg-4 travel summer-sale">
                 <article class="post">
                     <figure class="post-media">
-                        <a asp-action="details">
+                        <a asp-route-id="1" asp-action="details">
                             <img src="~/uploads/images/blog/3col/4.jpg" width="380" height="280" alt="post" />
                         </a>
                     </figure>
@@ -133,7 +133,7 @@
                             | <a href="#" class="post-comment"><span>3</span> Comments</a>
                         </div>
                         <h4 class="post-title">
-                            <a asp-action="details">
+                            <a asp-route-id="1" asp-action="details">
                                 Women's Fashion Summer Dress
                             </a>
                         </h4>
@@ -141,7 +141,7 @@
                             Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
                             eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
                         </p>
-                        <a asp-action="details" class="btn btn-link btn-underline btn-primary">
+                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
                             Read
                             more<i class="d-icon-arrow-right"></i>
                         </a>
@@ -151,7 +151,7 @@
             <div class="grid-item col-sm-6 col-lg-4 travel hobbies">
                 <article class="post">
                     <figure class="post-media">
-                        <a asp-action="details">
+                        <a asp-route-id="1" asp-action="details">
                             <img src="~/uploads/images/blog/3col/5.jpg" width="380" height="280" alt="post" />
                         </a>
                     </figure>
@@ -161,7 +161,7 @@
                             | <a href="#" class="post-comment"><span>4</span> Comments</a>
                         </div>
                         <h4 class="post-title">
-                            <a asp-action="details">
+                            <a asp-route-id="1" asp-action="details">
                                 Explore Fashion Ipad And
                                 Accessories
                             </a>
@@ -170,7 +170,7 @@
                             Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
                             eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
                         </p>
-                        <a asp-action="details" class="btn btn-link btn-underline btn-primary">
+                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
                             Read
                             more<i class="d-icon-arrow-right"></i>
                         </a>
@@ -180,7 +180,7 @@
             <div class="grid-item col-sm-6 col-lg-4 hobbies">
                 <article class="post">
                     <figure class="post-media">
-                        <a asp-action="details">
+                        <a asp-route-id="1" asp-action="details">
                             <img src="~/uploads/images/blog/3col/6.jpg" width="380" height="280" alt="post" />
                         </a>
                     </figure>
@@ -190,7 +190,7 @@
                             | <a href="#" class="post-comment"><span>9</span> Comments</a>
                         </div>
                         <h4 class="post-title">
-                            <a asp-action="details">
+                            <a asp-route-id="1" asp-action="details">
                                 The Best Choice For Spending Time
                             </a>
                         </h4>
@@ -198,7 +198,7 @@
                             Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
                             eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
                         </p>
-                        <a asp-action="details" class="btn btn-link btn-underline btn-primary">
+                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
                             Read
                             more<i class="d-icon-arrow-right"></i>
                         </a>

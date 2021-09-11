@@ -16,7 +16,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         }
 
-        public IActionResult EmptyPage()
+        public IActionResult Tables()
         {
             return View();
 

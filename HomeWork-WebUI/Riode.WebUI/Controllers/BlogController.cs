@@ -13,22 +13,22 @@ namespace Riode.WebUI.Controllers
     {
         
             readonly RiodeDbContext db;
-            public BlogController(RiodeDbContext db)
+        public BlogController(RiodeDbContext db)
             {
                 this.db = db;
             }
 
             public IActionResult Index()
           {
-            ShopIndexViewModel vm = new ShopIndexViewModel();
+            //ShopIndexViewModel vm = new ShopIndexViewModel();
 
-            vm.blogs =db.Blogs
+           var blogs =db.Blogs
               .Include(p => p.Images)
               .Where(c => c.DeleteByUserId == null)
               .ToList();
 
 
-            return View(vm);
+            return View(blogs);
         }
         public IActionResult Details(int id)
         {

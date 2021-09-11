@@ -9,6 +9,7 @@ namespace Riode.WebUI.Model.Entity
     {
         public string Question { get; set; }
 
-        public virtual ICollection<Answer> Answers { get; set;}
+        public string Answer { get; set; }
+
     }
 }

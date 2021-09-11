@@ -38,10 +38,10 @@ namespace Riode.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 db.Add(model);
+
                 db.SaveChanges();
 
 
-                ModelState.Clear();
 
                 return Json(new
                 {
@@ -66,16 +66,13 @@ namespace Riode.WebUI.Controllers
         // Fak
         public IActionResult Faq()
         {
-            ShopIndexViewModel vm = new ShopIndexViewModel();
+            
+            var questions=db.Questions
+             .Where(a => a.DeleteByUserId == null)
+             .ToList();
+       
 
-
-           
-            vm.Questions = db.Questions
-               .Where(a => a.DeleteByUserId == null)
-               .Include(a => a.Answers)
-               .ToList();
-
-            return View(vm);
+            return View(questions);
         }
     }
 }

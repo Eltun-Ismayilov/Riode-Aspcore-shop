@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Riode.WebUI.Model.Entity
 {
-    public class OneCategory:BaseEntity
+    public class OneCategory : BaseEntity
     {
         public int? ParentId { get; set; } // secmek ucun lazim olur parentleri
 
@@ -16,6 +13,9 @@ namespace Riode.WebUI.Model.Entity
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public virtual ICollection<SpecificationCategoryItem> SpecificationCategoryItems { get; set; }
+
 
     }
 }

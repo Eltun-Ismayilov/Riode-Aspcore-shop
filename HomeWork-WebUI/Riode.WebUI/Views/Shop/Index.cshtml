@@ -140,10 +140,12 @@
                     </nav>
                     <div id="productContainer" class="row cols-2 cols-sm-3 products-wrapper">
 
+                        <partial name="_ProdactContainer" model="@Model.Products"/>
 
-
-                        @foreach (var item in Model.Products)
+                        
+                       @*@foreach (var item in Model.Products) // burdan prodact gedecek diye model ona goe yazdim
                         {
+                           // geder biz partial yazmisiqsa burdan silmeliyik yox yazmamisiqsa burda qala bilr
                             var imagepath = item.Images.FirstOrDefault()?.FileName;
                             <div class="product">
                                 <figure class="product-media">
@@ -196,7 +198,7 @@
                                  
                                 </div>
                             </div>
-                        }
+                        }*@
 
 
                         <div class="product">
@@ -678,7 +680,6 @@
 @section addjs{
 
     <script>
-//const { type, error } = require("jquery");
 
 
 

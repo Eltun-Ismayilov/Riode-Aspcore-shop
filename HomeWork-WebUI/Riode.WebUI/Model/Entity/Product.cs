@@ -23,5 +23,7 @@ namespace Riode.WebUI.Model.Entity
 
         public virtual  ICollection<ProductSizeColorItem>  ProductSizeColorCollection { get; set; }  // nie yaziriq?
 
+        public virtual  ICollection<SpecificationValue>  SpecificationValues { get; set; }  
+
     }
 }
