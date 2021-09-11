@@ -10,6 +10,7 @@ namespace Riode.WebUI.Model.Entity
         public int ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
         public int SizeId { get; set; }
 
         public virtual ProductSize Size { get; set; }

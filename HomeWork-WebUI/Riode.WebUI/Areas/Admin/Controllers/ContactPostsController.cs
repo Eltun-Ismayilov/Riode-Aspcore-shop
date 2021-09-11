@@ -21,6 +21,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         //SCAFFOLDING-Adlanir bu proses
+
+        //MailBox action index bu action view ataciyiq
         public async Task<IActionResult> Index(int typeId)
         {
             var query = db.ContactPosts.AsQueryable()
@@ -54,6 +56,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id
                 && m.DeleteByUserId==null
                 && m.AnswerByUserId==null);
+
             if (contactPost == null)
             {
                 return NotFound();

@@ -140,65 +140,65 @@
                     </nav>
                     <div id="productContainer" class="row cols-2 cols-sm-3 products-wrapper">
 
-                        <partial name="_ProdactContainer" model="@Model.Products"/>
+                        <partial name="_ProdactContainer" model="@Model.Products" />
 
-                        
-                       @*@foreach (var item in Model.Products) // burdan prodact gedecek diye model ona goe yazdim
-                        {
-                           // geder biz partial yazmisiqsa burdan silmeliyik yox yazmamisiqsa burda qala bilr
-                            var imagepath = item.Images.FirstOrDefault()?.FileName;
-                            <div class="product">
-                                <figure class="product-media">
-                                    <a asp-action="details" asp-route-id="1">
-                                        <img src="~/uploads/images/product/@imagepath" alt="product" width="280" height="315">
-                                    </a>
-                                    <div class="product-label-group">
-                                        <label class="product-label label-new">new</label>
 
-                                        <label class="product-label label-sale">25% OFF</label>
-                                    </div>
-
-                                    <div class="product-action">
-                                        <a href="#" class=" btn-cart" title="Add to cart">
-                                            <i class="d-icon-bag"></i>
-                                            <label>
-                                                Add to cart
-                                            </label>
+                        @*@foreach (var item in Model.Products) // burdan prodact gedecek diye model ona goe yazdim
+                            {
+                               // geder biz partial yazmisiqsa burdan silmeliyik yox yazmamisiqsa burda qala bilr
+                                var imagepath = item.Images.FirstOrDefault()?.FileName;
+                                <div class="product">
+                                    <figure class="product-media">
+                                        <a asp-action="details" asp-route-id="1">
+                                            <img src="~/uploads/images/product/@imagepath" alt="product" width="280" height="315">
                                         </a>
-                                        <a href="#" class=" btn-wishlist"
-                                           title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                                        <a asp-controller="shop" asp-action="Details" class="btn-quickview" title="Quick View">
-                                            <i class="d-icon-search"></i>
-                                            <label>
-                                                Quick
-                                                View
-                                            </label>
-                                        </a>
-                                    </div>
+                                        <div class="product-label-group">
+                                            <label class="product-label label-new">new</label>
 
-
-                                </figure>
-                                <div class="product-details">
-                                    <div class="product-cat">
-                                        <a href="shop-grid-3col.html">@item.Brands.Name</a>
-                                    </div>
-                                    <h3 class="product-name">
-                                        <a asp-action="details" asp-route-id="1">@item.Name</a>
-                                    </h3>
-                                    <div class="product-price">
-                                        <ins class="new-price">$125.99</ins><del class="old-price">$160.99</del>
-                                    </div>
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width:60%"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
+                                            <label class="product-label label-sale">25% OFF</label>
                                         </div>
-                                        <a asp-action="details" asp-route-id="1" class="rating-reviews">( 8 reviews )</a>
+
+                                        <div class="product-action">
+                                            <a href="#" class=" btn-cart" title="Add to cart">
+                                                <i class="d-icon-bag"></i>
+                                                <label>
+                                                    Add to cart
+                                                </label>
+                                            </a>
+                                            <a href="#" class=" btn-wishlist"
+                                               title="Add to wishlist"><i class="d-icon-heart"></i></a>
+                                            <a asp-controller="shop" asp-action="Details" class="btn-quickview" title="Quick View">
+                                                <i class="d-icon-search"></i>
+                                                <label>
+                                                    Quick
+                                                    View
+                                                </label>
+                                            </a>
+                                        </div>
+
+
+                                    </figure>
+                                    <div class="product-details">
+                                        <div class="product-cat">
+                                            <a href="shop-grid-3col.html">@item.Brands.Name</a>
+                                        </div>
+                                        <h3 class="product-name">
+                                            <a asp-action="details" asp-route-id="1">@item.Name</a>
+                                        </h3>
+                                        <div class="product-price">
+                                            <ins class="new-price">$125.99</ins><del class="old-price">$160.99</del>
+                                        </div>
+                                        <div class="ratings-container">
+                                            <div class="ratings-full">
+                                                <span class="ratings" style="width:60%"></span>
+                                                <span class="tooltiptext tooltip-top"></span>
+                                            </div>
+                                            <a asp-action="details" asp-route-id="1" class="rating-reviews">( 8 reviews )</a>
+                                        </div>
+
                                     </div>
-                                 
                                 </div>
-                            </div>
-                        }*@
+                            }*@
 
 
                         <div class="product">
@@ -242,7 +242,7 @@
                                     </div>
                                     <a asp-action="details" asp-route-id="1" class="rating-reviews">( 4 reviews )</a>
                                 </div>
-                              
+
                             </div>
                         </div>
 
@@ -672,7 +672,7 @@
             </div>
         </div>
     </div>
-    
+
 </main>
 
 
@@ -721,7 +721,7 @@
 
             $.setFilterProcessId = setTimeout(function () {
 
-             
+
 
                 const filterogj = {}; // bos obyect yaratdiq 1-ci
 
@@ -782,7 +782,7 @@
                 });
 
             }, 2000)
-         
+
 
             // data json foratinda gonderikse mutlek action paraetrin qabagna [FormBody] yazilmalidir
 

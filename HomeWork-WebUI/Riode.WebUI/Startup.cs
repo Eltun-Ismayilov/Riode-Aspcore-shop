@@ -27,26 +27,27 @@ namespace Riode.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews()
+
+                // productlari filter etmek ucundur loop olmasin
                 .AddNewtonsoftJson(cfg=> {
-                    // productlari filter etmek ucundur loop olmasin
                     cfg.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
 
 
 
 
-            // Patilarin Standart balaca herifnen yazilisi;
+            // Patilarin Standart balaca herifnen yazilisi;+
             services.AddRouting(cfg => cfg.LowercaseUrls = true);
 
 
 
 
 
-           // Dependency Injection Isdifade edilmesi ucun yazilmisdir;
+           // Dependency Injection Isdifade edilmesi ucun yazilmisdir;+
             services.AddDbContext<RiodeDbContext>(cfg =>
             {
 
-                // Database Link Saxlamiyaq deye bele yaziriq;
+                // ve burda cagirib yaziriq appsettings adini +
                 cfg.UseSqlServer(configuration.GetConnectionString("cString"));
 
             },ServiceLifetime.Scoped);
@@ -54,7 +55,7 @@ namespace Riode.WebUI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // devoloper ucun Error cixarilmasi;
+            // devoloper ucun Error cixarilmasi;+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,7 +64,7 @@ namespace Riode.WebUI
 
             app.UseRouting();
 
-            // static fayilarin oxunmasi ucun yazilmis kod;
+            // static fayilarin oxunmasi ucun yazilmis kod;+
 
             app.UseStaticFiles();
             app.UseEndpoints(cfg =>
@@ -78,10 +79,15 @@ namespace Riode.WebUI
                     }
 
                 });
+
+                // Scaffolding icindekileri burda yaziriq cagrilmasi ise ConfigureServices methodundadir
                 cfg.MapControllerRoute(
                 name: "areas",
                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-         );
+                );
+
+
+
                 cfg.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
             });
         }

@@ -19,12 +19,12 @@ namespace Riode.WebUI.Controllers
 
         }
 
-        // ana seyfe
+        // Layout+
         public IActionResult Index()
         {
             return View();
         }
-        // contact
+        // contact+
         public IActionResult Contact()
         {
             return View();
@@ -52,18 +52,18 @@ namespace Riode.WebUI.Controllers
 
             }
             return Json(new
-            {
+            {   
                 error = true,
                 message = "Mellumatin dogrulugnu yoxluyun"
             });
 
         }
-        // about
+        // about+
         public IActionResult AboutUS()
         {
             return View();
         }
-        // Fak
+        // Fak+
         public IActionResult Faq()
         {
             
