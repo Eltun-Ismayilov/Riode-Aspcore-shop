@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Riode.WebUI.Model.DataContexts;
 
 namespace Riode.WebUI.Migrations
 {
     [DbContext(typeof(RiodeDbContext))]
-    partial class RiodeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210911203939_adgava")]
+    partial class adgava
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -550,39 +552,6 @@ namespace Riode.WebUI.Migrations
                     b.HasIndex("SpecificationId");
 
                     b.ToTable("SpecificationValues");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.Subscrice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CreateByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeleteData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("EmailConfirmedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subscrices");
                 });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.Blog", b =>

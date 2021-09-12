@@ -27,184 +27,41 @@
         <div class="posts grid post-grid row" data-grid-options="{
                         'layoutMode': 'fitRows'
                     }">
-            <div class="grid-item col-sm-6 col-lg-4 lifestyle shopping winter-sale">
-                @foreach (var item in Model)
-                {
-                    var imagepath = item.Images.FirstOrDefault()?.FileName;
+
+            @foreach (var item in Model)
+            {
+                var imagepath = item.Images.FirstOrDefault()?.FileName;
+                <div class="wrap-item col-sm-6 col-lg-4 lifestyle shopping winter-sale">
+
                     <article class="post">
                         <figure class="post-media">
-                            <a asp-route-id="1" asp-action="details">
+                            <a asp-action="details" asp-route-id="@item.Id">
                                 <img src="~/uploads/images/blog/3col/@imagepath" width="380" height="280" alt="post" />
                             </a>
                         </figure>
                         <div class="post-details">
                             <div class="post-meta">
-                                on <a href="#" class="post-date">@item.DataTime</a>
+                                on <a href="#" class="post-date">@item.CreateData.ToString("dd MMM,yyyy")</a>
                                 | <a href="#" class="post-comment"><span>@item.Comments</span> Comments</a>
                             </div>
                             <h4 class="post-title">
-                                <a asp-action="details">
+                                <a asp-action="details" asp-route-id="@item.Id">
                                     @item.Name
                                 </a>
                             </h4>
                             <p class="post-content">
-                               @item.Description
+                                @item.Description
                             </p>
-                            <a asp-action="details" class="btn btn-link btn-underline btn-primary">
+                            <a asp-action="details" asp-route-id="@item.Id" class="btn btn-link btn-underline btn-primary">
                                 Read
                                 more<i class="d-icon-arrow-right"></i>
                             </a>
                         </div>
                     </article>
-                }
-            </div>
-            <div class="grid-item col-sm-6 col-lg-4 lifestyle sport">
-                <article class="post post-video ">
-                    <figure class="post-media">
-                        <a asp-route-id="1" asp-action="details">
-                            <img src="~/uploads/images/blog/3col/2.jpg" width="380" height="280" alt="post" />
-                        </a>
-                        <span class="video-play"></span>
-                        <video width="380">
-                            <source src="video/memory-of-a-woman.mp4" type="video/mp4">
-                        </video>
-                    </figure>
-                    <div class="post-details">
-                        <div class="post-meta">
-                            on <a href="#" class="post-date">Nov 6, 2019</a>
-                            | <a href="#" class="post-comment"><span>7</span> Comments</a>
-                        </div>
-                        <h4 class="post-title"><a asp-action="details">Complete Set Of Ski Tools</a></h4>
-                        <p class="post-content">
-                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                            eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
-                        </p>
-                        <a asp-action="details" class="btn btn-link btn-underline btn-primary">
-                            Read
-                            more<i class="d-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            <div class="grid-item col-sm-6 col-lg-4 fashion lifestyle">
-                <article class="post">
-                    <figure class="post-media">
-                        <div class="owl-carousel owl-theme owl-dot-inner owl-dot-white row cols-1 gutter-no"
-                             data-owl-options="{
-                                        'items': 1
-                                    }">
-                            <img src="~/uploads/images/blog/3col/3.jpg" width="380" height="280" alt="post" />
-                            <img src="~/uploads/images/blog/3col/2.jpg" width="380" height="280" alt="post" />
-                            <img src="~/uploads/images/blog/3col/1.jpg" width="380" height="280" alt="post" />
-                        </div>
-                    </figure>
-                    <div class="post-details">
-                        <div class="post-meta">
-                            on <a href="#" class="post-date">Nov 18, 2019</a>
-                            | <a href="#" class="post-comment"><span>9</span> Comments</a>
-                        </div>
-                        <h4 class="post-title">
-                            <a asp-route-id="1" asp-action="details">
-                                Women's Trending Sunglasses And
-                                Clothing
-                            </a>
-                        </h4>
-                        <p class="post-content">
-                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                            eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
-                        </p>
-                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
-                            Read
-                            more<i class="d-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            <div class="grid-item col-sm-6 col-lg-4 travel summer-sale">
-                <article class="post">
-                    <figure class="post-media">
-                        <a asp-route-id="1" asp-action="details">
-                            <img src="~/uploads/images/blog/3col/4.jpg" width="380" height="280" alt="post" />
-                        </a>
-                    </figure>
-                    <div class="post-details">
-                        <div class="post-meta">
-                            on <a href="#" class="post-date">Jun 6, 2019</a>
-                            | <a href="#" class="post-comment"><span>3</span> Comments</a>
-                        </div>
-                        <h4 class="post-title">
-                            <a asp-route-id="1" asp-action="details">
-                                Women's Fashion Summer Dress
-                            </a>
-                        </h4>
-                        <p class="post-content">
-                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                            eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
-                        </p>
-                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
-                            Read
-                            more<i class="d-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            <div class="grid-item col-sm-6 col-lg-4 travel hobbies">
-                <article class="post">
-                    <figure class="post-media">
-                        <a asp-route-id="1" asp-action="details">
-                            <img src="~/uploads/images/blog/3col/5.jpg" width="380" height="280" alt="post" />
-                        </a>
-                    </figure>
-                    <div class="post-details">
-                        <div class="post-meta">
-                            on <a href="#" class="post-date">May 17, 2018</a>
-                            | <a href="#" class="post-comment"><span>4</span> Comments</a>
-                        </div>
-                        <h4 class="post-title">
-                            <a asp-route-id="1" asp-action="details">
-                                Explore Fashion Ipad And
-                                Accessories
-                            </a>
-                        </h4>
-                        <p class="post-content">
-                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                            eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
-                        </p>
-                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
-                            Read
-                            more<i class="d-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-            <div class="grid-item col-sm-6 col-lg-4 hobbies">
-                <article class="post">
-                    <figure class="post-media">
-                        <a asp-route-id="1" asp-action="details">
-                            <img src="~/uploads/images/blog/3col/6.jpg" width="380" height="280" alt="post" />
-                        </a>
-                    </figure>
-                    <div class="post-details">
-                        <div class="post-meta">
-                            on <a href="#" class="post-date">Nov 22, 2020</a>
-                            | <a href="#" class="post-comment"><span>9</span> Comments</a>
-                        </div>
-                        <h4 class="post-title">
-                            <a asp-route-id="1" asp-action="details">
-                                The Best Choice For Spending Time
-                            </a>
-                        </h4>
-                        <p class="post-content">
-                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                            eget blandit nunc tortor eu nibh. Suspenditus libero eu augue.
-                        </p>
-                        <a asp-route-id="1" asp-action="details" class="btn btn-link btn-underline btn-primary">
-                            Read
-                            more<i class="d-icon-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
+                </div>
+            }
+
+
         </div>
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">
@@ -213,8 +70,11 @@
                     <i class="d-icon-arrow-left"></i>Prev
                 </a>
             </li>
-            <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            @for (int i = 1; i <= ViewBag.PagesCaunt; i++)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" asp-controller="blog" asp-action="index" asp-route-page="@i">@i</a></li>
+
+            }
             <li class="page-item">
                 <a class="page-link page-link-next" href="#" aria-label="Next">
                     Next<i class="d-icon-arrow-right"></i>

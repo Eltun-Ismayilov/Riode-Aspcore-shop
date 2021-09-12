@@ -36,6 +36,7 @@
     <!-- Plugins CSS File -->
     <link rel="stylesheet" type="text/css" href="~/assets/vendor/magnific-popup/magnific-popup.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/vendor/owl-carousel/owl.carousel.min.css">
+    <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
 
     <!-- Main CSS File -->
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.min.css">
@@ -342,9 +343,20 @@
                                     <h4 class="widget-title">Subscribe to our Newsletter</h4>
                                     <p class="mb-0">Get all the latest information, Sales and Offers.</p>
                                 </div>
-                                <form action="#" class="input-wrapper input-wrapper-inline">
-                                    <input type="email" class="form-control" name="email" id="email"
-                                           placeholder="Email address here..." required />
+                                <form method="post"
+                                      asp-controller="Home"
+                                      asp-action="Subscrice"
+                                      class="input-wrapper input-wrapper-inline"
+                                      id="form">
+                                    <input type="email"
+                                           class="form-control"
+                                           name="email"
+                                           id="email"
+                                           placeholder="Email address here..."
+                                           data-rule-required="true"
+                                           data-msg-required="Bosh buraxmayin"
+                                           data-rule-email="true"
+                                           data-msg-email="Email daxil edin" />
                                     <button class="btn btn-primary btn-rounded btn-md ml-2" type="submit">
                                         subscribe<i class="d-icon-arrow-right"></i>
                                     </button>
@@ -723,8 +735,78 @@
     <script src="~/assets/vendor/isotope/isotope.pkgd.min.js"></script>
     <script src="~/assets/vendor/jquery.plugin/jquery.plugin.min.js"></script>
     <script src="~/assets/vendor/jquery.countdown/jquery.countdown.min.js"></script>
+
+    <script src="~/libs/jquery-validate/jquery.validate.js"></script>
+    @*<script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>*@
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
     <!-- Main JS File -->
     <script src="~/assets/js/main.min.js"></script>
+
+    <script>
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+    $(document).ready(function () {
+
+    $('#form').submit(function (e) {
+        e.preventDefault();
+
+    if ($(e.currentTarget).valid() != true)
+    return;
+
+    const formData = new FormData(e.currentTarget);
+
+    $.ajax({
+
+    url: '@Url.Action("Subscrice")', // URL HELPERLER
+    type: 'POST',
+    data: formData,
+    contentType: false,
+    processData: false,
+  
+    success: function (gelenData) {
+    console.log(gelenData);
+
+        if (gelenData.error == false) {
+        toastr.success(gelenData.massege, 'ugurludur');
+    e.currentTarget.reset(); // FORM BOSALDIR
+
+
+
+
+    } else {
+        toastr.error(gelenData.massege, 'xeta');
+
+    }
+    },
+    error: function (gelenData) {
+    console.log(gelenData);
+    toastr.success('Teyin olunmamis xeta bas verib', 'Error');
+
+    },
+
+    });
+
+
+    });
+    });
+    </script>
     @RenderSection("addjs", required: false);
 </body>
 

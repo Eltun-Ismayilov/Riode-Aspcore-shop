@@ -15,9 +15,18 @@ namespace Riode.WebUI.Model.Entity
         public string PostAuthor { get; set; }
 
         public string PostBody1 { get; set; }
+
         public string PostBody2 { get; set; }
 
         public virtual ICollection<BlogImage> Images { get; set; }
+
+        public int? BlogCategoriesId { get; set; } // secmek ucun lazim olur parentleri
+
+        public virtual BlogCategories BlogCategories { get; set; } //Parent baxmaq ucun yazilir yalniz 1-dene olur
+
+
+
+
 
 
 

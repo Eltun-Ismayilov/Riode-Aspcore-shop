@@ -27,6 +27,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         {
             var query = db.ContactPosts.AsQueryable()
                 .Where(cp => cp.DeleteByUserId == null);
+            ViewBag.query = query.Count();
+             ViewBag.Count = query.Where(cp => cp.AnswerByUserId == null).Count();
+             ViewBag.Count1 = query.Where(cp => cp.AnswerByUserId != null).Count();
 
             switch (typeId)
             {
@@ -40,6 +43,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                     break;
             }
            
+
 
 
             return View(await query.ToListAsync());

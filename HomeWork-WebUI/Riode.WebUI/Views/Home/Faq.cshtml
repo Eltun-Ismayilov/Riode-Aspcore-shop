@@ -1,4 +1,4 @@
-﻿@model  List<Questions>
+﻿@model  IEnumerable<Questions>
 
 @{
     ViewData["Title"] = "Faq";
@@ -23,16 +23,17 @@
             <div class="row">
                 <div style="margin-left:17%" class="col-md-8 mt-10 ">
                     <h2 class="title pl-2 pr-2 ls-m text-left">Customer Management</h2>
-                    @foreach (var item in Model)
-                    {
-                        <div class="accordion accordion-border accordion-boxed accordion-plus">
+                    <div class="accordion accordion-border accordion-boxed accordion-plus">
+
+                        @foreach (var item in Model)
+                        {
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="#collapse2-1" class="expand">
+                                    <a href="#collapse@(item.Id)" class="expand">
                                         @item.Question
                                     </a>
                                 </div>
-                                <div id="collapse2-1" class="collapsed">
+                                <div id="collapse@(item.Id)" class="collapsed" style="display:none">
                                     <div class="card-body">
                                         <p>
                                             @item.Answer
@@ -40,11 +41,32 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
 </div>
+
+@section addjs{ F
+<script>
+
+    $(document).ready(function () {
+
+        const element = $('.accordion')
+            .find('.card:first-child a')
+            .removeClass('expand')
+            .addClass('collapse')
+            .attr('href');
+
+        $(`${element}`).removeClass('collapsed').addClass('expanded').css('display','block')
+
+    });
+
+</script>
+
+
+}

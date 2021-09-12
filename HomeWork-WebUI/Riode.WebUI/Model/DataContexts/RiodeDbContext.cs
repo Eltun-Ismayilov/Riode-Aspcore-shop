@@ -40,6 +40,7 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<Questions> Questions { get; set; }
 
         public DbSet<Blog> Blogs { get; set; }
+
         public DbSet<BlogImage> BlogImages { get; set; }
 
         public DbSet<Specification> Specifications { get; set; }
@@ -47,6 +48,15 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<SpecificationCategoryItem> SpecificationCategoryCollection{ get; set; }
 
         public DbSet<SpecificationValue> SpecificationValues{ get; set; }
+
+        public DbSet<BlogCategories> BlogCategories { get; set; }
+
+        public DbSet<Subscrice> Subscrices { get; set; }
+
+
+
+
+
 
 
 

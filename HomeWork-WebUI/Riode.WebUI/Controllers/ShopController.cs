@@ -74,6 +74,7 @@ namespace Riode.WebUI.Controllers
                 return NotFound();
             }
 
+
             return View(product);
         }
 
