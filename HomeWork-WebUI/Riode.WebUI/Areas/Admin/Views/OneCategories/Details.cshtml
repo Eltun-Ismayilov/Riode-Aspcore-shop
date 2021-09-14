@@ -4,57 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>OneCategory</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Parent)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Parent.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateByUserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateByUserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateData)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateData)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeleteByUserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeleteByUserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeleteData)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeleteData)
-        </dd>
-    </dl>
+
+<h1 style="text-align:center">Category  Details</h1>
+
+
+
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Parent</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.ParentId" aria-describedby="inputGroup-sizing-default">
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.Name" aria-describedby="inputGroup-sizing-default">
 </div>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.Description" aria-describedby="inputGroup-sizing-default">
+</div>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">CreateByUserId</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.CreateByUserId" aria-describedby="inputGroup-sizing-default">
+</div>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">CreateData</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.CreateData" aria-describedby="inputGroup-sizing-default">
+</div>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">DeleteByUserId</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.DeleteByUserId" aria-describedby="inputGroup-sizing-default">
+</div>
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">DeleteData</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.DeleteData" aria-describedby="inputGroup-sizing-default">
+</div>
+
+
+
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
+
