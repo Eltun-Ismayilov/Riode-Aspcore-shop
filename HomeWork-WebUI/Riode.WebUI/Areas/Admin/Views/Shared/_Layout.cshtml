@@ -52,6 +52,8 @@
     <link rel="stylesheet" href="~/admin/css/style.css" />
     <link rel="stylesheet" href="~/admin/css/colors/default.css" id="colorSkinCSS">
     <link href="~/libs/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/1154e1d6ee.js" crossorigin="anonymous"></script>
+
     @RenderSection("addcss", required: false);
 </head>
 <body class="crm_body_bg">
@@ -164,6 +166,16 @@
                     </div>
                     <div class="nav_title">
                         <span>Category</span>
+                    </div>
+                </a>
+            </li>
+            <li class="">
+                <a asp-controller="Products" asp-action="index" aria-expanded="false">
+                    <div class="nav_icon_small">
+                        <img src="~/uploads/images/menu-icon/7.svg" alt="">
+                    </div>
+                    <div class="nav_title">
+                        <span>Product</span>
                     </div>
                 </a>
             </li>

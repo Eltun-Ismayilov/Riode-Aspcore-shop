@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Riode.WebUI.Appcode;
+using Riode.WebUI.Appcode.Provider;
 using Riode.WebUI.Model.DataContexts;
 using System.IO;
 
@@ -27,7 +28,10 @@ namespace Riode.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews()
+            services.AddControllersWithViews(cfg=> {
+
+                cfg.ModelBinderProviders.Insert(0, new BooleanBinderProvider());
+            })
 
                 // productlari filter etmek ucundur loop olmasin
                 .AddNewtonsoftJson(cfg=> {

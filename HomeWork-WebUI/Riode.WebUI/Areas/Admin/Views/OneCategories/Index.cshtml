@@ -16,7 +16,7 @@
         @if (item.ParentId == null)
         {
 
-            <tr id="box" class="treegrid-@item.Id">
+            <tr  class="treegrid-@item.Id box">
                 <td style="color:red">@item.Name</td>
                 <td class="d-flex justify-content-end">
 
@@ -31,7 +31,7 @@
         {
             @foreach (var item1 in item.Children)
             {
-                <tr id="box1" class="treegrid-@item1.Id treegrid-parent-@item1.ParentId">
+                <tr  class="treegrid-@item1.Id treegrid-parent-@item1.ParentId box1">
                     <td>@item1.Name</td>
                     <td class="d-flex justify-content-end">
 
@@ -56,6 +56,10 @@
 
     <script type="text/javascript">
         $('.tree').treegrid();
+        $('.box').removeClass("treegrid-expanded").addClass("treegrid-collapsed");
+        $('.box ~ span').removeClass('treegrid-expander-expanded').addClass('treegrid-expander-collapsed');
+        $('.box1').css("display", "none")
+        $('.box1 .treegrid-expander-collapsed ').css("background-image", "url(~/libs/jquery-treegrid/img/expand.png)")
 
       
     </script>
@@ -64,11 +68,7 @@
 <script>
     $(document).ready(function () {
 
-        $('#box').removeClass("treegrid-expanded").addClass("treegrid-collapsed");
-        $('#box ~ span').removeClass('treegrid-expander-expanded').addClass('treegrid-expander-collapsed');
-        $('#box1').css("display", "none")
-        $('#box1 .treegrid-expander-collapsed ').css("background-image","url(~/libs/jquery-treegrid/img/expand.png)")
-         
+     
            
 
           

@@ -1,0 +1,95 @@
+﻿@model Riode.WebUI.Model.Entity.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h4>Product / Create </h4>
+<hr />
+<form class="row" enctype="multipart/form-data" method="post">
+    <div class="col-md-4">
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sku" class="control-label"></label>
+                <input asp-for="Sku" class="form-control" />
+                <span asp-validation-for="Sku" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandsId" class="control-label"></label>
+                <select asp-for="BrandsId" class="form-control" asp-items="ViewBag.BrandsId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShopDescription" class="control-label"></label>
+                <input asp-for="ShopDescription" class="form-control" />
+                <span asp-validation-for="ShopDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateByUserId" class="control-label"></label>
+                <input asp-for="CreateByUserId" class="form-control" />
+                <span asp-validation-for="CreateByUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateData" class="control-label"></label>
+                <input asp-for="CreateData" class="form-control" />
+                <span asp-validation-for="CreateData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteByUserId" class="control-label"></label>
+                <input asp-for="DeleteByUserId" class="form-control" />
+                <span asp-validation-for="DeleteByUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeleteData" class="control-label"></label>
+                <input asp-for="DeleteData" class="form-control" />
+                <span asp-validation-for="DeleteData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div style="width: 600px;" class="imager-container" id="viewer1" name="images">
+         
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section addcss{
+
+    <link href="~/libs/multiple-imager-js/css/imager.css" rel="stylesheet" />
+
+}
+
+@section addjs{
+
+    <script src="~/libs/multiple-imager-js/js/imager.js"></script>
+
+    <script>
+        $('#viewer1').imgadd({
+            tnWidth: '120px',
+            tnHeight: '120px',
+            fontSize: '55px',
+            plusInnerHtml: '',
+            plusBtnClass: undefined
+        });
+    </script>
+}
