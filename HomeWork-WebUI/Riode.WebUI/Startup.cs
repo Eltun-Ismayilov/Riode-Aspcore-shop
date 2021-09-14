@@ -6,12 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Riode.WebUI.Appcode;
 using Riode.WebUI.Model.DataContexts;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Riode.WebUI
 {
@@ -22,7 +19,11 @@ namespace Riode.WebUI
         public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
-        }
+
+            //string plaintext = "text";
+            //string finiw = plaintext.Tomd5();
+
+            }
 
         public void ConfigureServices(IServiceCollection services)
         {

@@ -52,6 +52,7 @@ namespace Riode.WebUI.Controllers
 
                 return Json(new
                 {
+                    // error yoxdusa bura dusur
                     error = false,
                     message = "Sorgunuz qeyde alindir"
                 });
@@ -60,6 +61,8 @@ namespace Riode.WebUI.Controllers
             }
             return Json(new
             {
+
+                // error varsa bura dusur
                 error = true,
                 message = "Mellumatin dogrulugnu yoxluyun"
             });
