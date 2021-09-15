@@ -17,31 +17,20 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Images)
+                        Images
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Sku)
+                        Sku
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Brands)
+                        Brands
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ShopDescription)
+                        CreateData
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreateData)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DeleteByUserId)
-                    </th>
-
                     <th>
                         <a class="btn btn-sm btn-success" asp-action="Create">Create New</a>
 
@@ -52,42 +41,25 @@
                 @foreach (var item in Model)
                 {
                 <tr>
-                    <th>
+                    <td>
                         <img width="70" height="70" src="~/uploads/images/@item.Images.FirstOrDefault(i=>i.IsMain)?.FileName" />
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(item => item.Name)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Sku)
+                       @item.Name
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Brands.Id)
+                        @item.Sku
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ShopDescription)
+                        @item.Brands.Name
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreateByUserId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreateData)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DeleteByUserId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DeleteData)
+                      @item.CreateData
                     </td>
                     <td>
                         <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                         <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     </td>
                 </tr>
                 }

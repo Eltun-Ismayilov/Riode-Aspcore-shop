@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\Riode-aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj": {}
+    "C:\\Users\\User\\Desktop\\Riode-Aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\Riode-aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj": {
+    "C:\\Users\\User\\Desktop\\Riode-Aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\Riode-aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Riode-Aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj",
         "projectName": "Riode.WebUI",
-        "projectPath": "C:\\Users\\User\\Desktop\\Riode-aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\Riode-Aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\Riode.WebUI.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\Riode-aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Riode-Aspcore-shop\\HomeWork-WebUI\\Riode.WebUI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
