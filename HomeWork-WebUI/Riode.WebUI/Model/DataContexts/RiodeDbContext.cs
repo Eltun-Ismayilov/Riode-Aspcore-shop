@@ -39,9 +39,9 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<ProductSizeColorItem> ProductSizeColorCollection { get; set; }
         public DbSet<Questions> Questions { get; set; }
 
-        public DbSet<Blog> Blogs { get; set; }
+     
 
-        public DbSet<BlogImage> BlogImages { get; set; }
+    
 
         public DbSet<Specification> Specifications { get; set; }
 
@@ -49,11 +49,11 @@ namespace Riode.WebUI.Model.DataContexts
 
         public DbSet<SpecificationValue> SpecificationValues{ get; set; }
 
-        public DbSet<BlogCategories> BlogCategories { get; set; }
+     
 
         public DbSet<Subscrice> Subscrices { get; set; }
 
-
+        public DbSet<Blog> Blogs { get; set; }
 
 
 

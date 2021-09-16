@@ -1,14 +1,14 @@
-﻿@model List<Blog>
+﻿@model IEnumerable<Blog>
+
 @{
     ViewData["Title"] = "Index";
 }
-
 <nav class="breadcrumb-nav">
     <div class="container">
         <ul class="breadcrumb">
             <li><a href="demo1.html"><i class="d-icon-home"></i></a></li>
             <li><a href="#" class="active">Blog</a></li>
-            <li>Grid 3 Columns</li>
+            <li>Mask Grid</li>
         </ul>
     </div>
 </nav>
@@ -27,50 +27,41 @@
         <div class="posts grid post-grid row" data-grid-options="{
                         'layoutMode': 'fitRows'
                     }">
-
             @foreach (var item in Model)
             {
-                var imagepath = item.Images.FirstOrDefault()?.FileName;
-                <div class="wrap-item col-sm-6 col-lg-4 lifestyle shopping winter-sale">
-
-                    <article class="post">
-                        <figure class="post-media">
-                            <a asp-action="details" asp-route-id="@item.Id">
-                                <img src="~/uploads/images/blog/3col/@imagepath" width="380" height="280" alt="post" />
+                <div class="grid-item col-sm-6 col-lg-4 lifestyle shopping winter-sale">
+                    <article class="post post-mask gradient">
+                        <figure class="post-media overlay-zoom">
+                            <a href="post-single.html">
+                                <img src="~/uploads/images/blog/mask/@item.ImagePati" width="380" height="280" alt="post" />
                             </a>
                         </figure>
                         <div class="post-details">
                             <div class="post-meta">
-                                on <a href="#" class="post-date">@item.CreateData.ToString("dd MMM,yyyy")</a>
-                                | <a href="#" class="post-comment"><span>@item.Comments</span> Comments</a>
+                                on <a href="#" class="post-date">@item.PublishedDate?.ToString("MMM d,yyyy")</a>
+                                | <a href="#" class="post-comment"><span>2</span> Comments</a>
                             </div>
                             <h4 class="post-title">
                                 <a asp-action="details" asp-route-id="@item.Id">
-                                    @item.Name
+                                    @item.Title
                                 </a>
                             </h4>
-                            <p class="post-content">
-                                @item.Description
-                            </p>
-                            <a asp-action="details" asp-route-id="@item.Id" class="btn btn-link btn-underline btn-primary">
-                                Read
-                                more<i class="d-icon-arrow-right"></i>
+                            <a href="post-single.html" class="btn btn-link btn-underline btn-white">
+                                Read more<i class="d-icon-arrow-right"></i>
                             </a>
                         </div>
                     </article>
                 </div>
             }
 
-
-        </div>
-        <ul class="pagination justify-content-center">
+        <ul class="pagination mt-5 justify-content-center">
             <li class="page-item disabled">
                 <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1"
                    aria-disabled="true">
                     <i class="d-icon-arrow-left"></i>Prev
                 </a>
             </li>
-            @for (int i = 1; i <= ViewBag.PagesCaunt; i++)
+            @for (int i = 1; i < ViewBag.PagesCaunt+1; i++)
             {
                 <li class="page-item active" aria-current="page"><a class="page-link" asp-controller="blog" asp-action="index" asp-route-page="@i">@i</a></li>
 
@@ -81,5 +72,5 @@
                 </a>
             </li>
         </ul>
+        </div>
     </div>
-</div>

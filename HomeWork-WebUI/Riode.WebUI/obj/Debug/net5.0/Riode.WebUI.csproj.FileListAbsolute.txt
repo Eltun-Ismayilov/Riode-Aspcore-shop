@@ -469,3 +469,13 @@ C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Products\Edit.cshtml.g.cs
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Products\Index.cshtml.g.cs
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Questions\Create.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Questions\Delete.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Questions\Details.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Questions\Edit.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Questions\Index.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blogs\Create.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blogs\Delete.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blogs\Details.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blogs\Edit.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Blogs\Index.cshtml.g.cs

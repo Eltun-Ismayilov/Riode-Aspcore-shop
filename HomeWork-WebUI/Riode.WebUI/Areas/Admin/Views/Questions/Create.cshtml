@@ -1,0 +1,54 @@
+﻿@model Riode.WebUI.Model.Entity.Questions
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Questions</h4>
+<hr />
+<h1 style="text-align:center">ProductSizes Create</h1>
+
+
+
+<div class="col-6 offset-3">
+    <form method="post">
+
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Question</span>
+            <input type="text" class="form-control" asp-for="Question" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Answer</span>
+            <input type="text" class="form-control" asp-for="Answer" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">CreateByUserId</span>
+            <input type="text" class="form-control" asp-for="CreateByUserId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">CreateData</span>
+            <input type="date" class="form-control" asp-for="CreateData" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">DeleteByUserId</span>
+            <input type="text" class="form-control" asp-for="DeleteByUserId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">DeleteData</span>
+            <input type="date" class="form-control" asp-for="DeleteData" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+
+
+        <button type="submit" class="btn btn-outline-success">
+            <i class="fas fa-plus"></i>
+
+            Creat
+        </button>
+        <a asp-action="index" class="btn btn-outline-info">Geriye qayit</a>
+
+
+    </form>
+</div>

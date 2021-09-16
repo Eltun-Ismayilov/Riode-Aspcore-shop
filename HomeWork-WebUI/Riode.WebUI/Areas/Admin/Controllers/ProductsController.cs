@@ -29,7 +29,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var riodeDbContext = db.products
-                .Include(p=>p.Images)
+                .Include(p => p.Images)
                 .Include(p => p.Brands);
             return View(await riodeDbContext.ToListAsync());
         }
@@ -56,7 +56,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Id");
+            ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Name");
             return View();
         }
 

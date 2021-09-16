@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Riode.WebUI.Model.DataContexts;
 
 namespace Riode.WebUI.Migrations
 {
     [DbContext(typeof(RiodeDbContext))]
-    partial class RiodeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210916072030_deleteblog")]
+    partial class deleteblog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,8 @@ namespace Riode.WebUI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Comments")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CreateByUserId")
                         .HasColumnType("int");
@@ -35,19 +37,28 @@ namespace Riode.WebUI.Migrations
                     b.Property<DateTime>("CreateData")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DataTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("DeleteByUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteData")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImagePati")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("PublishedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("PostAuthor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostBody1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostBody2")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
