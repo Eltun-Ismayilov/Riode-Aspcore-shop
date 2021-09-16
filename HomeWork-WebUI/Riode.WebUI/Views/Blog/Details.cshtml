@@ -1,4 +1,4 @@
-﻿@model Blog
+﻿@model BlogGategoryViewModel
 
 
 @{
@@ -21,23 +21,23 @@
                 <article class="post-single">
                     <figure class="post-media">
                         <a href="#">
-                            <img src="~/uploads/images/blog/mask/@Model.ImagePati" width="880" height="450" alt="post" />
+                            <img src="~/uploads/images/blog/mask/@Model.Blogs.ImagePati" width="880" height="450" alt="post" />
                         </a>
                     </figure>
                     <div class="post-details">
                         <div class="post-meta">
                             by <a href="#" class="post-author">John Doe</a>
-                            on <a href="#" class="post-date">@Model.PublishedDate?.ToString("MMM d,yyyy")8</a>
+                            on <a href="#" class="post-date">@Model.Blogs.PublishedDate?.ToString("MMM d,yyyy")8</a>
                             | <a href="#" class="post-comment"><span>2</span> Comments</a>
                         </div>
                         <h4 class="post-title">
                             <a href="#">
-                                @Model.Title
+                                @Model.Blogs.Title
 
                             </a>
                         </h4>
                         <div class="post-body mb-7">
-                            @Html.Raw(Model.Body)
+                            @Html.Raw(Model.Blogs.Body)
                         </div>
 
                         <div class="post-author-detail">
@@ -361,24 +361,7 @@
                         <div class="widget widget-collapsible border-no">
                             <h3 class="widget-title">Blog Categories</h3>
                             <ul class="widget-body filter-items search-ul">
-                                <li><a href="#">Accessories</a></li>
-                                <li>
-                                    <a href="#">Clothing</a>
-                                    <ul class="children">
-                                        <li><a href="#">Summer Sale</a></li>
-                                        <li><a href="#">Winter Sale</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Musicial instruments</a>
-                                    <ul class="children">
-                                        <li><a href="#">Headphone</a></li>
-                                        <li><a href="#">Speaker</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Lifestyle</a></li>
-                                <li><a href="#">Backpack & Fashion bags</a></li>
+                                @Html.Raw(Model.OneCategories.GetCategoriesRaw())
                             </ul>
                         </div>
                         <div class="widget widget-collapsible">

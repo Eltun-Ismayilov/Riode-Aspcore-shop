@@ -18,6 +18,7 @@ namespace Riode.WebUI.Controllers
     public class HomeController : Controller
     {
         readonly RiodeDbContext db;
+
         readonly IConfiguration configuration;
         public HomeController(RiodeDbContext db, IConfiguration configuration)
         {

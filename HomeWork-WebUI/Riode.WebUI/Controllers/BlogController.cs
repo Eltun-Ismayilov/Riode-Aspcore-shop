@@ -20,6 +20,8 @@ namespace Riode.WebUI.Controllers
         //Blog Layout+
         public IActionResult Index(int page=1)
         {
+
+
             var productcount = 3;                                                                              
             ViewBag.PagesCaunt = decimal.Ceiling((decimal)db.Blogs.Where(d => d.DeleteByUserId == null).Count() / productcount);
             ViewBag.Page = page;    // 1
@@ -39,13 +41,21 @@ namespace Riode.WebUI.Controllers
         //Blog Details+
         public IActionResult Details(int id)
         {
+            BlogGategoryViewModel vm = new BlogGategoryViewModel();
 
-
-            var data = db.Blogs
+            vm.Blogs = db.Blogs
             .FirstOrDefault(b => b.PublishedDate != null && b.DeleteByUserId == null && b.Id == id);
-          
 
-            return View(data);
+
+            vm.OneCategories = db.OneCategories
+            .Include(c => c.Parent)                                // children chilren getiri yeni incude include 
+            .Include(c => c.Children)                              // her bir category children apar
+            .ThenInclude(c => c.Children)                          // children chilren getiri yeni incude include 
+            .ThenInclude(c => c.Children)
+            .Where(c => c.ParentId == null && c.DeleteByUserId == null)
+            .ToList();
+
+            return View(vm);
         }
     }
 }

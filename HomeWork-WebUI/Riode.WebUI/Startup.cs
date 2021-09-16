@@ -24,7 +24,7 @@ namespace Riode.WebUI
             //string plaintext = "text";
             //string finiw = plaintext.Tomd5();
 
-            }
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {

@@ -49,7 +49,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // GET: Admin/OneCategories/Create
         public IActionResult Create()
         {
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Id");
+            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Name");
             return View();
         }
 
@@ -83,7 +83,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Id", oneCategory.ParentId);
+            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Name", oneCategory.ParentId);
             return View(oneCategory);
         }
 
@@ -119,7 +119,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Id", oneCategory.ParentId);
+            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Name", oneCategory.ParentId);
             return View(oneCategory);
         }
 
