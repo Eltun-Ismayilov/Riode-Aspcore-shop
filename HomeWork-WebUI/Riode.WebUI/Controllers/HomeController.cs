@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Riode.WebUI.Appcode;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
-using Riode.WebUI.Model.Entity.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Riode.WebUI.Controllers
 {
@@ -86,6 +80,8 @@ namespace Riode.WebUI.Controllers
             return View(questions);
         }
 
+
+        // baxmaq lazimdir bu gun......
         [HttpPost]
         public IActionResult Subscrice([Bind("Email")] Subscrice model)
         {
