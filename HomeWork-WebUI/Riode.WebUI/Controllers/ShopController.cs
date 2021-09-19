@@ -74,7 +74,7 @@ namespace Riode.WebUI.Controllers
             return View(product);
         }
 
-        // bu gun baxmaq lazimdir mutleq....
+        // bir gun baxmaq lazimdir mutleq....
         [HttpPost]
         public IActionResult Filter(ShopFilterFormModel model)
         {

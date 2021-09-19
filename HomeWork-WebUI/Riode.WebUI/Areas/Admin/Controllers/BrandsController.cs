@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = db.Brands.Count();
-            return View(await db.Brands.ToListAsync());
+            return View(await db.Brands.Where(b=>b.DeleteByUserId==null).ToListAsync());
         }
 
         // GET: Admin/Brands/Details/5
@@ -139,7 +140,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var brands = await db.Brands.FindAsync(id);
-            db.Brands.Remove(brands);
+
+            brands.DeleteData = DateTime.Now;
+            brands.DeleteByUserId = 1;
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

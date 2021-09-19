@@ -24,7 +24,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = db.ProductColors.Count();
-            return View(await db.ProductColors.ToListAsync());
+            return View(await db.ProductColors.Where(c=>c.DeleteByUserId==null).ToListAsync());
         }
 
         // GET: Admin/ProductColors/Details/5
@@ -142,7 +142,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var productColor = await db.ProductColors.FindAsync(id);
-            db.ProductColors.Remove(productColor);
+            productColor.DeleteData = DateTime.Now;
+            productColor.DeleteByUserId = 1;
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

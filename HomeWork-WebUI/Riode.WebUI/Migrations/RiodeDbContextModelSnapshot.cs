@@ -281,6 +281,9 @@ namespace Riode.WebUI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Abbr")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("CreateByUserId")
                         .HasColumnType("int");
 

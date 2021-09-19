@@ -30,7 +30,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         {
             var riodeDbContext = db.products
                 .Include(p => p.Images)
-                .Include(p => p.Brands);
+                .Include(p => p.Brands)
+                .Where(d => d.DeleteByUserId == null);
+            
             return View(await riodeDbContext.ToListAsync());
         }
 
@@ -44,6 +46,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             var product = await db.products
                 .Include(p => p.Brands)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -169,6 +172,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             var product = await db.products
                 .Include(p => p.Brands)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -184,7 +188,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await db.products.FindAsync(id);
-            db.products.Remove(product);
+            product.DeleteData = DateTime.Now;
+            product.DeleteByUserId = 1;
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

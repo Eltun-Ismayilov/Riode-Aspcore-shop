@@ -17,6 +17,7 @@ namespace Riode.WebUI.Controllers
         {
             this.db = db;
         }
+
         //Blog Layout+
         public IActionResult Index(int page=1)
         {

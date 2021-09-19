@@ -41,6 +41,21 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.min.css">
     @RenderSection("addcss", required: false);
+    <style>
+        .is-invalid {
+             border: 1px solid red
+      
+        }
+
+            .is-invalid + span.error {
+                color: red;
+                font-size: 1rem;
+            }
+
+        .is-valid {
+            border: 1px solid teal;
+        }
+    </style>
 </head>
 
 <body class="home">
@@ -343,9 +358,7 @@
                                     <h4 class="widget-title">Subscribe to our Newsletter</h4>
                                     <p class="mb-0">Get all the latest information, Sales and Offers.</p>
                                 </div>
-                                <form method="post"
-                                      asp-controller="Home"
-                                      asp-action="Subscrice"
+                                <form method="post" asp-controller="Home" asp-action="Subscrice" novalidate
                                       class="input-wrapper input-wrapper-inline"
                                       id="form">
                                     <input type="email"
@@ -744,6 +757,25 @@
 
     <script>
 
+        $(document).ready(function () {
+
+            $('#form').validate({
+
+                errorElement: 'span', // Cixan eror label yox span etdih
+                // errorClass: 'is-invalid', // span error cixan zaman class
+                //  validClass: 'is-valid', // span error cixan zaman class input class
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').remove('is-valid')// eger error varsa
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-valid').remove('is-invalid') // eger error yoxdusa
+
+                },
+            });
+
+
+        });
+
         toastr.options = {
             "closeButton": false,
             "debug": false,
@@ -806,6 +838,8 @@
 
     });
     });
+
+
     </script>
     @RenderSection("addjs", required: false);
 </body>
@@ -813,3 +847,11 @@
 
 <!-- Mirrored from d-themes.com/html/riode/demo23.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Aug 2021 21:30:57 GMT -->
 </html>
+
+
+@section addjs{ 
+
+<script>
+  
+</script>
+}

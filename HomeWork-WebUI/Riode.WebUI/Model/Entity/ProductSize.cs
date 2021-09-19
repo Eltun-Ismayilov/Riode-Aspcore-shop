@@ -7,6 +7,7 @@ namespace Riode.WebUI.Model.Entity
 {
     public class ProductSize:BaseEntity
     {
+        public string Abbr { get; set; }
         public string Name { get; set; }
 
         public string description { get; set; }

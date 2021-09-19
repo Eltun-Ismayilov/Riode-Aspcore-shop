@@ -14,6 +14,7 @@ namespace Riode.WebUI.Model.Entity
 
         public string Description { get; set; }
 
+
         public virtual ICollection<SpecificationCategoryItem> SpecificationCategoryItems { get; set; }
 
 

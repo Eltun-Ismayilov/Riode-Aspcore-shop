@@ -13,18 +13,18 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class OneCategoriesController : Controller
     {
-        private readonly RiodeDbContext _context;
+        private readonly RiodeDbContext db;
 
-        public OneCategoriesController(RiodeDbContext context)
+        public OneCategoriesController(RiodeDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         // GET: Admin/OneCategories
         public async Task<IActionResult> Index()
         {
-            var riodeDbContext = _context.OneCategories.Include(o => o.Parent);
-            return View(await riodeDbContext.ToListAsync());
+            var riodeDbContext = db.OneCategories.Include(o => o.Parent);
+            return View(await riodeDbContext.Where(c=>c.DeleteByUserId==null).ToListAsync());
         }
 
         // GET: Admin/OneCategories/Details/5
@@ -35,7 +35,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var oneCategory = await _context.OneCategories
+            var oneCategory = await db.OneCategories
                 .Include(o => o.Parent)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (oneCategory == null)
@@ -49,7 +49,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // GET: Admin/OneCategories/Create
         public IActionResult Create()
         {
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Name");
+            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name");
             return View();
         }
 
@@ -62,11 +62,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(oneCategory);
-                await _context.SaveChangesAsync();
+                db.Add(oneCategory);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Id", oneCategory.ParentId);
+            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Id", oneCategory.ParentId);
             return View(oneCategory);
         }
 
@@ -78,12 +78,12 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var oneCategory = await _context.OneCategories.FindAsync(id);
+            var oneCategory = await db.OneCategories.FindAsync(id);
             if (oneCategory == null)
             {
                 return NotFound();
             }
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Name", oneCategory.ParentId);
+            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
             return View(oneCategory);
         }
 
@@ -103,8 +103,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(oneCategory);
-                    await _context.SaveChangesAsync();
+                    db.Update(oneCategory);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,7 +119,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(_context.OneCategories, "Id", "Name", oneCategory.ParentId);
+            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
             return View(oneCategory);
         }
 
@@ -131,7 +131,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var oneCategory = await _context.OneCategories
+            var oneCategory = await db.OneCategories
                 .Include(o => o.Parent)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (oneCategory == null)
@@ -147,15 +147,16 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var oneCategory = await _context.OneCategories.FindAsync(id);
-            _context.OneCategories.Remove(oneCategory);
-            await _context.SaveChangesAsync();
+            var oneCategory = await db.OneCategories.FindAsync(id);
+            oneCategory.DeleteData = DateTime.Now;
+            oneCategory.DeleteByUserId = 1;
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OneCategoryExists(int id)
         {
-            return _context.OneCategories.Any(e => e.Id == id);
+            return db.OneCategories.Any(e => e.Id == id);
         }
     }
 }

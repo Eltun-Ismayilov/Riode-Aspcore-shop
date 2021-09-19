@@ -6,61 +6,52 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Sku)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Sku)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Brands)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Brands.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ShopDescription)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShopDescription)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateData)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreateData)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Images)
-        </dt>
-        <dt class="col-sm-2">
-            <img width="70" height="70" src="~/uploads/images/@Model.Images.FirstOrDefault().FileName" />
 
-        </dt>
 
-       
+<div class="white_card_body">
+    <div class="card-body">
+        <div class="form-row">
+            <div class="col-4">
+                <div class="input-group mb-3">
 
-    </dl>
+                    <img width="200" height="200" src="~/uploads/images/@Model.Images.FirstOrDefault(i=>i.IsMain==true)?.FileName" />
+
+
+                </div>
+            </div>
+
+
+            <div class="col-8">
+                <div class="form-group col-12">
+                    <label asp-for="Name" class="control-label"></label>
+                    <p class="form-control">@Model.Name</p>
+                </div>
+
+                <div class="form-group col-12">
+                    <label asp-for="Sku" class="control-label"></label>
+                    <p class="form-control textarea">
+
+                        @Model.Sku
+
+                    </p>
+                </div>
+
+                <div class="form-group col-12">
+                    <label asp-for="Brands" class="control-label"></label>
+                    <p class="form-control textarea">
+
+                        @Model.Brands.Name
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div>
     <a class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <a class="btn btn-sm btn-dark" asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
 </div>
 
 

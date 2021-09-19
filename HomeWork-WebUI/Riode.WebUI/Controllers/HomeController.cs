@@ -81,7 +81,6 @@ namespace Riode.WebUI.Controllers
         }
 
 
-        // baxmaq lazimdir bu gun......
         [HttpPost]
         public IActionResult Subscrice([Bind("Email")] Subscrice model)
         {
@@ -114,8 +113,14 @@ namespace Riode.WebUI.Controllers
                 db.Subscrices.Add(model);
                 db.SaveChanges();
 
+
                 string token = $"subscribetoken-{model.Id}-{DateTime.Now:yyyyMMddHHmmss}"; // token yeni id goturuk
+
+                token = token.Encrypt("");
+
                 string path = $"{Request.Scheme}://{Request.Host}/subscribe-confirm?token={token}"; // path duzeldirik
+
+
 
                 var mailSended = configuration.SendEmail(model.Email, "Riode seyfesi gagas", $"Zehmet olmasa <a href={path}>Link</a> vasitesile abuneliyi tamamlayin");
                 if (mailSended == null)
@@ -153,6 +158,8 @@ namespace Riode.WebUI.Controllers
         public IActionResult SubscibeConfirm(string token)
         {
 
+
+            token = token.Decrypte("");
             Match match = Regex.Match(token, @"subscribetoken-(?<id>\d)-(?<executeTimeStamp>\d{14})");
 
             if (match.Success)

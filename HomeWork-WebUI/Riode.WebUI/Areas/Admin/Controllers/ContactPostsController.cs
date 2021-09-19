@@ -27,9 +27,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         {
             var query = db.ContactPosts.AsQueryable()
                 .Where(cp => cp.DeleteByUserId == null);
+
+
             ViewBag.query = query.Count();
-             ViewBag.Count = query.Where(cp => cp.AnswerByUserId == null).Count();
-             ViewBag.Count1 = query.Where(cp => cp.AnswerByUserId != null).Count();
+            ViewBag.Count = query.Where(cp => cp.AnswerByUserId == null).Count();
+            ViewBag.Count1 = query.Where(cp => cp.AnswerByUserId != null).Count();
 
             switch (typeId)
             {
@@ -42,7 +44,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 default:
                     break;
             }
-           
+
 
 
 
@@ -58,8 +60,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             var contactPost = await db.ContactPosts
                 .FirstOrDefaultAsync(m => m.Id == id
-                && m.DeleteByUserId==null
-                && m.AnswerByUserId==null);
+                && m.DeleteByUserId == null
+                && m.AnswerByUserId == null);
 
             if (contactPost == null)
             {
@@ -70,7 +72,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Answer([Bind("Id", "Answer")]ContactPost model )
+        public async Task<IActionResult> Answer([Bind("Id", "Answer")] ContactPost model)
         {
             if (model == null)
             {
@@ -79,7 +81,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             var contactPost = await db.ContactPosts
                 .FirstOrDefaultAsync(m => m.Id == model.Id
-                && m.DeleteByUserId==null
+                && m.DeleteByUserId == null
                 && m.AnswerByUserId == null);
 
             if (contactPost == null)
