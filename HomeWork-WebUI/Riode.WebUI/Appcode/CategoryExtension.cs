@@ -59,6 +59,20 @@ namespace Riode.WebUI.Appcode
             }
         }
 
-     
+
+        static public IEnumerable<OneCategory> GetChilds(this OneCategory category)
+        {
+            if (category.ParentId != null)
+            {
+                yield return category;
+            }
+            if (category.Children != null)
+            {
+                foreach (var item in category.Children.SelectMany(c =>c.GetChilds()))
+                {
+                    yield return item;
+                }
+            }
+        }
     }
 }

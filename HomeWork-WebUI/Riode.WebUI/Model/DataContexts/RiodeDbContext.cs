@@ -35,24 +35,12 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<OneCategory> OneCategories { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-
         public DbSet<ProductSizeColorItem> ProductSizeColorCollection { get; set; }
         public DbSet<Questions> Questions { get; set; }
-
-     
-
-    
-
         public DbSet<Specification> Specifications { get; set; }
-
         public DbSet<SpecificationCategoryItem> SpecificationCategoryCollection{ get; set; }
-
         public DbSet<SpecificationValue> SpecificationValues{ get; set; }
-
-     
-
         public DbSet<Subscrice> Subscrices { get; set; }
-
         public DbSet<Blog> Blogs { get; set; }
 
 

@@ -160,7 +160,7 @@ namespace Riode.WebUI.Controllers
 
 
             token = token.Decrypte("");
-            Match match = Regex.Match(token, @"subscribetoken-(?<id>\d)-(?<executeTimeStamp>\d{14})");
+            Match match = Regex.Match(token, @"subscribetoken-(?<id>\d+)-(?<executeTimeStamp>\d{14})");
 
             if (match.Success)
             {

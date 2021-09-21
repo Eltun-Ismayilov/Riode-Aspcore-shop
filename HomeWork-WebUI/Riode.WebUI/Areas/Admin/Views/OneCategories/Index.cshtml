@@ -10,7 +10,7 @@
 <a class="btn btn-outline-success" asp-action="Create">Create</a>
 
 <table class="table  tree">
-    @foreach (var item in Model)
+    @foreach (var item in Model) 
     {
 
         @if (item.ParentId == null)
@@ -29,15 +29,15 @@
         }
         @if (item.Children != null)
         {
-            @foreach (var item1 in item.Children)
+            @foreach (var child in item.GetChilds())
             {
-                <tr  class="treegrid-@item1.Id treegrid-parent-@item1.ParentId box1">
-                    <td>@item1.Name</td>
+                <tr  class="treegrid-@child.Id treegrid-parent-@child.ParentId box1">
+                    <td>@child.Name</td>
                     <td class="d-flex justify-content-end">
 
-                        <a class="btn btn-outline-warning" asp-action="edit" asp-route-id="@item1.Id">Edit</a>
-                        <a class="btn btn-outline-info" asp-action="details" asp-route-id="@item1.Id">details</a>
-                        <a class="btn btn-outline-danger" asp-action="delete" asp-route-id="@item1.Id">delete</a>
+                        <a class="btn btn-outline-warning" asp-action="edit" asp-route-id="@child.Id">Edit</a>
+                        <a class="btn btn-outline-info" asp-action="details" asp-route-id="@child.Id">details</a>
+                        <a class="btn btn-outline-danger" asp-action="delete" asp-route-id="@child.Id">delete</a>
                     </td>
                 </tr>
             }
