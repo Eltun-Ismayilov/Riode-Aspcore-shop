@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Riode.WebUI.Appcode.Application.BrandsModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 using System;
@@ -12,83 +14,88 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     public class BrandsController : Controller
     {
         private readonly RiodeDbContext db;
+        //arxektura ucun yazilir;
+        private readonly IMediator mediator;
 
-        public BrandsController(RiodeDbContext db)
+        public BrandsController(RiodeDbContext db, IMediator mediator)
         {
-           this.db = db;
+            this.db = db;
+            this.mediator = mediator;
         }
 
-        // GET: Admin/Brands
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(BrandPagedQuery request)
         {
-            ViewBag.Count = db.Brands.Count();
-            return View(await db.Brands.Where(b=>b.DeleteByUserId==null).ToListAsync());
+
+            //  ViewBag.Count = db.Brands.Count();
+
+            var response = await mediator.Send(request);
+
+            return View(response);
         }
 
-        // GET: Admin/Brands/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //+
+        public async Task<IActionResult> Details(BrandSingleQuery query)
         {
-            if (id == null)
+
+            //mediatur ucun yazilib;
+
+            //var query = new BrandSingleQuery
+            //{
+            //    Id = id  belede yaza bilerik 
+            //}; 
+
+            var respons = await mediator.Send(query);
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var brands = await db.Brands
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (brands == null)
-            {
-                return NotFound();
-            }
-
-            return View(brands);
+            return View(respons);
         }
 
-        // GET: Admin/Brands/Create
+        //+k
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Admin/Brands/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Brands brands)
+        public async Task<IActionResult> Create(BrandCreateCommand command)
         {
             if (ModelState.IsValid)
             {
-                db.Add(brands);
-                await db.SaveChangesAsync();
+                await mediator.Send(command);
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(brands);
+            return View(command);
         }
 
-        // GET: Admin/Brands/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+
+        //+
+        public async Task<IActionResult> Edit(BrandSingleQuery query)
         {
-            if (id == null)
+
+
+            var respons = await mediator.Send(query);
+
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var brands = await db.Brands.FindAsync(id);
-            if (brands == null)
-            {
-                return NotFound();
-            }
-            return View(brands);
+            return View(respons);
         }
 
-        // POST: Admin/Brands/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Brands brands)
+        public async Task<IActionResult> Edit(int id, BrandEditCommand command)
         {
-            if (id != brands.Id)
+            if (id != command.Id)
             {
                 return NotFound();
             }
@@ -97,12 +104,13 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             {
                 try
                 {
-                    db.Update(brands);
+                    var data = db.Update(command);
+                    await mediator.Send(data);
                     await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BrandsExists(brands.Id))
+                    if (!BrandsExists(command.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +121,13 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(brands);
+            return View(command);
         }
 
-        // GET: Admin/Brands/Delete/5
+
+
+
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +145,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(brands);
         }
 
-        // POST: Admin/Brands/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -146,6 +157,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool BrandsExists(int id)
         {

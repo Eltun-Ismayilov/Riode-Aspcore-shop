@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Riode.WebUI.Appcode;
 using Riode.WebUI.Appcode.Provider;
 using Riode.WebUI.Model.DataContexts;
 using System.IO;
+using System.Reflection;
 
 namespace Riode.WebUI
 {
@@ -70,6 +72,10 @@ namespace Riode.WebUI
                 cfg.UseSqlServer(configuration.GetConnectionString("cString"));
 
             }, ServiceLifetime.Scoped);
+
+            //Mediatr ucun yazilib(arxekturani ucun)
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            services.AddMediatR(currentAssembly);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

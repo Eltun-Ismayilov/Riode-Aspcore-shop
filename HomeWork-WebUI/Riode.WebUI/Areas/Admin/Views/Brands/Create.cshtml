@@ -1,4 +1,4 @@
-﻿@model Riode.WebUI.Model.Entity.Brands
+﻿@model BrandCreateCommand
 
 @{
     ViewData["Title"] = "Create";
@@ -19,24 +19,9 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">description</span>
-            <input type="text" class="form-control" asp-for="description" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" class="form-control" asp-for="Description" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">CreateByUserId</span>
-            <input type="text" class="form-control" asp-for="CreateByUserId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">CreateData</span>
-            <input type="date" class="form-control" asp-for="CreateData" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">DeleteByUserId</span>
-            <input type="text" class="form-control" asp-for="DeleteByUserId" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">DeleteData</span>
-            <input type="date" class="form-control" asp-for="DeleteData" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        </div>
+     
 
 
         <button type="submit" class="btn btn-outline-success">

@@ -57,24 +57,3 @@
 
 
 
-@section addcss{
-
-    <link href="~/libs/multiple-imager-js/css/imager.css" rel="stylesheet" />
-
-}
-
-@section addjs{
-
-    <script src="~/libs/multiple-imager-js/js/imager.js"></script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        $('#viewer1').imgadd({
-            tnWidth: '120px',
-            tnHeight: '120px',
-            fontSize: '55px',
-            plusInnerHtml: '',
-            plusBtnClass: undefined
-        });
-    </script>
-}

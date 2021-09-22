@@ -117,7 +117,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var product = await db.products.FindAsync(id);
+            var product = await db.products
+                .Include(p=>p.Images.Where(i=>i.DeleteByUserId==null))
+                .FirstOrDefaultAsync(p=>p.Id==id);
             if (product == null)
             {
                 return NotFound();
@@ -126,12 +128,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Sku,BrandsId,ShopDescription,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.Id)
             {
