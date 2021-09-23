@@ -36,19 +36,9 @@
                             <input name="file"
                                    id="file"
                                    type="file"
-                                   accept="image/x-png,image/gif,image/jpeg">
+                                    accept="image/x-png,image/gif,image/jpeg">
                         </div>
-                        <div class="form-group">
-                            <label asp-for="CreateData" class="control-label"></label>
-                            <input asp-for="CreateData" class="form-control" />
-                            <span asp-validation-for="CreateData" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="PublishedDate" class="control-label"></label>
-                            <input asp-for="PublishedDate" class="form-control" />
-                            <span asp-validation-for="PublishedDate" class="text-danger"></span>
-                        </div>
-
+                     
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
@@ -78,7 +68,12 @@
 
     <script>
 
-        // bir sekli getirmek ucun yazilir bu proses js ve css asagdaki kimidir:
+        // bir sekli getirmek ucun yazilir bu proses js ve css asagdaki kimidir:(jquery-image-input)
+
+
+
+
+        //cekaeditor cundur;
         $(document).ready(function () {
 
             ClassicEditor

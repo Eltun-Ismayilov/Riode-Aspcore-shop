@@ -14,7 +14,7 @@ namespace Riode.WebUI.Appcode.Application.BrandsModelu
     public class BrandPagedQuery:IRequest<PagedViewModel<Brands>>
     {
         public int pageIndex { get; set; } = 1;
-        public int pageSize { get; set; } = 15;
+        public int pageSize { get; set; } = 3;
 
         public class BrandPagedQueryHandler : IRequestHandler<BrandPagedQuery, PagedViewModel<Brands>>
         {

@@ -3,75 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Riode.WebUI.Model.DataContexts;
 
 namespace Riode.WebUI.Migrations
 {
     [DbContext(typeof(RiodeDbContext))]
-    partial class RiodeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210922202536_MembershipCreate1")]
+    partial class MembershipCreate1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.AuditLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Action")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Area")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Controller")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CreateByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeleteData")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsHttps")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Method")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Pati")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QueryString")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RequestTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ResponseTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StatusCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditLogs");
-                });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.Blog", b =>
                 {
@@ -211,29 +159,6 @@ namespace Riode.WebUI.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", "Membership");
-                });
-
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.Membership.RiodeRoleClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RoleClaims", "Membership");
                 });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.Membership.RiodeUser", b =>
@@ -379,6 +304,29 @@ namespace Riode.WebUI.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens", "Membership");
+                });
+
+            modelBuilder.Entity("Riode.WebUI.Model.Entity.Membership.RiodoRoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleClaims", "Membership");
                 });
 
             modelBuilder.Entity("Riode.WebUI.Model.Entity.OneCategory", b =>
@@ -758,15 +706,6 @@ namespace Riode.WebUI.Migrations
                     b.ToTable("Subscrices");
                 });
 
-            modelBuilder.Entity("Riode.WebUI.Model.Entity.Membership.RiodeRoleClaim", b =>
-                {
-                    b.HasOne("Riode.WebUI.Model.Entity.Membership.RiodeRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Riode.WebUI.Model.Entity.Membership.RiodeUserClaim", b =>
                 {
                     b.HasOne("Riode.WebUI.Model.Entity.Membership.RiodeUser", null)
@@ -805,6 +744,15 @@ namespace Riode.WebUI.Migrations
                     b.HasOne("Riode.WebUI.Model.Entity.Membership.RiodeUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Riode.WebUI.Model.Entity.Membership.RiodoRoleClaim", b =>
+                {
+                    b.HasOne("Riode.WebUI.Model.Entity.Membership.RiodeRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

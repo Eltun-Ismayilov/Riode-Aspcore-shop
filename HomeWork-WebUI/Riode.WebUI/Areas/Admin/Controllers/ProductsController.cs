@@ -159,7 +159,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Id", product.BrandsId);
+            ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Name", product.BrandsId);
             return View(product);
         }
 

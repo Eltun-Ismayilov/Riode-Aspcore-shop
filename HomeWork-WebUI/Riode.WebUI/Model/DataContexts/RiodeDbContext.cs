@@ -1,19 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Model.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Riode.WebUI.Model.Entity.Membership;
 
 namespace Riode.WebUI.Model.DataContexts
 {
-    public class RiodeDbContext:DbContext
+    // public class RiodeDbContext:DbContext eger biz membership yaziriqsa bu zaman bu clas toremelidir IdentityDbContextden;
+    public class RiodeDbContext : IdentityDbContext<RiodeUser,RiodeRole,int,RiodeUserClaim,RiodeUserRole,RiodeUserLogin,RiodeRoleClaim,RiodeUserToken>
     {
         //public RiodeDbContext()
         //    :base()
         //{
 
-        //}
+        //} 
         public RiodeDbContext(DbContextOptions options)
            : base(options)
         {
@@ -42,11 +41,54 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<SpecificationValue> SpecificationValues{ get; set; }
         public DbSet<Subscrice> Subscrices { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
+        
 
 
+        // Database olan membershiplerin ADi qabaginda ASP isdemirikse gorsensin ozmuz duz qos eliyib burda yaziriq
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<RiodeUser>(e=> {
+                           // adi   //ADI qabagindaki
+                e.ToTable("Users","Membership");
 
+            });
 
+            builder.Entity<RiodeRole>(e => {
+                // adi   //ADI qabagindaki
+                e.ToTable("Roles", "Membership");
 
+            });
+
+            builder.Entity<RiodeUserRole>(e => {
+                // adi   //ADI qabagindaki
+                e.ToTable("UserRoles", "Membership");
+
+            });
+
+            builder.Entity<RiodeUserClaim>(e => {
+                // adi   //ADI qabagindaki
+                e.ToTable("UserClaims", "Membership");
+
+            });
+
+            builder.Entity<RiodeRoleClaim>(e => {
+                // adi   //ADI qabagindaki
+                e.ToTable("RoleClaims", "Membership");
+
+            });
+            builder.Entity<RiodeUserToken>(e => {
+                // adi   //ADI qabagindaki
+                e.ToTable("UserTokens", "Membership");
+
+            });
+            builder.Entity<RiodeUserLogin>(e => {
+                // adi   //ADI qabagindaki
+                e.ToTable("UserLogins", "Membership");
+
+            });
+        }
 
     }
 }   

@@ -2,14 +2,17 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Riode.WebUI.Appcode;
+using Riode.WebUI.Appcode.Meddleware;
 using Riode.WebUI.Appcode.Provider;
 using Riode.WebUI.Model.DataContexts;
+using Riode.WebUI.Model.Entity.Membership;
 using System.IO;
 using System.Reflection;
 
@@ -76,6 +79,17 @@ namespace Riode.WebUI
             //Mediatr ucun yazilib(arxekturani ucun)
             var currentAssembly = Assembly.GetExecutingAssembly();
             services.AddMediatR(currentAssembly);
+
+
+
+            //Membership ucun yazilmis kod(Datazbazaya bax)
+
+            services.AddIdentity<RiodeUser, RiodeRole>()
+                .AddEntityFrameworkStores<RiodeDbContext>();
+
+            services.AddScoped<UserManager<RiodeUser>>(); // user idare etmek ucun menecer
+            services.AddScoped<SignInManager<RiodeUser>>(); //giriw edende idare etmek ucun menecer;
+            services.AddScoped<RoleManager<RiodeRole>>(); //role idare etmek ucun menecer;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -90,9 +104,14 @@ namespace Riode.WebUI
             //+
             app.UseRouting();
 
+
             //+
             // static fayilarin oxunmasi ucun yazilmis kod+
             app.UseStaticFiles();
+
+            //Meddleware cagrilma mentiqi bu curdur..
+            app.UseAudit();
+
             app.UseEndpoints(cfg =>
             {
 

@@ -71,7 +71,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                string extension = Path.GetExtension(file.FileName);  //.jpg tapmaq ucundur.
+                string extension = Path.GetExtension(file.FileName);  //.jpg tapmaq ucundur. png .gng 
 
                 blog.ImagePati= $"{Guid.NewGuid()}{extension}";//imagenin name 
 
