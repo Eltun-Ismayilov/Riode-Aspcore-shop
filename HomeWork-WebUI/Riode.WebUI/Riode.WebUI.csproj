@@ -28,6 +28,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Appcode\Resources\Admin\Sidebar\Sidebar.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Sidebar.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Appcode\Resources\Admin\Sidebar\Sidebar.resx">
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sidebar.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Appcode\Resources\Admin\Sidebar\Sidebar.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Views\Static\coming-soon.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

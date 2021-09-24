@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,8 @@ using Riode.WebUI.Model.Entity;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
+
     [Area("Admin")]
     public class BlogsController : Controller
     {

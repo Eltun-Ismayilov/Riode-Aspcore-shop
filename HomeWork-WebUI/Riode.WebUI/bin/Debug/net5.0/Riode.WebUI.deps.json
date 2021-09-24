@@ -323,6 +323,11 @@
         "runtime": {
           "Riode.WebUI.dll": {}
         },
+        "resources": {
+          "en/Riode.WebUI.resources.dll": {
+            "locale": "en"
+          }
+        },
         "compile": {
           "Riode.WebUI.dll": {}
         }

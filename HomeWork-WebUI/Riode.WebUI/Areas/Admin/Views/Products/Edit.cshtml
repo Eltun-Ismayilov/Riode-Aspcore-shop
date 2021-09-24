@@ -40,7 +40,8 @@
             @foreach (var item in Model.Images)
             {
                 <label thumb-url='/uploads/images/@item.FileName'
-                       image-id="@item.Id" checked="@item.IsMain.ToString().ToLower()"></label>
+                       image-id="@item.Id" 
+                       @(item.IsMain?" checked":"")></label>
 
             }
         </div>

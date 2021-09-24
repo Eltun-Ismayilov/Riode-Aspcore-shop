@@ -14,11 +14,11 @@ namespace Riode.WebUI.Appcode.Meddleware
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class AuditMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly RequestDelegate rd;
 
-        public AuditMiddleware(RequestDelegate next)
+        public AuditMiddleware(RequestDelegate rd)
         {
-            _next = next;
+            this.rd = rd;
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -30,7 +30,7 @@ namespace Riode.WebUI.Appcode.Meddleware
 
                 var ruoteData = httpContext.GetRouteData();
 
-                var log = new AuditLog();
+                AuditLog log = new AuditLog();
 
                 log.CreateData = DateTime.Now; // Yaranma tarixi indiki zaman gotursun.
 
@@ -68,7 +68,7 @@ namespace Riode.WebUI.Appcode.Meddleware
                     log.QueryString = httpContext.Request.QueryString.Value;
                 }
 
-                await _next(httpContext);
+                await rd(httpContext);
 
                 log.StatusCode = httpContext.Response.StatusCode; // Status Codun ne oldugnu gotureciyik
 

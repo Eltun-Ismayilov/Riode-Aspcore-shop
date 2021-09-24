@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Riode.WebUI.Appcode;
 using Riode.WebUI.Model.DataContexts;
@@ -9,6 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Riode.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         readonly RiodeDbContext db;
@@ -160,6 +162,7 @@ namespace Riode.WebUI.Controllers
 
 
             token = token.Decrypte("");
+
             Match match = Regex.Match(token, @"subscribetoken-(?<id>\d+)-(?<executeTimeStamp>\d{14})");
 
             if (match.Success)

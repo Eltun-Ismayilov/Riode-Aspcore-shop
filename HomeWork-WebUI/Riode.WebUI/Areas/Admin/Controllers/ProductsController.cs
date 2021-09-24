@@ -141,22 +141,40 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+
+                var entity = await db.products.FirstOrDefaultAsync(p => p.Id == id);
+
+                entity.Name = product.Name;
+                entity.Description = product.Description;
+
+
+
+                //deleted
+
+                int[] ids = product.Files
+                    .Where(p => p.Id > 0 && string.IsNullOrWhiteSpace(p.TempPath))
+                    .Select(p => p.Id.Value)
+                    .ToArray();
+
+
+                foreach (var item in ids)
                 {
-                    db.Update(product);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
+                    var oldimage = await db.ProductImages.FirstOrDefaultAsync(p => p.ProductId == entity.Id&& p.Id==item);
+
+                    if (oldimage==null)
                     {
-                        return NotFound();
+                        continue;
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    oldimage.DeleteData = DateTime.Now;
+
+
+
                 }
+
+
+
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Name", product.BrandsId);

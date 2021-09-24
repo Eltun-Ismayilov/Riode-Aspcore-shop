@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity.ViewModels;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Controllers
 {
+    [AllowAnonymous]
+
     public class BlogController : Controller
     {
 
