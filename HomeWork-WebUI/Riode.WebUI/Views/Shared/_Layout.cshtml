@@ -79,13 +79,13 @@
                         </div>
                         <!-- End DropDown Menu -->
                         <div class="dropdown ml-5">
-                            <a href="#language">ENG</a>
+                            <a data-lang-viewer="language">AZE</a>
                             <ul class="dropdown-box">
                                 <li>
-                                    <a href="#USD">ENG</a>
+                                    <a href="#" data-lang="az">AZE</a>
                                 </li>
                                 <li>
-                                    <a href="#EUR">FRH</a>
+                                    <a href="#"data-lang="en">ENG</a>
                                 </li>
                             </ul>
                         </div>
@@ -257,14 +257,14 @@
                         <nav class="main-nav ml-0">
                             <ul class="menu">
                                 <li class="active">
-                                    <a asp-controller="Home" asp-action="index">Home</a>
+                                    <a asp-controller="Home" asp-action="index">@LayoutResource.Home</a>
                                 </li>
                                 <li>
-                                    <a asp-controller="home" asp-action="aboutus">About</a>
+                                    <a asp-controller="home" asp-action="aboutus">@LayoutResource.About</a>
                                 </li>
 
                                 <li class="submenu">
-                                    <a asp-controller="Shop" asp-action="index">Shop</a>
+                                    <a asp-controller="Shop" asp-action="index">@LayoutResource.Shop</a>
                                     <div class="megamenu">
                                         <div class="row">
                                             <div class="col-6 col-sm-4 col-md-3 col-lg-4">
@@ -837,6 +837,35 @@
 
 
     });
+
+
+
+        const lang = `@Context.GetCurrentCulture()`;
+
+        const text = $(`[data-lang="${lang}"]`).text();
+
+        $(`[data-lang-viewer="language"]`).text(text);
+
+        $('[data-lang]').click(function (e) {
+
+            e.preventDefault();
+
+            let path = `${window.location.pathname}${window.location.search}`;
+
+            let selectedlang = $(e.currentTarget).data('lang');
+
+            let result = /\/(en|az|eu)?\/?(.*)?/.exec(path);
+
+            if (result != null && result[2] != undefined) {
+                path = `/${selectedlang}/${result[2]}`;
+            }
+            else if (result != null) {
+
+                path = `/${selectedlang}`;
+            }
+            window.location.href = path;
+
+        });
     });
 
 

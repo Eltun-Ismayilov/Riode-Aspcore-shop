@@ -20,9 +20,9 @@ namespace Riode.WebUI.Appcode.Application.BrandsModelu
             readonly RiodeDbContext db;
             public BrandSingleQueryHandler(RiodeDbContext db)
             {
-                this.db = db;
+                this.db = db; //Model
             }
-            // qeury servic adlamir;    
+            // qeury servic adlanir;    
             public async Task<Brands> Handle(BrandSingleQuery model, CancellationToken cancellationToken)
             {
 

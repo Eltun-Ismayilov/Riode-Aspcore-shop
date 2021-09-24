@@ -13,4 +13,5 @@ namespace Riode.WebUI.Appcode
             return Regex.Replace(text, @"<[^>]*>","");
         }
     }
+    //Admin-Blogda-Details ve ya edit deletde  Body gosdermek ucundur.
 }

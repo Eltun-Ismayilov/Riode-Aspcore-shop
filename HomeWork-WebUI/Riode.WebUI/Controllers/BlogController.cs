@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace Riode.WebUI.Controllers
 {
     [AllowAnonymous]
-
     public class BlogController : Controller
     {
 

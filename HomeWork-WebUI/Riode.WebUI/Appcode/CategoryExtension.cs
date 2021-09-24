@@ -59,6 +59,7 @@ namespace Riode.WebUI.Appcode
             }
         }
 
+        //Shop-index gategory ucun isdifade olunur hemde Blog-details isdifade olunur.
 
         static public IEnumerable<OneCategory> GetChilds(this OneCategory category)
         {
@@ -74,5 +75,7 @@ namespace Riode.WebUI.Appcode
                 }
             }
         }
+
+        //Blogs-Edit,Details ve Delete sdifade olunur Body ucun.
     }
 }

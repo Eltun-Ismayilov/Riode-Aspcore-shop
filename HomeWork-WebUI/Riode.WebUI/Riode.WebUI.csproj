@@ -33,6 +33,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Sidebar.resx</DependentUpon>
     </Compile>
+    <Compile Update="Appcode\Resources\User\LayoutResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LayoutResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +48,11 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Appcode\Resources\Admin\Sidebar\Sidebar.en.resx">
       <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Appcode\Resources\User\LayoutResource.resx">
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

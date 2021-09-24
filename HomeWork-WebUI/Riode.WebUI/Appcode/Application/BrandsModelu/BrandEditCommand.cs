@@ -6,35 +6,50 @@ using System.Threading.Tasks;
 using Riode.WebUI.Model.Entity;
 using System.Threading;
 using Riode.WebUI.Model.DataContexts;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Riode.WebUI.Appcode.Application.BrandsModelu
 {
-    public class BrandEditCommand:IRequest<Brands>
+    public class BrandEditCommand : BrandViewModel, IRequest<int>
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int Id { get; set; }
+    //public int? Id { get; set; }
+    //[Required]
+    //public string Name { get; set; }
+    //public string Description { get; set; }
 
-        public class BrandEditCommandHandler : IRequestHandler<BrandEditCommand, Brands>
+    public class BrandEditCommandHandler : IRequestHandler<BrandEditCommand, int>
+    {
+        readonly RiodeDbContext db;
+        readonly IActionContextAccessor ctx;
+
+        public BrandEditCommandHandler(RiodeDbContext db, IActionContextAccessor ctx)
         {
-            readonly RiodeDbContext db;
-            public BrandEditCommandHandler(RiodeDbContext db)
-            {
-                this.db = db;
-            }
-            public async Task<Brands> Handle(BrandEditCommand model, CancellationToken cancellationToken)
-            {
+            this.db = db;
+            this.ctx = ctx;
+        }
+        public async Task<int> Handle(BrandEditCommand model, CancellationToken cancellationToken)
+        {
+
+            if (model.Id == null || model.Id < 0)
+
+                return 0;
 
 
-                Brands brands = new Brands();
-                brands.Name = model.Name;
-                brands.description = model.Description;
-                brands.Id = model.Id;
-                db.Brands.Add(brands);
-                await db.SaveChangesAsync(cancellationToken);
+            var entity = await db.Brands.FirstOrDefaultAsync(b => b.Id == model.Id && b.DeleteByUserId == null);
 
-                return brands;
-            }
+                if (ctx.ModelStateValid())
+                {
+                    entity.Name = model.Name;
+                    entity.description = model.Description;
+                    await db.SaveChangesAsync(cancellationToken);
+                    return entity.Id;
+                }
+
+
+            return 0;
         }
     }
+}
 }

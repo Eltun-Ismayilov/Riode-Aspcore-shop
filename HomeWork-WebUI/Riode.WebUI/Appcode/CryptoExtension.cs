@@ -12,6 +12,7 @@ namespace Riode.WebUI.Appcode
     static public partial class Extension
     {
         const string securitykey = "riode-app-2021-code-hash";
+
         public static string Tomd5(this string text)
         {
             using (var provider = new MD5CryptoServiceProvider())
@@ -117,4 +118,5 @@ namespace Riode.WebUI.Appcode
         }
 
     }
+    // HOME-Subscrice Isdifade edilir sorgunun Hasding olunmasinda isdifade edilir.
 }

@@ -8,11 +8,11 @@ namespace Riode.WebUI.Model.Entity
     public class AuditLog:BaseEntity
     {
 
-        public string Pati { get; set; } // unvan Tamadi gosderir.
+        public string Pati { get; set; } // Unvan Tam Adi gosderir.
 
-        public bool IsHttps { get; set; } //sorgunun https olub olmadigni yoxluyuruq
+        public bool IsHttps { get; set; } //Sorgunun HTTPS(HTTP) olub olmadigni yoxluyuruq
 
-        public string QueryString { get; set; } //Pati beraber hansi queryString gelib bize onu goturmeliyik
+        public string QueryString { get; set; } //Pati beraber hansi QueryString gelib bize onu goturmeliyik
 
         public string Method { get; set; } // Sorgunun GET veya POST oldugnu yoxluyaq.
 
@@ -22,7 +22,7 @@ namespace Riode.WebUI.Model.Entity
 
         public string Action { get; set; }  // Action nedi.
 
-        public int StatusCode { get; set; } //Status Codun ne oldugnu gotureciyik
+        public int StatusCode { get; set; } //Status Codun ne oldugnu gotureciyik YENI UGURLU OLDUGNU(200) UGURSUZ OLDUGNU(404)
 
         public DateTime RequestTime { get; set; } //Sorgunun tarixi.
 

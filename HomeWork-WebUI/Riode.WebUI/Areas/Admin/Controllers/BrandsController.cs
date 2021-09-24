@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Appcode.Application.BrandsModelu;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AllowAnonymous]
+
     public class BrandsController : Controller
     {
         private readonly RiodeDbContext db;
@@ -65,12 +68,16 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BrandCreateCommand command)
         {
-            if (ModelState.IsValid)
-            {
-                await mediator.Send(command);
+
+            Brands model = await mediator.Send(command);
+
+            if (model != null)
 
                 return RedirectToAction(nameof(Index));
-            }
+
+
+
+
             return View(command);
         }
 
@@ -88,40 +95,26 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(respons);
+            BrandViewModel vm = new BrandViewModel();
+            vm.Id = respons.Id;
+            vm.Name = respons.Name;
+            vm.Description = respons.description;
+            return View(vm);
+
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, BrandEditCommand command)
+        public async Task<IActionResult> Edit(BrandEditCommand command)
         {
-            if (id != command.Id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var data = db.Update(command);
-                    await mediator.Send(data);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BrandsExists(command.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+            var id = await mediator.Send(command);
+
+            if (id > 0)
+
                 return RedirectToAction(nameof(Index));
-            }
+
             return View(command);
         }
 

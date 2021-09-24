@@ -492,3 +492,5 @@ C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\bin\Debug\net5.0\en\Riode.WebUI.resources.dll
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.Appcode.Resources.Admin.Sidebar.Sidebar.en.resources
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\en\Riode.WebUI.resources.dll
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.Appcode.Resources.User.LayoutResource.resources
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.Appcode.Resources.User.LayoutResource.en.resources

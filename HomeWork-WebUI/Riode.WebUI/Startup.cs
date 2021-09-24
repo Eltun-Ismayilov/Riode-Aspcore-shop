@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Riode.WebUI.Appcode;
 using Riode.WebUI.Appcode.Meddleware;
 using Riode.WebUI.Appcode.Provider;
 using Riode.WebUI.Model.DataContexts;
@@ -44,27 +44,27 @@ namespace Riode.WebUI
 
         }
 
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews(cfg =>
             {
-                //SEKIL OXUMAQ UCUNDUR;
+                //--------
                 cfg.ModelBinderProviders.Insert(0, new BooleanBinderProvider());
 
 
-                //Membership ucun yazilb seyfeye giris edende login olmuyubsansa get login ol sonra gel 
+                //Membership ucun yazilb seyfeye giris edende login olmuyubsansa get login ol sonra gel +
                 var policy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
                 .Build();
-
                 cfg.Filters.Add(new AuthorizeFilter(policy));
 
 
             })
 
 
-                //+
-                // productlari filter etmek ucundur loop olmasin
+
+                // productlari filter etmek ucundur loop olmasin(Microsoft.AspNetCore.Mvc.NewtonsoftJson+)+
                 .AddNewtonsoftJson(cfg =>
                 {
                     cfg.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -72,15 +72,15 @@ namespace Riode.WebUI
 
 
 
-            //+
-            // Patilarin Standart balaca herifnen yazilisi
+
+            // Patilarin Standart balaca herifnen yazilisi+
             services.AddRouting(cfg => cfg.LowercaseUrls = true);
 
 
 
 
-            //+
-            // Dependency Injection Isdifade edilmesi ucun yazilmisdir
+
+            // Dependency Injection Isdifade edilmesi ucun yazilmisdir+
             services.AddDbContext<RiodeDbContext>(cfg =>
             {
 
@@ -89,14 +89,18 @@ namespace Riode.WebUI
 
             }, ServiceLifetime.Scoped);
 
-            //Mediatr ucun yazilib(arxekturani ucun)
-            var currentAssembly = Assembly.GetExecutingAssembly();
-            services.AddMediatR(currentAssembly);
+
+
+
+            //Mediatr dvij elemek(CQRS)
+            services.AddMediatR(this.GetType().Assembly);
+            //Mediatr Commanlarda Create olunanda isvalid yazmaq ucun yazilib
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 
 
             //Membership ucun yazilmis kod(Datazbazaya bax)
-
+            //(Microsoft.AspNetCore.Identity.EntityFrameworkCore+)
             services.AddIdentity<RiodeUser, RiodeRole>()
                 .AddEntityFrameworkStores<RiodeDbContext>();
 
@@ -126,7 +130,6 @@ namespace Riode.WebUI
             services.ConfigureApplicationCookie(cfg =>
             {
 
-
                 cfg.LoginPath = "/signin.html"; //Eger adam login olunmuyubsa hara gondersin?
 
                 cfg.AccessDeniedPath = "/accessdenied.html";//Senin icazen var bu linke yeni link atanda gire bilmesin diye (yeni fb nese atanda ve ya tiktokda olanda beyenmek olmur zad)
@@ -134,6 +137,7 @@ namespace Riode.WebUI
                 cfg.ExpireTimeSpan = new TimeSpan(0, 5, 0);//Seni sayitda nece deq saxlasin eger sen hecne elemirsense atacaq yeni login olduqdan sonra diansan ve ya saty girdikden sonra diansan
 
                 cfg.Cookie.Name = "Riode"; //Cookie adi ne olsun isdediyvi yazmalisan;
+
             });
 
             services.AddAuthentication(); //Sayita girmek demekdi(login olmaq)
@@ -142,23 +146,25 @@ namespace Riode.WebUI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //+
+          
             // devoloper ucun Error cixarilmasi+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            //+
+            //Mutleq olmalidi........+
             app.UseRouting();
 
-            //Membership ucundur ve burada yazilmalidir ruotin asagida useendpoint yuxarida;
+
+            //Membership ucundur ve burada yazilmalidir 'ruotin' asagida 'UseEndpoints' yuxarida;+
             app.UseAuthentication();
             app.UseAuthorization();
 
 
-            //MultiLang ucun yazilib
-            app.UseRequestLocalization(cfg=> {
+            //MultiLang ucun yazilib+
+            app.UseRequestLocalization(cfg =>
+            {
                 cfg.AddSupportedUICultures("az", "en");
                 cfg.AddSupportedCultures("az", "en");
 
@@ -166,11 +172,12 @@ namespace Riode.WebUI
                 cfg.RequestCultureProviders.Clear();
                 cfg.RequestCultureProviders.Add(new CultureProvider());
 
-            }); 
+            });
+
             // static fayilarin oxunmasi ucun yazilmis kod+
             app.UseStaticFiles();
 
-            //Meddleware cagrilma mentiqi bu curdur..
+            //Meddleware cagrilma mentiqi bu curdur..(Auditlog)+
             app.UseAudit();
 
 
@@ -178,6 +185,7 @@ namespace Riode.WebUI
             app.UseEndpoints(cfg =>
             {
 
+                // static fayilarin oxunmasi ucun yazilmis kod+
                 cfg.MapGet("/coming-soon.html", async (context) =>
                 {
                     using (var sr = new StreamReader("views/Static/coming-soon.html"))
@@ -188,18 +196,29 @@ namespace Riode.WebUI
 
                 });
 
-                //Membersip ucun yazmisiq routda olanda myaccount/singin yox html kimi singin.html cixsin diye yaziriq;
+
+                //Membersip ucun yazmisiq routda olanda myaccount/singin yox html kimi singin.html cixsin diye yaziriq;+
                 cfg.MapControllerRoute("x", "signin.html",
-                  defaults:new
+                  defaults: new
                   {
-                   controller = "MyAccount",
-                   action= "SingIn",
-                   area=""
+                      controller = "MyAccount",
+                      action = "SingIn",
+                      area = ""
                   });
 
 
+                //MultiLangun ucun yazilib routda  en|ru|az   yazanda islesin diye {lang} yazilir areadan evvel;+
+                cfg.MapControllerRoute(
+                name: "areas-lang",
+                pattern: "{lang}/{area:exists}/{controller=Home}/{action=Index}/{id?}",
+                constraints: new
+                {
+                    lang = "en|az|ru"
+                });
+
+
                 //+
-                // Scaffolding icindekileri burda yaziriq cagrilmasi ise ConfigureServices methodundadir
+                // Scaffolding icindekileri burda yaziriq cagrilmasi ise ConfigureServices methodundadir(admin  areasi yaradanda olur)+
                 cfg.MapControllerRoute(
                 name: "areas",
                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
@@ -207,7 +226,15 @@ namespace Riode.WebUI
 
 
 
+                //Multilanguc ucun yazilib+
+                cfg.MapControllerRoute("default-lang", "{lang}/{controller=home}/{action=index}/{id?}",
+                    constraints: new
+                    {
+                        lang = "en|az|ru"
+                    });
 
+
+                // Dede-baba ROUTumuz+
                 cfg.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
             });
         }

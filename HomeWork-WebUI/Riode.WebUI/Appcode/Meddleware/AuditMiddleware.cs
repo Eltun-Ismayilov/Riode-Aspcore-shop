@@ -5,13 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Riode.WebUI.Appcode.Meddleware
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class AuditMiddleware
     {
         private readonly RequestDelegate rd;
@@ -23,7 +20,7 @@ namespace Riode.WebUI.Appcode.Meddleware
 
         public async Task Invoke(HttpContext httpContext)
         {
-            using (var scope = httpContext.RequestServices.CreateScope())
+            using (var scope =httpContext.RequestServices.CreateScope())
             {
                 RiodeDbContext db = scope.ServiceProvider.GetRequiredService<RiodeDbContext>();
 
@@ -42,7 +39,7 @@ namespace Riode.WebUI.Appcode.Meddleware
 
                 log.Pati = httpContext.Request.Path;    // unvan Tamadi gosderir.
 
-
+            
 
                 if (ruoteData.Values.TryGetValue("area", out object area))   //Area nedi.
                 {
@@ -85,7 +82,6 @@ namespace Riode.WebUI.Appcode.Meddleware
         }
     }
 
-    // Extension method used to add the middleware to the HTTP request pipeline.
     public static class AuditMiddlewareExtensions
     {
         public static IApplicationBuilder UseAudit(this IApplicationBuilder builder)
@@ -94,3 +90,5 @@ namespace Riode.WebUI.Appcode.Meddleware
         }
     }
 }
+
+// bunu biz seyfede kimin hara girmesini nezaret etmek ucun isdifade edirik.

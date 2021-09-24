@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using Riode.WebUI.Model.Entity;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
+
     [Area("Admin")]
     public class OneCategoriesController : Controller
     {
@@ -26,11 +29,10 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             var riodeDbContext = db.OneCategories
                 .Include(c => c.Children)
                 .ThenInclude(c => c.Children)
-                .Where(c => c.ParentId == null && c.DeleteData == null);
+                .Where(c => c.ParentId == null);
        
-            return View(await riodeDbContext.ToListAsync());
+            return View(await db.OneCategories.Where(o=>o.DeleteByUserId==null).ToListAsync());
         }
-
         // GET: Admin/OneCategories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,7 +72,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Id", oneCategory.ParentId);
+            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
             return View(oneCategory);
         }
 

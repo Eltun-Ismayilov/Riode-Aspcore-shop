@@ -25,7 +25,7 @@ namespace Riode.WebUI.Appcode.Application.BrandsModelu
             }
             public async Task<PagedViewModel<Brands>> Handle(BrandPagedQuery model, CancellationToken cancellationToken)
             {
-                var query = db.Brands.Where(b => b.CreateByUserId == null).AsQueryable(); // silinmemisleri getirir
+                var query = db.Brands.Where(b => b.CreateByUserId == null && b.DeleteByUserId==null).AsQueryable(); // silinmemisleri getirir
 
                 //int queryCount = await query.CountAsync(cancellationToken); // silinmemislerin sayni takir
 

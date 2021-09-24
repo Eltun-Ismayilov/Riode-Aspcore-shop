@@ -28,7 +28,7 @@ namespace Riode.WebUI.Appcode
                 string cc = configuration["emailAccount:cc"];
 
                 // message gonderik from to vasitesi ile;
-                                                                         
+
                 using (MailMessage message = new MailMessage(new MailAddress(fromMail, displayName), new MailAddress(to))
                 {
                     Subject = subject,
@@ -57,3 +57,4 @@ namespace Riode.WebUI.Appcode
         }
     }
 }
+// Home-Subscrice Ucun isdifade edilir E-mail mailmss gondermek ucundur.

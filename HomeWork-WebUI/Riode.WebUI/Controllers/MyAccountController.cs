@@ -12,12 +12,12 @@ namespace Riode.WebUI.Controllers
     public class MyAccountController : Controller
     {
 
-        // index
+        
         public IActionResult Index()
         {
             return View();
         }
-        //etrafli
+       
         public IActionResult Wishlist()
         {
             return View();

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Appcode.Provider
 {
+    //--------------------
     public class BooleanBinderProvider : IModelBinderProvider
     {
         public IModelBinder GetBinder(ModelBinderProviderContext context)
