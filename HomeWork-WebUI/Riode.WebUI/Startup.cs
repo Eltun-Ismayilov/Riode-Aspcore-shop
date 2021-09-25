@@ -49,10 +49,11 @@ namespace Riode.WebUI
         {
             services.AddControllersWithViews(cfg =>
             {
-                //--------
+                //+//
+                //Custom ModelBindg cagrilmasi bu curdur;
                 cfg.ModelBinderProviders.Insert(0, new BooleanBinderProvider());
 
-
+                //+//
                 //Membership ucun yazilb seyfeye giris edende login olmuyubsansa get login ol sonra gel +
                 var policy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
@@ -63,7 +64,7 @@ namespace Riode.WebUI
             })
 
 
-
+                //+//
                 // productlari filter etmek ucundur loop olmasin(Microsoft.AspNetCore.Mvc.NewtonsoftJson+)+
                 .AddNewtonsoftJson(cfg =>
                 {
@@ -72,7 +73,7 @@ namespace Riode.WebUI
 
 
 
-
+            //+//
             // Patilarin Standart balaca herifnen yazilisi+
             services.AddRouting(cfg => cfg.LowercaseUrls = true);
 
@@ -84,21 +85,21 @@ namespace Riode.WebUI
             services.AddDbContext<RiodeDbContext>(cfg =>
             {
 
-                // ve burda cagirib yaziriq appsettings adini +
+                // ve burda cagirib yaziriq appsettings adini 
                 cfg.UseSqlServer(configuration.GetConnectionString("cString"));
 
             }, ServiceLifetime.Scoped);
 
 
 
-
+            //+//
             //Mediatr dvij elemek(CQRS)
             services.AddMediatR(this.GetType().Assembly);
-            //Mediatr Commanlarda Create olunanda isvalid yazmaq ucun yazilib
+            //Mediatr Commanlarda Create olunanda isvalid yazmaq ucun yazilib                
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 
-
+            //+//
             //Membership ucun yazilmis kod(Datazbazaya bax)
             //(Microsoft.AspNetCore.Identity.EntityFrameworkCore+)
             services.AddIdentity<RiodeUser, RiodeRole>()
@@ -114,7 +115,7 @@ namespace Riode.WebUI
                 cfg.Password.RequireDigit = false; //Reqem teleb elesin?
                 cfg.Password.RequireUppercase = false; //Boyuk reqem teleb elesin?
                 cfg.Password.RequireLowercase = false; //Kick reqem teleb elesin?
-                cfg.Password.RequiredUniqueChars = 1; //Tekrarlanmiyan 1 sombol olsun?(11-22-3)
+                cfg.Password.RequiredUniqueChars = 1; //Tekrarlanmiyan nece  sombol olsun?(11-22-3)
                 cfg.Password.RequireNonAlphanumeric = false; // 0-9 a-z A-Z  Olmayanlari teleb elemesin?
                 cfg.Password.RequiredLength = 3; //Password nece simboldan ibaret olsun?
 
@@ -136,7 +137,7 @@ namespace Riode.WebUI
 
                 cfg.ExpireTimeSpan = new TimeSpan(0, 5, 0);//Seni sayitda nece deq saxlasin eger sen hecne elemirsense atacaq yeni login olduqdan sonra diansan ve ya saty girdikden sonra diansan
 
-                cfg.Cookie.Name = "Riode"; //Cookie adi ne olsun isdediyvi yazmalisan;
+                cfg.Cookie.Name = "Riode"; //Cookie adi ne olsun isdediyin adi yaza bilersen;
 
             });
 
@@ -146,23 +147,44 @@ namespace Riode.WebUI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          
-            // devoloper ucun Error cixarilmasi+
+
+
+
+            //+//
+            // devoloper ucun Error cixarilmasi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            //Mutleq olmalidi........+
+
+
             app.UseRouting();
 
 
-            //Membership ucundur ve burada yazilmalidir 'ruotin' asagida 'UseEndpoints' yuxarida;+
+
+
+            //+//
+            //Membership ucundur ve burada yazilmalidir 'ruotin' asagida 'UseEndpoints' yuxarida;
             app.UseAuthentication();
             app.UseAuthorization();
 
 
-            //MultiLang ucun yazilib+
+
+
+
+            //+//
+            // static fayilarin oxunmasi ucun yazilmis kod+
+            app.UseStaticFiles();
+
+
+            //+//
+            //Meddleware cagrilma mentiqi bu curdur..(Auditlog)
+            app.UseAudit();
+
+
+
+            //MultiLang ucun yazilib
             app.UseRequestLocalization(cfg =>
             {
                 cfg.AddSupportedUICultures("az", "en");
@@ -174,17 +196,10 @@ namespace Riode.WebUI
 
             });
 
-            // static fayilarin oxunmasi ucun yazilmis kod+
-            app.UseStaticFiles();
-
-            //Meddleware cagrilma mentiqi bu curdur..(Auditlog)+
-            app.UseAudit();
-
-
-
             app.UseEndpoints(cfg =>
             {
 
+                //+//
                 // static fayilarin oxunmasi ucun yazilmis kod+
                 cfg.MapGet("/coming-soon.html", async (context) =>
                 {
@@ -196,7 +211,7 @@ namespace Riode.WebUI
 
                 });
 
-
+                //+//
                 //Membersip ucun yazmisiq routda olanda myaccount/singin yox html kimi singin.html cixsin diye yaziriq;+
                 cfg.MapControllerRoute("x", "signin.html",
                   defaults: new
@@ -207,17 +222,32 @@ namespace Riode.WebUI
                   });
 
 
+
                 //MultiLangun ucun yazilib routda  en|ru|az   yazanda islesin diye {lang} yazilir areadan evvel;+
                 cfg.MapControllerRoute(
-                name: "areas-lang",
-                pattern: "{lang}/{area:exists}/{controller=Home}/{action=Index}/{id?}",
+                name: "areas-lang-adminApplication",
+                pattern: "{lang}/{area:exists}/{controller=Dashboard}/{action=Index}/{id?}",
                 constraints: new
                 {
                     lang = "en|az|ru"
                 });
 
 
-                //+
+
+                //Multilanguc ucun yazilib(User-teref)
+                cfg.MapControllerRoute("default-lang-userApplication", "{lang}/{controller=home}/{action=index}/{id?}",
+                    constraints: new
+                    {
+                        lang = "en|az|ru"
+                    });
+
+
+
+
+
+
+
+                //+//
                 // Scaffolding icindekileri burda yaziriq cagrilmasi ise ConfigureServices methodundadir(admin  areasi yaradanda olur)+
                 cfg.MapControllerRoute(
                 name: "areas",
@@ -225,16 +255,6 @@ namespace Riode.WebUI
                 );
 
 
-
-                //Multilanguc ucun yazilib+
-                cfg.MapControllerRoute("default-lang", "{lang}/{controller=home}/{action=index}/{id?}",
-                    constraints: new
-                    {
-                        lang = "en|az|ru"
-                    });
-
-
-                // Dede-baba ROUTumuz+
                 cfg.MapControllerRoute("default", "{controller=home}/{action=index}/{id?}");
             });
         }

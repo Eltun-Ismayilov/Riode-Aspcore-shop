@@ -26,10 +26,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // GET: Admin/OneCategories
         public async Task<IActionResult> Index()
         {
-            var riodeDbContext = db.OneCategories
-                .Include(c => c.Children)
-                .ThenInclude(c => c.Children)
-                .Where(c => c.ParentId == null);
+            var riodeDbContext = db.OneCategories;
        
             return View(await db.OneCategories.Where(o=>o.DeleteByUserId==null).ToListAsync());
         }
@@ -64,7 +61,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ParentId,Name,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] OneCategory oneCategory)
+        public async Task<IActionResult> Create(OneCategory oneCategory)
         {
             if (ModelState.IsValid)
             {

@@ -10,11 +10,10 @@
 <a class="btn btn-outline-success" asp-action="Create">Create</a>
 
 <table class="table  tree">
-    @foreach (var item in Model) 
+    @foreach (var item in Model.Where(c=>c.ParentId==null)) 
     {
 
-        @if (item.ParentId == null)
-        {
+       
 
             <tr  class="treegrid-@item.Id box">
                 <td style="color:red">@item.Name</td>
@@ -26,9 +25,7 @@
 
                 </td>
             </tr>
-        }
-        @if (item.Children != null)
-        {
+      
             @foreach (var child in item.GetChilds())
             {
                 <tr  class="treegrid-@child.Id treegrid-parent-@child.ParentId box1">
@@ -41,7 +38,7 @@
                     </td>
                 </tr>
             }
-        }
+        
 
 
 
