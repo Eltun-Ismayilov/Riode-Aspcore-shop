@@ -53,6 +53,7 @@ namespace Riode.WebUI
                 //Custom ModelBindg cagrilmasi bu curdur;
                 cfg.ModelBinderProviders.Insert(0, new BooleanBinderProvider());
 
+
                 //+//
                 //Membership ucun yazilb seyfeye giris edende login olmuyubsansa get login ol sonra gel +
                 var policy = new AuthorizationPolicyBuilder()
@@ -179,12 +180,12 @@ namespace Riode.WebUI
 
 
             //+//
-            //Meddleware cagrilma mentiqi bu curdur..(Auditlog)
+            //Meddleware cagrilma mentiqi bu curdur..(Auditlog)('ruotin' asagida 'UseEndpoints' yuxarida)
             app.UseAudit();
 
 
 
-            //MultiLang ucun yazilib
+            //MultiLang Bizim CulterProvider ucun yazilmis codur.
             app.UseRequestLocalization(cfg =>
             {
                 cfg.AddSupportedUICultures("az", "en");
@@ -223,6 +224,15 @@ namespace Riode.WebUI
 
 
 
+
+                //Multilanguc ucun yazilib(User-teref)
+                cfg.MapControllerRoute("default-lang-userApplication", "{lang}/{controller=home}/{action=index}/{id?}",
+                    constraints: new
+                    {
+                        lang = "en|az|ru"
+                    });
+
+
                 //MultiLangun ucun yazilib routda  en|ru|az   yazanda islesin diye {lang} yazilir areadan evvel;+
                 cfg.MapControllerRoute(
                 name: "areas-lang-adminApplication",
@@ -231,15 +241,6 @@ namespace Riode.WebUI
                 {
                     lang = "en|az|ru"
                 });
-
-
-
-                //Multilanguc ucun yazilib(User-teref)
-                cfg.MapControllerRoute("default-lang-userApplication", "{lang}/{controller=home}/{action=index}/{id?}",
-                    constraints: new
-                    {
-                        lang = "en|az|ru"
-                    });
 
 
 

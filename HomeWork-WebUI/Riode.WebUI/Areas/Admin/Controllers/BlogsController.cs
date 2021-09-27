@@ -84,6 +84,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                     await file.CopyToAsync(stream);
                 }
 
+                blog.PublishedDate = DateTime.Now;
                 db.Add(blog);
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

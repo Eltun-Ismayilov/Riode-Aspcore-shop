@@ -70,7 +70,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
-            return View(oneCategory);
+            return View(await db.OneCategories.Where(o => o.DeleteData == null).ToListAsync());
         }
 
         // GET: Admin/OneCategories/Edit/5

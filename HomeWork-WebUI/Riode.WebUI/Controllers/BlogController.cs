@@ -51,9 +51,9 @@ namespace Riode.WebUI.Controllers
 
 
             vm.OneCategories = db.OneCategories
-            .Include(c => c.Parent)                                // children chilren getiri yeni incude include 
-            .Include(c => c.Children)                              // her bir category children apar
-            .ThenInclude(c => c.Children)                          // children chilren getiri yeni incude include 
+            .Include(c => c.Parent)                                
+            .Include(c => c.Children)                              
+            .ThenInclude(c => c.Children)                        
             .ThenInclude(c => c.Children)
             .Where(c => c.ParentId == null && c.DeleteByUserId == null)
             .ToList();

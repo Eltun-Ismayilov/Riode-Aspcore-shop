@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,18 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
+
     [Area("Admin")]
     public class ProductsController : Controller
     {
         private readonly RiodeDbContext db;
         private readonly IWebHostEnvironment env;
 
-        public ProductsController(RiodeDbContext db,IWebHostEnvironment env)
+        public ProductsController(RiodeDbContext db, IWebHostEnvironment env)
         {
-           this.db = db;
-           this.env = env;
+            this.db = db;
+            this.env = env;
         }
 
         // GET: Admin/Products
@@ -32,7 +35,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 .Include(p => p.Images)
                 .Include(p => p.Brands)
                 .Where(d => d.DeleteByUserId == null);
-            
+
             return View(await riodeDbContext.ToListAsync());
         }
 
@@ -68,9 +71,10 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Sku,BrandsId,ShopDescription,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Product product, ImageItemFormModel[] images)
+        // [Bind("Name,Sku,BrandsId,ShopDescription,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")]
+        public async Task<IActionResult> Create(Product product, ImageItemFormModel[] images)
         {
-            if (images==null || !images.Any(i=>i.File !=null))
+            if (images == null || !images.Any(i => i.File != null))
             {
                 ModelState.AddModelError("Images", "Sekil Secilmeyib");
             }
@@ -78,7 +82,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 product.Images = new List<ProductImage>();
-                foreach (var image in images.Where(i=>i.File !=null))
+                foreach (var image in images.Where(i => i.File != null))
                 {
                     string extension = Path.GetExtension(image.File.FileName);
                     string imagepath = $"{DateTime.Now:yyyyMMddHHmmss}-{Guid.NewGuid()}{extension}";
@@ -88,14 +92,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                         "images",
                         imagepath);
 
-                    using (var stream=new FileStream(phy,FileMode.Create,FileAccess.Write))
+                    using (var stream = new FileStream(phy, FileMode.Create, FileAccess.Write))
                     {
                         await image.File.CopyToAsync(stream);
                     }
                     product.Images.Add(new ProductImage
                     {
-                        IsMain=image.IsMain,
-                        FileName= imagepath
+                        IsMain = image.IsMain,
+                        FileName = imagepath
                     });
                 }
 
@@ -118,8 +122,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             }
 
             var product = await db.products
-                .Include(p=>p.Images.Where(i=>i.DeleteByUserId==null))
-                .FirstOrDefaultAsync(p=>p.Id==id);
+                .Include(p => p.Images.Where(i => i.DeleteByUserId == null))
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -129,7 +133,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Product product)
@@ -142,7 +146,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                var entity = await db.products.FirstOrDefaultAsync(p => p.Id == id);
+                var entity = await db.products
+                    .Include(p=>p.Images.Where(pi=>pi.DeleteByUserId==null))
+                    .FirstOrDefaultAsync(p => p.Id == id);
 
                 entity.Name = product.Name;
                 entity.Description = product.Description;
@@ -153,27 +159,61 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
                 int[] ids = product.Files
                     .Where(p => p.Id > 0 && string.IsNullOrWhiteSpace(p.TempPath))
+
                     .Select(p => p.Id.Value)
                     .ToArray();
 
 
                 foreach (var item in ids)
                 {
-                    var oldimage = await db.ProductImages.FirstOrDefaultAsync(p => p.ProductId == entity.Id&& p.Id==item);
+                    var oldimage = await db.ProductImages.FirstOrDefaultAsync(p => p.ProductId == entity.Id && p.Id == item);
 
-                    if (oldimage==null)
-                    {
-                        continue;
-                    }
+                    if (oldimage == null)
+
+                        continue; 
+
 
                     oldimage.DeleteData = DateTime.Now;
-
-
-
+                    oldimage.DeleteByUserId = 1;
                 }
 
+                foreach (var item in product.Files.Where(f => (f.Id > 0 && !string.IsNullOrWhiteSpace(f.TempPath)) || (f.File != null && f.Id==null))) //Bazada olub deyisenler path+ id+
+                {
+                    if (item.File == null)
+                    {
+                        var oldimage = await db.ProductImages.FirstOrDefaultAsync(p => p.ProductId == entity.Id && p.Id == item.Id);
+
+                        if (oldimage == null)
+
+                            continue;
+
+                        oldimage.IsMain = item.IsMain;
+                    }
+                    else if (item.File != null)
+                    {
+                        string extension = Path.GetExtension(item.File.FileName);  //.jpg tapmaq ucundur. png .gng 
+
+                        string fileName = $"{Guid.NewGuid()}{extension}";//imagenin name 
 
 
+                        string phsicalFileName = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", fileName);
+
+                        using (var stream = new FileStream(phsicalFileName, FileMode.Create, FileAccess.Write))
+                        {
+                            await item.File.CopyToAsync(stream);
+                        }
+
+                        entity.Images.Add(new ProductImage
+                        {
+                            FileName=fileName,
+                            IsMain=item.IsMain
+                        });
+
+
+                    }
+                }
+
+                await db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }

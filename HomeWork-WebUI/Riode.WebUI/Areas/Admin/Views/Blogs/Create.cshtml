@@ -25,28 +25,25 @@
                             <textarea asp-for="Body" class="form-control"></textarea>
                             <span asp-validation-for="Body" class="text-danger"></span>
                         </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">PublishedDate</span>
+                            <input type="text" class="form-control" asp-for="PublishedDate" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
                         <div class="form-group col-12">
+
                             <label class="control-label">
                                 Şəkil
                             </label>
                             <label class="image-input" for="file">
-                                <input type="hidden" name="fileTemp" value=""> 
+                                <input type="hidden" name="fileTemp" value="">
                                 <span>×</span>
                             </label>
-                            <input name="file"
-                                   id="file"
-                                   type="file"
-                                    accept="image/x-png,image/gif,image/jpeg">
+                            <input name="file" id="file"type="file" accept="image/x-png,image/gif,image/jpeg">
                         </div>
-                     
+
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div style="width: 600px;" class="imager-container" id="viewer1" name="images">
-
                     </div>
                 </div>
             </form>
@@ -88,9 +85,9 @@
 }
 
 
-@section addcss{ 
+@section addcss{
 
-    
-    <link href="~/libs/jquery-image-input/StyleSheet.css" rel="stylesheet" /> 
+
+    <link href="~/libs/jquery-image-input/StyleSheet.css" rel="stylesheet" />
 
 }

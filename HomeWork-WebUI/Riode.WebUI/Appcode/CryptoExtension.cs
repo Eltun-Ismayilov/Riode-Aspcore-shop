@@ -32,6 +32,7 @@ namespace Riode.WebUI.Appcode
             }
         }
 
+
         public static string Encrypt(this string value, string key)
         {
             using (var provider = new TripleDESCryptoServiceProvider())
@@ -65,11 +66,13 @@ namespace Riode.WebUI.Appcode
 
         }
 
+
         public static string Encrypt(this string value)
         {
 
             return Encrypt(value, securitykey.Tomd5());
         }
+
 
         public static string Decrypte(this string value, string key)
         {

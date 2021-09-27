@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     [AllowAnonymous]
+
+    [Area("Admin")]
 
     public class BrandsController : Controller
     {

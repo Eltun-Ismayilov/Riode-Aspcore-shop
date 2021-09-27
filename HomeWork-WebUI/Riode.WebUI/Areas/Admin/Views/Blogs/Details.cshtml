@@ -29,7 +29,7 @@
                     <label asp-for="Body" class="control-label"></label>
                     <p class="form-control textarea">
 
-                        @Model.Body.PlainText()
+                        @Model.Body?.PlainText()
 
                     </p>
                 </div>
