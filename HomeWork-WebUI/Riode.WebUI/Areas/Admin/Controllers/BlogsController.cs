@@ -31,13 +31,15 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         // GET: Admin/Blogs
+        [Authorize(Policy = "admin.Blog.Index")]
+
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = db.Blogs.Where(b=>b.DeleteByUserId==null).Count();
             return View(await db.Blogs.Where(b=>b.DeleteByUserId==null).ToListAsync());
         }
 
-        // GET: Admin/Blogs/Details/5
+        [Authorize(Policy = "admin.Blog.Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,15 +57,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // GET: Admin/Blogs/Create
+        [Authorize(Policy = "admin.Blog.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Blogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.Blog.Create")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogsCreateComman command)
@@ -78,7 +79,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        // GET: Admin/Blogs/Edit/5
+        [Authorize(Policy = "admin.Blog.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,9 +95,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // POST: Admin/Blogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.Blog.Edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Blog blog,IFormFile file ,string fileTemp)
@@ -167,7 +166,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // GET: Admin/Blogs/Delete/5
+        [Authorize(Policy = "admin.Blog.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -185,9 +184,10 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(blog);
         }
 
-        // POST: Admin/Blogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "admin.Blog.DeleteConfirmed")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var blog = await db.Blogs.FindAsync(id);

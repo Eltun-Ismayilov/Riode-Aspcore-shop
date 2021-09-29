@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             this.db = db;
         }
 
-        // GET: Admin/Questions
+        [Authorize(Policy = "admin.Question.Index")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = db.Questions.Count();
@@ -28,7 +29,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
            
         }
 
-        // GET: Admin/Questions/Details/5
+        [Authorize(Policy = "admin.Question.Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,15 +47,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(questions);
         }
 
-        // GET: Admin/Questions/Create
+        [Authorize(Policy = "admin.Question.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Questions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.Question.Create")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Question,Answer,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Questions questions)
@@ -68,7 +68,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(questions);
         }
 
-        // GET: Admin/Questions/Edit/5
+        [Authorize(Policy = "admin.Question.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +84,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(questions);
         }
 
-        // POST: Admin/Questions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.Question.Edit")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Question,Answer,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Questions questions)
@@ -119,7 +118,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(questions);
         }
 
-        // GET: Admin/Questions/Delete/5
+        [Authorize(Policy = "admin.Question.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,7 +136,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(questions);
         }
 
-        // POST: Admin/Questions/Delete/5
+        [Authorize(Policy = "admin.Question.Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

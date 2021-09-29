@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
 
     [Area("Admin")]
 
@@ -24,10 +23,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public BrandsController(RiodeDbContext db, IMediator mediator)
         {
             this.db = db;
-            this.mediator = mediator;
+            this.mediator = mediator; 
         }
 
-        [Authorize(Roles ="SuperAdmin")]
+        [Authorize(Policy = "admin.brands.index")]
+       
         public async Task<IActionResult> Index(BrandPagedQuery request)
         {
 
@@ -37,9 +37,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             return View(response);
         }
+        [Authorize(Policy = "admin.brands.Details")]
 
         //+
-        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Details(BrandSingleQuery query)
         {
 
@@ -61,6 +61,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         //+k
+        [Authorize(Policy = "admin.brands.Create")]
+
         public IActionResult Create()
         {
             return View();
@@ -82,6 +84,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
+        [Authorize(Policy = "admin.brands.Edit")]
 
         //+
         public async Task<IActionResult> Edit(BrandSingleQuery query)
@@ -104,6 +107,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         }
 
+        [Authorize(Policy = "admin.brands.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,6 +125,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
 
 
+        [Authorize(Policy = "admin.brands.Delete")]
 
 
         public async Task<IActionResult> Delete(int? id)
@@ -140,6 +145,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(brands);
         }
 
+        [Authorize(Policy = "admin.brands.Delete")]
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

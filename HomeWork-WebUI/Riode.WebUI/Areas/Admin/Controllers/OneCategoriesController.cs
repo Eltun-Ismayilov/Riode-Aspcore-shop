@@ -23,14 +23,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             this.db = db;
         }
 
-        // GET: Admin/OneCategories
+        [Authorize(Policy = "admin.OneCategory.Index")]
         public async Task<IActionResult> Index()
         {
             var riodeDbContext = db.OneCategories;
        
             return View(await db.OneCategories.Where(o=>o.DeleteByUserId==null).ToListAsync());
         }
-        // GET: Admin/OneCategories/Details/5
+        [Authorize(Policy = "admin.OneCategory.Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,16 +49,18 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(oneCategory);
         }
 
-        // GET: Admin/OneCategories/Create
+        [Authorize(Policy = "admin.OneCategory.Create")]
+
         public IActionResult Create()
         {
             ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name");
             return View();
         }
 
-        // POST: Admin/OneCategories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        [Authorize(Policy = "admin.OneCategory.Create")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(OneCategory oneCategory)
@@ -73,7 +75,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(await db.OneCategories.Where(o => o.DeleteData == null).ToListAsync());
         }
 
-        // GET: Admin/OneCategories/Edit/5
+        [Authorize(Policy = "admin.OneCategory.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,9 +92,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(oneCategory);
         }
 
-        // POST: Admin/OneCategories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.OneCategory.Edit")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ParentId,Name,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] OneCategory oneCategory)
@@ -126,7 +127,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(oneCategory);
         }
 
-        // GET: Admin/OneCategories/Delete/5
+        [Authorize(Policy = "admin.OneCategory.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,7 +146,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(oneCategory);
         }
 
-        // POST: Admin/OneCategories/Delete/5
+        [Authorize(Policy = "admin.OneCategory.Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

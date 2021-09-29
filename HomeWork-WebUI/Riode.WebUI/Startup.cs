@@ -143,7 +143,22 @@ namespace Riode.WebUI
             });
 
             services.AddAuthentication(); //Sayita girmek demekdi(login olmaq)
-            services.AddAuthorization(); // Sayitda ne ede bilmekdi yeni admin fikirlew;(Salahiyyetli olmaq)(siyahida gorunenleri create,delete ,update,edit elemekdir)
+            services.AddAuthorization(cfg =>
+            {
+
+
+                cfg.AddPolicy("admin.brands.index",
+
+                    p =>
+                       {
+                    p.RequireAssertion(h =>
+                    {
+                        return h.User.HasClaim(c => c.Type.Equals("admin.brands.index") && c.Value.Equals("1"));
+
+                    });
+
+                });
+            }); // Sayitda ne ede bilmekdi yeni admin fikirlew;(Salahiyyetli olmaq)(siyahida gorunenleri create,delete ,update,edit elemekdir)
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -160,7 +175,7 @@ namespace Riode.WebUI
 
 
             //Membership admin yaratmaq ucun yazilibdir...
-            app.SeedMembership();
+            // app.SeedMembership();
 
 
 
@@ -175,7 +190,7 @@ namespace Riode.WebUI
                 && areaName.ToString().ToLower().Equals("admin"))
                 {
                     var attr = context.GetEndpoint().Metadata.GetMetadata<AllowAnonymousAttribute>();
-                    if (attr==null)
+                    if (attr == null)
                     {
 
                         context.Response.Redirect("/admin/singin.html");

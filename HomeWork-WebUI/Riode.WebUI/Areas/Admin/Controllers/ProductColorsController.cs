@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +21,15 @@ namespace Riode.WebUI.Areas.Admin.Controllers
            this.db = db;
         }
 
-        // GET: Admin/ProductColors
+        [Authorize(Policy = "admin.ProductColor.Index")]
         public async Task<IActionResult> Index()
         {
             ViewBag.Count = db.ProductColors.Count();
             return View(await db.ProductColors.Where(c=>c.DeleteByUserId==null).ToListAsync());
         }
 
-        // GET: Admin/ProductColors/Details/5
+        [Authorize(Policy = "admin.ProductColor.Details")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,15 +47,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(productColor);
         }
 
-        // GET: Admin/ProductColors/Create
+        [Authorize(Policy = "admin.ProductColor.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/ProductColors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.ProductColor.Create")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,SkuCode,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] ProductColor productColor)
@@ -67,7 +68,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(productColor);
         }
 
-        // GET: Admin/ProductColors/Edit/5
+        [Authorize(Policy = "admin.ProductColor.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,9 +84,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(productColor);
         }
 
-        // POST: Admin/ProductColors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Policy = "admin.ProductColor.Edit")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,SkuCode,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] ProductColor productColor)
@@ -118,7 +119,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(productColor);
         }
 
-        // GET: Admin/ProductColors/Delete/5
+        [Authorize(Policy = "admin.ProductColor.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,7 +137,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(productColor);
         }
 
-        // POST: Admin/ProductColors/Delete/5
+        [Authorize(Policy = "admin.ProductColor.Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

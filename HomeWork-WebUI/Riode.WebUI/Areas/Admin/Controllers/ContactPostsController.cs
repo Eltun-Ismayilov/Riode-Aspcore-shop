@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         //SCAFFOLDING-Adlanir bu proses
+        [Authorize(Policy = "admin.ContactPost.Index")]
 
         //MailBox action index bu action view ataciyiq
         public async Task<IActionResult> Index(int typeId)
@@ -50,6 +52,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             return View(await query.ToListAsync());
         }
+        [Authorize(Policy = "admin.ContactPost.Details")]
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,6 +73,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             return View(contactPost);
         }
+
+
+        [Authorize(Policy = "admin.ContactPost.Answer")]
 
         [HttpPost]
         public async Task<IActionResult> Answer([Bind("Id", "Answer")] ContactPost model)

@@ -28,7 +28,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             this.env = env;
         }
 
-        // GET: Admin/Products
+        [Authorize(Policy = "admin.Product.Index")]
         public async Task<IActionResult> Index()
         {
             var riodeDbContext = db.products
@@ -39,7 +39,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(await riodeDbContext.ToListAsync());
         }
 
-        // GET: Admin/Products/Details/5
+        [Authorize(Policy = "admin.Product.Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,16 +59,15 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Create
+        [Authorize(Policy = "admin.Product.Create")]
         public IActionResult Create()
         {
             ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Name");
             return View();
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.Product.Create")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         // [Bind("Name,Sku,BrandsId,ShopDescription,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")]
@@ -113,7 +112,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Edit/5
+        [Authorize(Policy = "admin.Product.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -133,6 +132,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
 
+        [Authorize(Policy = "admin.Product.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -221,7 +221,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Delete/5
+        [Authorize(Policy = "admin.Product.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -241,7 +241,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Products/Delete/5
+        [Authorize(Policy = "admin.Product.Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

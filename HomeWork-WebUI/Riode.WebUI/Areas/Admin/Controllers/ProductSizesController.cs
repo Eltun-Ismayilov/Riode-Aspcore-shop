@@ -27,7 +27,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
            this.mediator = mediator;
         }
 
-        // GET: Admin/ProductSizes
+        [Authorize(Policy = "admin.ProductSize.Index")]
         public async Task<IActionResult> Index(SizePagedQuery request)
         {
 
@@ -36,7 +36,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(response);
         }
 
-        // GET: Admin/ProductSizes/Details/5
+        [Authorize(Policy = "admin.ProductSize.Details")]
         public async Task<IActionResult> Details(SizeSingleQuery query)
         {
 
@@ -51,15 +51,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(respons);
         }
 
-        // GET: Admin/ProductSizes/Create
+        [Authorize(Policy = "admin.ProductSize.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/ProductSizes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.ProductSize.Create")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SizeCreateCommand command)
@@ -79,7 +78,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         }
 
-        // GET: Admin/ProductSizes/Edit/5
+        [Authorize(Policy = "admin.ProductSize.Edit")]
+
         public async Task<IActionResult> Edit(SizeSingleQuery query)
         {
 
@@ -96,10 +96,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(vm);
 
         }
-
-        // POST: Admin/ProductSizes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "admin.ProductSize.Edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(SizeEditCommand command)
@@ -113,7 +110,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        // GET: Admin/ProductSizes/Delete/5
+        [Authorize(Policy = "admin.ProductSize.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,7 +128,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(productSize);
         }
 
-        // POST: Admin/ProductSizes/Delete/5
+        [Authorize(Policy = "admin.ProductSize.Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

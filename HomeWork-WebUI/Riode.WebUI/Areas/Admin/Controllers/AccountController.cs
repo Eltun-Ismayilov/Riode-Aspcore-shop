@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Riode.WebUI.Appcode;
+using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity.FormModels;
 using Riode.WebUI.Model.Entity.Membership;
 using System;
@@ -16,10 +17,12 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     {
         readonly UserManager<RiodeUser> userManager;
         readonly SignInManager<RiodeUser> signInManager;
-        public AccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager)
+        readonly RiodeDbContext db;
+        public AccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager, RiodeDbContext db)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.db = db;
         }
 
 
@@ -39,7 +42,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                RiodeUser founderUser = null; 
+                RiodeUser founderUser = null;
 
                 if (user.UserName.IsEmail())
                 {
@@ -51,17 +54,34 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
                 }
 
-                if (founderUser==null) //Eger login ola bilmirse gonderir view gonderir yeni isdifadeci tapilmiyanda
+                if (founderUser == null) //Eger login ola bilmirse gonderir view gonderir yeni isdifadeci tapilmiyanda
                 {
                     ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
                     return View(user);
 
                 }
 
-               var sRuselt= await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
+                var rIds = db.UserRoles.Where(ur => ur.UserId == founderUser.Id).Select(ur => ur.RoleId).ToArray();// Burada biz dabase icindeki UserRole id bizim isdifadecilerin rolu id beraberdise onda bize role Id versin
 
 
-                if (sRuselt.Succeeded!=true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 5
+                var hasAnotherRole = db.Roles.Where(r => !r.Name.Equals("USER") && rIds.Contains(r.Id)).Any();//?????????  Adamin tekce userrolu varsa giriw ede bilmesin
+
+
+                if (hasAnotherRole==false) //Adamin tekce user rolu varsa
+                {
+
+                    ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
+                    return View(user);
+                }
+
+
+
+
+
+                var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
+
+
+                if (sRuselt.Succeeded != true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 5
                 {
                     ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
                     return View(user);
@@ -73,11 +93,12 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> Logout() {
+        public async Task<IActionResult> Logout()
+        {
 
             await signInManager.SignOutAsync();
             return RedirectToAction(nameof(Singin));
-        
+
         }
 
     }
