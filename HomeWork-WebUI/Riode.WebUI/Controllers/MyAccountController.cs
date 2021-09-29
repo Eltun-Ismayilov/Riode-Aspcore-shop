@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Riode.WebUI.Appcode;
+using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity.FormModels;
 using Riode.WebUI.Model.Entity.Membership;
 using System;
@@ -18,10 +19,12 @@ namespace Riode.WebUI.Controllers
 
         readonly UserManager<RiodeUser> userManager;
         readonly SignInManager<RiodeUser> signInManager;
-        public MyAccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager)
+        readonly RiodeDbContext db;
+        public MyAccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager, RiodeDbContext db)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.db = db;
         }
 
 
@@ -60,16 +63,12 @@ namespace Riode.WebUI.Controllers
                 
             };
 
-            var identityRuselt = await userManager.CreateAsync(user, register.Password);
+         
 
-            if (!identityRuselt.Succeeded)
-            {
-                foreach (var item in identityRuselt.Errors)
-                {
-                    ModelState.AddModelError("",item.Description);
-                }
-                return View(register);
-            }
+
+            var identityRuselt = await userManager.CreateAsync(user, register.Password);
+           
+
             return RedirectToAction("index", "Home");
         }
 

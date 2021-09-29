@@ -143,21 +143,24 @@ namespace Riode.WebUI
             });
 
             services.AddAuthentication(); //Sayita girmek demekdi(login olmaq)
-            services.AddAuthorization(cfg =>
+            services.AddAuthorization(cfg => // Sayitda isdediymizi etmek yeni rola gorede gagas.
             {
+                //Action usdunda yazilmis Policy goturmek ucundur.
+                foreach (var item in Program.principals)
+                {
 
+                    cfg.AddPolicy(item,
 
-                cfg.AddPolicy("admin.brands.index",
+                        p =>
+                        {
+                            p.RequireAssertion(h =>
+                            {
+                                return h.User.IsInRole("SuperAdmin") || h.User.HasClaim(c => c.Type.Equals(item) && c.Value.Equals("1"));
 
-                    p =>
-                       {
-                    p.RequireAssertion(h =>
-                    {
-                        return h.User.HasClaim(c => c.Type.Equals("admin.brands.index") && c.Value.Equals("1"));
+                            });
 
-                    });
-
-                });
+                        });
+                }
             }); // Sayitda ne ede bilmekdi yeni admin fikirlew;(Salahiyyetli olmaq)(siyahida gorunenleri create,delete ,update,edit elemekdir)
         }
 
