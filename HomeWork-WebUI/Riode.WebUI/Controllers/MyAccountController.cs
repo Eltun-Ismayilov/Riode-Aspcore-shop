@@ -16,6 +16,14 @@ namespace Riode.WebUI.Controllers
     public class MyAccountController : Controller
     {
 
+        readonly UserManager<RiodeUser> userManager;
+        readonly SignInManager<RiodeUser> signInManager;
+        public MyAccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager)
+        {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+        }
+
 
         public IActionResult Index()
         {
@@ -26,13 +34,43 @@ namespace Riode.WebUI.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
 
-        readonly UserManager<RiodeUser> userManager;
-        readonly SignInManager<RiodeUser> signInManager;
-        public MyAccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager)
+        public IActionResult Registir()
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Registir(RegisterFormModel register)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            RiodeUser user = new RiodeUser
+            {
+                
+                UserName=register.UserName,
+                Email=register.Email,
+                EmailConfirmed=true
+                
+                
+            };
+
+            var identityRuselt = await userManager.CreateAsync(user, register.Password);
+
+            if (!identityRuselt.Succeeded)
+            {
+                foreach (var item in identityRuselt.Errors)
+                {
+                    ModelState.AddModelError("",item.Description);
+                }
+                return View(register);
+            }
+            return RedirectToAction("index", "Home");
         }
 
 
@@ -82,7 +120,7 @@ namespace Riode.WebUI.Controllers
                 var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
 
 
-                if (sRuselt.Succeeded != true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 5
+                if (sRuselt.Succeeded != true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 
                 {
                     ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
                     return View(user);

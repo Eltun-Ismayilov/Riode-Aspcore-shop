@@ -1,0 +1,36 @@
+﻿@model RegisterFormModel
+@{
+    ViewData["Title"] = "Registir";
+    Layout = null;
+}
+
+<h1>Registir kemey gagsss</h1>
+
+
+
+
+<form method="post" class="pt-3">
+   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="Email" class="form-control" placeholder="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <input asp-for="UserName" class="form-control" placeholder="UserName" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <input asp-for="Password" class="form-control" placeholder="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <input asp-for="CheckPassword" class="form-control" placeholder="CheckPassword" />
+        <span asp-validation-for="CheckPassword" class="text-danger"></span>
+
+    </div>
+    <button type="submit">Registir</button>
+    <a asp-controller="MyAccount" asp-action="Singin">Login ol ala </a>
+</form>

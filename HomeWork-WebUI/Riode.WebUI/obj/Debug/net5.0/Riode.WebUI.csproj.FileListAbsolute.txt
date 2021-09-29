@@ -495,3 +495,4 @@ C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.pdb
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Riode.WebUI.genruntimeconfig.cache
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Account\Singin.cshtml.g.cs
+C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\MyAccount\Registir.cshtml.g.cs
