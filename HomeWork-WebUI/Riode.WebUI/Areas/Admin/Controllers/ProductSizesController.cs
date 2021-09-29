@@ -2,47 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Riode.WebUI.Appcode.Application.ProductSizeModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
+
     [Area("Admin")]
     public class ProductSizesController : Controller
     {
         private readonly RiodeDbContext db;
+        private readonly IMediator mediator;
 
-        public ProductSizesController(RiodeDbContext db)
+        public ProductSizesController(RiodeDbContext db, IMediator mediator)
         {
            this.db = db;
+           this.mediator = mediator;
         }
 
         // GET: Admin/ProductSizes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(SizePagedQuery request)
         {
-            ViewBag.Count = db.ProductSizes.Count();
-            return View(await db.ProductSizes.Where(s=>s.DeleteByUserId==null).ToListAsync());
+
+            var response = await mediator.Send(request);
+
+            return View(response);
         }
 
         // GET: Admin/ProductSizes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(SizeSingleQuery query)
         {
-            if (id == null)
+
+
+            var respons = await mediator.Send(query);
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var productSize = await db.ProductSizes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productSize == null)
-            {
-                return NotFound();
-            }
 
-            return View(productSize);
+            return View(respons);
         }
 
         // GET: Admin/ProductSizes/Create
@@ -56,31 +62,39 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] ProductSize productSize)
+        public async Task<IActionResult> Create(SizeCreateCommand command)
         {
-            if (ModelState.IsValid)
-            {
-                db.Add(productSize);
-                await db.SaveChangesAsync();
+
+
+            ProductSize model = await mediator.Send(command);
+
+            if (model != null)
+
                 return RedirectToAction(nameof(Index));
-            }
-            return View(productSize);
+
+
+
+
+            return View(command);
+
         }
 
         // GET: Admin/ProductSizes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(SizeSingleQuery query)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var productSize = await db.ProductSizes.FindAsync(id);
-            if (productSize == null)
+            var respons = await mediator.Send(query);
+            if (respons == null)
             {
                 return NotFound();
             }
-            return View(productSize);
+            SizeViewModel vm = new SizeViewModel();
+            vm.Id = respons.Id;
+            vm.Name = respons.Name;
+            vm.Description = respons.description;
+            vm.Abbr = respons.Abbr;
+            return View(vm);
+
         }
 
         // POST: Admin/ProductSizes/Edit/5
@@ -88,34 +102,15 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] ProductSize productSize)
+        public async Task<IActionResult> Edit(SizeEditCommand command)
         {
-            if (id != productSize.Id)
-            {
-                return NotFound();
-            }
+            var id = await mediator.Send(command);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Update(productSize);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductSizeExists(productSize.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+            if (id > 0)
+
                 return RedirectToAction(nameof(Index));
-            }
-            return View(productSize);
+
+            return View(command);
         }
 
         // GET: Admin/ProductSizes/Delete/5

@@ -1,0 +1,19 @@
+﻿@model LoginFormModel
+@{
+    ViewData["Title"] = "Singin";
+    Layout = null;
+}
+
+
+<h1>Singin</h1>
+@ViewBag.Ms
+
+<form method="post">
+    <label asp-for="UserName">UserName</label>
+    <input asp-for="UserName" /><br />
+
+    <label asp-for="Password">Password</label>
+    <input asp-for="Password" /><br />
+
+    <button>login</button>
+</form>

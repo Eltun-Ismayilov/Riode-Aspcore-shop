@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace Riode.WebUI.Controllers
 {
+
     public class ShopController : Controller
     {
         readonly RiodeDbContext db;

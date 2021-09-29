@@ -27,7 +27,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             this.mediator = mediator;
         }
 
-
+        [Authorize(Roles ="SuperAdmin")]
         public async Task<IActionResult> Index(BrandPagedQuery request)
         {
 
@@ -39,7 +39,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         //+
-
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Details(BrandSingleQuery query)
         {
 

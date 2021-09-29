@@ -136,9 +136,9 @@ namespace Riode.WebUI
 
                 cfg.AccessDeniedPath = "/accessdenied.html";//Senin icazen var bu linke yeni link atanda gire bilmesin diye (yeni fb nese atanda ve ya tiktokda olanda beyenmek olmur zad)
 
-                cfg.ExpireTimeSpan = new TimeSpan(0, 5, 0);//Seni sayitda nece deq saxlasin eger sen hecne elemirsense atacaq yeni login olduqdan sonra diansan ve ya saty girdikden sonra diansan
+                cfg.ExpireTimeSpan = new TimeSpan(0, 0, 10);//Seni sayitda nece deq saxlasin eger sen hecne elemirsense atacaq yeni login olduqdan sonra diansan ve ya saty girdikden sonra diansan
 
-                cfg.Cookie.Name = "Riode"; //Cookie adi ne olsun isdediyin adi yaza bilersen;
+                cfg.Cookie.Name = "riode"; //Cookie adi ne olsun isdediyin adi yaza bilersen;
 
             });
 
@@ -159,9 +159,33 @@ namespace Riode.WebUI
             }
 
 
+            //Membership admin yaratmaq ucun yazilibdir...
+            app.SeedMembership();
+
+
 
             app.UseRouting();
 
+
+            //Membership ucun yazilib admin giris olmadiqda bize user sing atmasin deye
+            app.Use(async (context, next) =>
+            {
+                if (!context.Request.Cookies.ContainsKey("riode")
+                && context.Request.RouteValues.TryGetValue("area", out object areaName)
+                && areaName.ToString().ToLower().Equals("admin"))
+                {
+                    var attr = context.GetEndpoint().Metadata.GetMetadata<AllowAnonymousAttribute>();
+                    if (attr==null)
+                    {
+
+                        context.Response.Redirect("/admin/singin.html");
+                        await context.Response.CompleteAsync();
+
+                    }
+
+                }
+                await next();
+            });
 
 
 
@@ -212,16 +236,41 @@ namespace Riode.WebUI
 
                 });
 
+
+                //+//
+                //Membersip ucun yazmisiq routda olanda myaccount/singin yox html kimi singin.html cixsin diye yaziriq;+(admin singin atsin bizi)
+                cfg.MapControllerRoute("adminsingin", "admin/singin.html",
+                  defaults: new
+                  {
+                      controller = "Account",
+                      action = "singin",
+                      area = "Admin"
+                  });
+
+
+
+                //Membersip ucun yazmisiq routda olanda Account/Logout yox html kimi Logout.html cixsin diye yaziriq;+
+                cfg.MapControllerRoute("admin-Logout", "admin/logout.html",
+                  defaults: new
+                  {
+                      controller = "Account",
+                      action = "logout",
+                      area = "Admin"
+                  });
+
+
+
+
                 //+//
                 //Membersip ucun yazmisiq routda olanda myaccount/singin yox html kimi singin.html cixsin diye yaziriq;+
                 cfg.MapControllerRoute("x", "signin.html",
                   defaults: new
                   {
                       controller = "MyAccount",
-                      action = "SingIn",
+                      action = "singIn",
                       area = ""
                   });
-
+                //+//
 
 
 

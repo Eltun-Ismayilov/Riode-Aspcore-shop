@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
+  //[AllowAnonymous]
 
     [Area("Admin")]
     public class DashboardController:Controller

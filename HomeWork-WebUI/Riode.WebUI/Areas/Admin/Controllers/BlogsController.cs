@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Riode.WebUI.Appcode.Application.BlogsModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 using System;
@@ -19,11 +21,13 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     {
         private readonly RiodeDbContext db;
         private readonly IWebHostEnvironment env;
+        private readonly IMediator mediator;
 
-        public BlogsController(RiodeDbContext db,IWebHostEnvironment env)
+        public BlogsController(RiodeDbContext db,IWebHostEnvironment env, IMediator mediator)
         {
             this.db = db;
             this.env = env;
+            this.mediator = mediator;
         }
 
         // GET: Admin/Blogs
@@ -62,34 +66,16 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Blog blog, IFormFile file)
+        public async Task<IActionResult> Create(BlogsCreateComman command)
         {
 
-            if (file == null)
-            {
-                ModelState.AddModelError("file", "sekil secilmeyib");
-            }
+            Blog model = await mediator.Send(command);
 
-            if (ModelState.IsValid)
-            {
-                string extension = Path.GetExtension(file.FileName);  //.jpg tapmaq ucundur. png .gng 
+            if (model != null)
 
-                blog.ImagePati= $"{Guid.NewGuid()}{extension}";//imagenin name 
-
-
-                string phsicalFileName = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", blog.ImagePati);
-
-                using (var stream=new FileStream(phsicalFileName,FileMode.Create,FileAccess.Write))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                blog.PublishedDate = DateTime.Now;
-                db.Add(blog);
-                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(blog);
+
+            return View(command);
         }
 
         // GET: Admin/Blogs/Edit/5
