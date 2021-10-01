@@ -111,38 +111,15 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         [Authorize(Policy = "admin.ProductSize.Delete")]
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(SizeRemoveCommand requst)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var productSize = await db.ProductSizes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productSize == null)
-            {
-                return NotFound();
-            }
+            var respons = await mediator.Send(requst);
 
-            return View(productSize);
+            return Json(respons);
         }
 
-        [Authorize(Policy = "admin.ProductSize.Delete")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var productSize = await db.ProductSizes.FindAsync(id);
-            productSize.DeleteData = DateTime.Now;
-            productSize.DeleteByUserId = 1;
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProductSizeExists(int id)
-        {
-            return db.ProductSizes.Any(e => e.Id == id);
-        }
+       
     }
 }

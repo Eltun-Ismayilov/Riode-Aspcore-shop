@@ -53,6 +53,7 @@ namespace Riode.WebUI.Controllers
                 return View();
             }
 
+
             RiodeUser user = new RiodeUser
             {
                 
@@ -68,6 +69,7 @@ namespace Riode.WebUI.Controllers
 
             var identityRuselt = await userManager.CreateAsync(user, register.Password);
            
+
 
             return RedirectToAction("index", "Home");
         }
@@ -88,7 +90,7 @@ namespace Riode.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
-
+              
                 RiodeUser founderUser = null;
 
                 if (user.UserName.IsEmail())

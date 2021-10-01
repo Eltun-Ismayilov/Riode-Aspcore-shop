@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Riode.WebUI.Appcode.Application.QuestionModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 
@@ -15,36 +17,36 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     public class QuestionsController : Controller
     {
         private readonly RiodeDbContext db;
+        private readonly IMediator mediator;
 
-        public QuestionsController(RiodeDbContext db)
+        public QuestionsController(RiodeDbContext db, IMediator mediator)
         {
             this.db = db;
+            this.mediator = mediator;
         }
 
         [Authorize(Policy = "admin.Question.Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(QuestionsPagedQuery request)
         {
             ViewBag.Count = db.Questions.Count();
-            return View(await db.Questions.Where(q=>q.DeleteByUserId==null).ToListAsync());
-           
+
+
+            var response = await mediator.Send(request);
+
+            return View(response);
         }
 
         [Authorize(Policy = "admin.Question.Details")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(QuestionsSingleQuery query)
         {
-            if (id == null)
+            var respons = await mediator.Send(query);
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var questions = await db.Questions
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (questions == null)
-            {
-                return NotFound();
-            }
-
-            return View(questions);
+            return View(respons);
         }
 
         [Authorize(Policy = "admin.Question.Create")]
@@ -57,100 +59,64 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Question,Answer,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Questions questions)
+        public async Task<IActionResult> Create(QuestionCreateCommand command)
         {
-            if (ModelState.IsValid)
-            {
-                db.Add(questions);
-                await db.SaveChangesAsync();
+            Questions model = await mediator.Send(command);
+
+            if (model != null)
+
                 return RedirectToAction(nameof(Index));
-            }
-            return View(questions);
+
+
+
+
+            return View(command);
         }
 
         [Authorize(Policy = "admin.Question.Edit")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(QuestionsSingleQuery query)
         {
-            if (id == null)
+            var respons = await mediator.Send(query);
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var questions = await db.Questions.FindAsync(id);
-            if (questions == null)
-            {
-                return NotFound();
-            }
-            return View(questions);
+            QuestionsViewModel vm = new QuestionsViewModel();
+            vm.Id = respons.Id;
+            vm.Questions = respons.Question;
+            vm.Answer = respons.Answer;
+            return View(vm);
         }
 
         [Authorize(Policy = "admin.Question.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Question,Answer,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] Questions questions)
+        public async Task<IActionResult> Edit(QuestionsEditCommand command)
         {
-            if (id != questions.Id)
-            {
-                return NotFound();
-            }
+        
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Update(questions);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuestionsExists(questions.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var id = await mediator.Send(command);
+
+                if (id > 0)
+
+                    return RedirectToAction(nameof(Index));
+
+                return View(command);
             }
-            return View(questions);
-        }
 
         [Authorize(Policy = "admin.Question.Delete")]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(QuestionsRemoveCommand requst)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var questions = await db.Questions
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (questions == null)
-            {
-                return NotFound();
-            }
 
-            return View(questions);
+            var respons = await mediator.Send(requst);
+
+            return Json(respons);
         }
 
-        [Authorize(Policy = "admin.Question.Delete")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var questions = await db.Questions.FindAsync(id);
-            questions.DeleteData = DateTime.Now;
-            questions.DeleteByUserId = 1;
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool QuestionsExists(int id)
-        {
-            return db.Questions.Any(e => e.Id == id);
-        }
+     
     }
 }

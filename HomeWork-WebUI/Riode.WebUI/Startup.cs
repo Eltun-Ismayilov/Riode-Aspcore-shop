@@ -125,8 +125,8 @@ namespace Riode.WebUI
 
                 cfg.Lockout.MaxFailedAccessAttempts = 3;// 3 seferden cox sefh giris etse diyansin?
                 cfg.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 5, 0);//Nece deq gozlesin ?
-
-
+               
+             
             });
 
             services.ConfigureApplicationCookie(cfg =>
@@ -136,7 +136,7 @@ namespace Riode.WebUI
 
                 cfg.AccessDeniedPath = "/accessdenied.html";//Senin icazen var bu linke yeni link atanda gire bilmesin diye (yeni fb nese atanda ve ya tiktokda olanda beyenmek olmur zad)
 
-                cfg.ExpireTimeSpan = new TimeSpan(0, 0, 10);//Seni sayitda nece deq saxlasin eger sen hecne elemirsense atacaq yeni login olduqdan sonra diansan ve ya saty girdikden sonra diansan
+                cfg.ExpireTimeSpan = new TimeSpan(0, 10, 10);//Seni sayitda nece deq saxlasin eger sen hecne elemirsense atacaq yeni login olduqdan sonra diansan ve ya saty girdikden sonra diansan
 
                 cfg.Cookie.Name = "riode"; //Cookie adi ne olsun isdediyin adi yaza bilersen;
 
@@ -155,7 +155,7 @@ namespace Riode.WebUI
                         {
                             p.RequireAssertion(h =>
                             {
-                                return h.User.IsInRole("SuperAdmin") || h.User.HasClaim(c => c.Type.Equals(item) && c.Value.Equals("1"));
+                                return h.User.IsInRole("SuperAdmin") || h.User.HasClaim(item,"1");
 
                             });
 

@@ -16,7 +16,7 @@ namespace Riode.WebUI
         {
 
             //Membership ucundur action usdunde yazilmis .
-           // [Authorize(Policy = "admin.brands.index")] yazilisinda Policy hamsini goturur.
+            // [Authorize(Policy = "admin.brands.index")] yazilisinda Policy hamsini goturur.
 
             var types = typeof(Program).Assembly.GetTypes();
 

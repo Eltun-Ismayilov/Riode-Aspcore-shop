@@ -23,7 +23,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         private readonly IWebHostEnvironment env;
         private readonly IMediator mediator;
 
-        public BlogsController(RiodeDbContext db,IWebHostEnvironment env, IMediator mediator)
+        public BlogsController(RiodeDbContext db, IWebHostEnvironment env, IMediator mediator)
         {
             this.db = db;
             this.env = env;
@@ -33,28 +33,26 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         // GET: Admin/Blogs
         [Authorize(Policy = "admin.Blog.Index")]
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(BlogsPagedQuery request)
         {
-            ViewBag.Count = db.Blogs.Where(b=>b.DeleteByUserId==null).Count();
-            return View(await db.Blogs.Where(b=>b.DeleteByUserId==null).ToListAsync());
+
+            var response = await mediator.Send(request);
+
+            return View(response);
         }
 
         [Authorize(Policy = "admin.Blog.Details")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(BlogsSingleQuery query)
         {
-            if (id == null)
+
+            var respons = await mediator.Send(query);
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var blog = await db.Blogs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (blog == null)
-            {
-                return NotFound();
-            }
-
-            return View(blog);
+            return View(respons);
         }
 
         [Authorize(Policy = "admin.Blog.Create")]
@@ -80,128 +78,53 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         [Authorize(Policy = "admin.Blog.Edit")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(BlogsSingleQuery query)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var respons = await mediator.Send(query);
 
-            var blog = await db.Blogs.FindAsync(id);
-            if (blog == null)
+            if (respons == null)
             {
                 return NotFound();
             }
-            return View(blog);
+            BlogsViewModel vm = new BlogsViewModel();
+            vm.Id = respons.Id;
+            vm.Title = respons.Title;
+            vm.Body = respons.Body;
+            vm.imagepati = respons.ImagePati;
+            return View(vm);
+
+
         }
 
         [Authorize(Policy = "admin.Blog.Edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Blog blog,IFormFile file ,string fileTemp)
+        public async Task<IActionResult> Edit(BlogsEditCommand  command)
         {
 
+            var id = await mediator.Send(command);
 
-            if (id != blog.Id)
-            {
-                return NotFound();
-            }
+            if (id > 0)
 
-            if (string.IsNullOrWhiteSpace(fileTemp) && file == null)
-            {
-                ModelState.AddModelError("file", "sekil secilmeyib");
-            }
+                return RedirectToAction(nameof(Index));
+
+            return View(command);
+
+
 
         
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    //db.Update(blog);
-
-                    var entity = await db.Blogs.FirstOrDefaultAsync(b => b.Id == id && b.DeleteByUserId == null);
-
-                    entity.Title = blog.Title;
-                    entity.Body = blog.Body;
-
-                    
-                    if (file != null)
-                    {
-
-                        string extension = Path.GetExtension(file.FileName);  //.jpg tapmaq ucundur.
-
-                        blog.ImagePati = $"{Guid.NewGuid()}{extension}";//imagenin name 
-
-
-                        string phsicalFileName = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", blog.ImagePati);
-
-                        using (var stream = new FileStream(phsicalFileName, FileMode.Create, FileAccess.Write))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(entity.ImagePati))
-                        {
-                            System.IO.File.Delete(Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", entity.ImagePati));
-
-                        }
-                        entity.ImagePati = blog.ImagePati;
-                    }
-
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BlogExists(blog.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(blog);
+           
         }
 
-        [Authorize(Policy = "admin.Blog.Delete")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+    [Authorize(Policy = "admin.Blog.Delete")]
+    [HttpPost]
+    public async Task<IActionResult> Delete(BlogsRemoveCommand requst)
+    {
+        var respons = await mediator.Send(requst);
 
-            var blog = await db.Blogs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (blog == null)
-            {
-                return NotFound();
-            }
-
-            return View(blog);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Policy = "admin.Blog.DeleteConfirmed")]
-
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var blog = await db.Blogs.FindAsync(id);
-            blog.DeleteData = DateTime.Now;
-            blog.DeleteByUserId = 1;
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-
-          
-        }
-
-        private bool BlogExists(int id)
-        {
-            return db.Blogs.Any(e => e.Id == id);
-        }
+        return Json(respons);
     }
+
+
+}
 }

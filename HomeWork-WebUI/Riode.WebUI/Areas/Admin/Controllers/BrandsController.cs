@@ -1,12 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Appcode.Application.BrandsModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Riode.WebUI.Areas.Admin.Controllers
@@ -127,42 +124,14 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         [Authorize(Policy = "admin.brands.Delete")]
 
-
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(BrandRemoveCommand requst)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var brands = await db.Brands
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (brands == null)
-            {
-                return NotFound();
-            }
+            var respons = await mediator.Send(requst);
 
-            return View(brands);
+            return Json(respons);
         }
 
-        [Authorize(Policy = "admin.brands.Delete")]
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var brands = await db.Brands.FindAsync(id);
-
-            brands.DeleteData = DateTime.Now;
-            brands.DeleteByUserId = 1;
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-
-        private bool BrandsExists(int id)
-        {
-            return db.Brands.Any(e => e.Id == id);
-        }
     }
 }

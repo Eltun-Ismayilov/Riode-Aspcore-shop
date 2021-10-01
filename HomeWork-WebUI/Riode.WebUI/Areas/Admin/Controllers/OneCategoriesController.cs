@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Riode.WebUI.Appcode.Application.OneCategoryModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 
@@ -17,36 +19,33 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     public class OneCategoriesController : Controller
     {
         private readonly RiodeDbContext db;
+        private readonly IMediator mediator;
 
-        public OneCategoriesController(RiodeDbContext db)
+        public OneCategoriesController(RiodeDbContext db, IMediator mediator)
         {
             this.db = db;
+            this.mediator = mediator;
         }
 
         [Authorize(Policy = "admin.OneCategory.Index")]
         public async Task<IActionResult> Index()
         {
-            var riodeDbContext = db.OneCategories;
-       
-            return View(await db.OneCategories.Where(o=>o.DeleteByUserId==null).ToListAsync());
+
+
+            ViewBag.Count = db.OneCategories.Count();
+            return View(await db.OneCategories.Where(c => c.DeleteByUserId == null).ToListAsync());
         }
         [Authorize(Policy = "admin.OneCategory.Details")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(CategorySingleQuery query)
         {
-            if (id == null)
+            var respons = await mediator.Send(query);
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var oneCategory = await db.OneCategories
-                .Include(o => o.Parent)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (oneCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(oneCategory);
+            return View(respons);
         }
 
         [Authorize(Policy = "admin.OneCategory.Create")]
