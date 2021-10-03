@@ -41,6 +41,12 @@ namespace Riode.WebUI.Controllers
 
         public IActionResult Registir()
         {
+            //Eger giris edibse routda myaccount/sing yazanda o seyfe acilmasin homa tulaasin
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "Home");
+
+            }
             return View();
         }
 
@@ -48,28 +54,44 @@ namespace Riode.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Registir(RegisterFormModel register)
         {
+            //Eger giris edibse routda myaccount/sing yazanda o seyfe acilmasin homa tulaasin
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "Home");
+
+            }
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-
+            //Yeni user yaradiriq.
             RiodeUser user = new RiodeUser
             {
-                
-                UserName=register.UserName,
-                Email=register.Email,
-                EmailConfirmed=true
-                
-                
+
+                UserName = register.UserName,
+                Email = register.Email,
+                EmailConfirmed = true
+
+
             };
 
-         
-
-
+            //Burda biz userManager vasitesile user ve RegistirVM passwword yoxluyuruq.(yaradiriq)
             var identityRuselt = await userManager.CreateAsync(user, register.Password);
-           
 
+
+            //Startupda yazdigimiz qanunlara uymursa Configure<IdentityOptions> onda error qaytariq summary ile.;
+            if (!identityRuselt.Succeeded)
+            {
+                foreach (var error in identityRuselt.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            //Yratdigimiz user ilk yarananda user rolu verik.
+
+            await userManager.AddToRoleAsync(user, "User");
 
             return RedirectToAction("index", "Home");
         }
@@ -79,6 +101,13 @@ namespace Riode.WebUI.Controllers
 
         public IActionResult Singin()
         {
+
+            //Eger giris edibse routda myaccount/sing yazanda o seyfe acilmasin homa tulaasin
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "Home");
+
+            }
             return View();
         }
 
@@ -87,10 +116,15 @@ namespace Riode.WebUI.Controllers
 
         public async Task<IActionResult> Singin(LoginFormModel user)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index", "Home");
+
+            }
 
             if (ModelState.IsValid)
             {
-              
+
                 RiodeUser founderUser = null;
 
                 if (user.UserName.IsEmail())
@@ -112,7 +146,7 @@ namespace Riode.WebUI.Controllers
 
                 //Eger database isdifadeci user deyilse onda gire bilmez.
 
-                if (!await userManager.IsInRoleAsync(founderUser,"User"))
+                if (!await userManager.IsInRoleAsync(founderUser, "User"))
                 {
                     ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
                     return View(user);
@@ -120,6 +154,13 @@ namespace Riode.WebUI.Controllers
 
                 var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
 
+                //eger giriw eden rolu nedise onu o area aparsin ya admin yada oz application
+                //string role = (await userManager.GetRolesAsync(founderUser))[0];
+                //if (role == "SuperAdmin")
+                //{
+                //    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+
+                //}
 
                 if (sRuselt.Succeeded != true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 
                 {
@@ -135,6 +176,8 @@ namespace Riode.WebUI.Controllers
                 {
                     return Redirect(redirectUrl);
                 }
+
+
                 // yox eger bosdusa home aparsin
                 return RedirectToAction("Index", "Home");
             }

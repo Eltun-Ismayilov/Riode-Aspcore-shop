@@ -43,8 +43,7 @@
     @RenderSection("addcss", required: false);
     <style>
         .is-invalid {
-             border: 1px solid red
-      
+            border: 1px solid red
         }
 
             .is-invalid + span.error {
@@ -85,7 +84,7 @@
                                     <a href="#" data-lang="az">AZE</a>
                                 </li>
                                 <li>
-                                    <a href="#"data-lang="en">ENG</a>
+                                    <a href="#" data-lang="en">ENG</a>
                                 </li>
                             </ul>
                         </div>
@@ -93,11 +92,28 @@
                         <span class="divider"></span>
                         <a asp-controller="home" asp-action="contact" class="contact d-lg-show"><i class="d-icon-map"></i>Contact</a>
                         <a href="#" class="help d-lg-show"><i class="d-icon-info"></i> Need Help</a>
-                        <a  asp-controller="MyAccount" asp-action="SingIn" asp-area="" >
-                            <i class="d-icon-user"></i>Sign in
-                        </a>
-                        <span class="delimiter">/</span>
-                        <a  asp-controller="MyAccount" asp-action="Registir" >Register</a>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a >
+                                @User.Identity.Name
+                            </a>
+                            <a asp-controller="MyAccount" asp-action="Logout" asp-area="">
+                               Logout
+                            </a>
+
+                        }
+                        else
+                        {
+
+                            <a asp-controller="MyAccount" asp-action="SingIn" asp-area="">
+                                <i class="d-icon-user"></i>Sign in
+                            </a>
+                            <a asp-controller="MyAccount" asp-action="Registir">Register</a>
+                            <span class="delimiter">/</span>
+
+                        }
+
                         <!-- End of Login -->
                     </div>
                 </div>
@@ -878,9 +894,9 @@
 </html>
 
 
-@section addjs{ 
+@section addjs{
 
-<script>
-  
-</script>
+    <script>
+
+    </script>
 }

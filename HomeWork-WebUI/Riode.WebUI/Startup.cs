@@ -104,7 +104,7 @@ namespace Riode.WebUI
             //Membership ucun yazilmis kod(Datazbazaya bax)
             //(Microsoft.AspNetCore.Identity.EntityFrameworkCore+)
             services.AddIdentity<RiodeUser, RiodeRole>()
-                .AddEntityFrameworkStores<RiodeDbContext>();
+               .AddEntityFrameworkStores<RiodeDbContext>(); 
 
             services.AddScoped<UserManager<RiodeUser>>(); // user idare etmek ucun menecer
             services.AddScoped<SignInManager<RiodeUser>>(); //giriw edende idare etmek ucun menecer;
@@ -143,6 +143,7 @@ namespace Riode.WebUI
             });
 
             services.AddAuthentication(); //Sayita girmek demekdi(login olmaq)
+
             services.AddAuthorization(cfg => // Sayitda isdediymizi etmek yeni rola gorede gagas.
             {
                 //Action usdunda yazilmis Policy goturmek ucundur.

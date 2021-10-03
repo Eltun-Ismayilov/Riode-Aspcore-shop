@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿    using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Appcode.Application.Infrastructure;
 using Riode.WebUI.Model.DataContexts;

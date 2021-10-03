@@ -24,7 +24,7 @@ namespace Riode.WebUI.Model.Entity
 
         public int StatusCode { get; set; } //Status Codun ne oldugnu gotureciyik YENI UGURLU OLDUGNU(200) UGURSUZ OLDUGNU(404)
 
-        public DateTime RequestTime { get; set; } //Sorgunun tarixi.
+        public DateTime RequestTime { get; set; } //Sorgu gedir
 
         public DateTime ResponseTime { get; set; } // Sorgunun cvb tarixi.
 

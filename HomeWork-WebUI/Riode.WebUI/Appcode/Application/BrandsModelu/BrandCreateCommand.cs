@@ -26,6 +26,7 @@ namespace Riode.WebUI.Appcode.Application.BrandsModelu
             public async Task<Brands> Handle(BrandCreateCommand model, CancellationToken cancellationToken)
             {
 
+
                 if (ctx.ModelStateValid()) 
                 {
                     Brands brands = new Brands();

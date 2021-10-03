@@ -8,6 +8,6 @@ namespace Riode.WebUI.Model.Entity.Membership
 {
     public class RiodeUser:IdentityUser<int>
     {
-
+        public bool Activates { get; set; }
     }
 }
