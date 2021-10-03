@@ -1,0 +1,34 @@
+﻿@model RiodeUser
+@{
+    ViewData["Title"] = "Activated";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <h1>Email: @Model.Email</h1>
+        <h1>UserName: @Model.UserName</h1>
+    </div>
+    <div class="d-flex justify-content-end aligen-items-center">
+
+        <a asp-action="index" class="btn btn-dark">Go Back</a>
+        <form method="post">
+            @if (Model.Activates)
+            {
+
+                <input type="hidden" name="Activated" value="false" />
+
+                <input type="submit" class="btn btn-danger " value="Disable" />
+
+            }
+            else
+            {
+                <input type="hidden" name="Activated" value="true" />
+
+                <input type="submit" class="btn btn-success " value="Activated" style="margin-left:10px" />
+
+            }
+        </form>
+    </div>
+</div>
+

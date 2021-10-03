@@ -17,7 +17,6 @@ using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity.Membership;
 using System;
 using System.IO;
-using System.Reflection;
 
 namespace Riode.WebUI
 {

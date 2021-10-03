@@ -9,6 +9,7 @@
 
 
 <form method="post" class="pt-3">
+    @ViewBag.ms
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <input asp-for="Email" class="form-control" placeholder="Email" />

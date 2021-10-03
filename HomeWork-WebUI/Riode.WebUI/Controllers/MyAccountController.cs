@@ -76,24 +76,43 @@ namespace Riode.WebUI.Controllers
 
             };
 
-            //Burda biz userManager vasitesile user ve RegistirVM passwword yoxluyuruq.(yaradiriq)
-            var identityRuselt = await userManager.CreateAsync(user, register.Password);
+
+           var person=await userManager.FindByNameAsync(user.UserName);
 
 
-            //Startupda yazdigimiz qanunlara uymursa Configure<IdentityOptions> onda error qaytariq summary ile.;
-            if (!identityRuselt.Succeeded)
+            if (person == null)
             {
-                foreach (var error in identityRuselt.Errors)
+                //Burda biz userManager vasitesile user ve RegistirVM passwword yoxluyuruq.(yaradiriq)
+                var identityRuselt = await userManager.CreateAsync(user, register.Password);
+
+
+                //Startupda yazdigimiz qanunlara uymursa Configure<IdentityOptions> onda error qaytariq summary ile.;
+                if (!identityRuselt.Succeeded)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    foreach (var error in identityRuselt.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                 }
+
+                //Yratdigimiz user ilk yarananda user rolu verik.
+
+                await userManager.AddToRoleAsync(user, "User");
+
+                return RedirectToAction("index", "Home");
+
             }
 
-            //Yratdigimiz user ilk yarananda user rolu verik.
 
-            await userManager.AddToRoleAsync(user, "User");
+            if (person.UserName!=null)
+            {
+                ViewBag.ms = "Bu username evvelceden qeydiyyatdan kecib";
 
-            return RedirectToAction("index", "Home");
+                return View(register);
+
+
+            }
+            return null;
         }
 
 
