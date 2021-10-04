@@ -171,7 +171,34 @@ namespace Riode.WebUI.Controllers
                     return View(user);
                 }
 
-                var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
+                
+              
+
+                if (founderUser.Activates==false)
+                {
+                    ViewBag.ms = "Zehmet olmasa Admin aktiv etmesini gozleyin";
+                    return View(user);
+                }
+                if (founderUser.Activates==true)
+                {
+                    var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
+
+                    if (sRuselt.Succeeded != true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 
+                    {
+                        ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
+                        return View(user);
+
+                    }
+                    var redirectUrl = Request.Query["ReturnUrl"];
+
+                    if (!string.IsNullOrWhiteSpace(redirectUrl))
+                    {
+                        return Redirect(redirectUrl);
+                    }
+                    return RedirectToAction("Index", "Home");
+
+                }
+
 
                 //eger giriw eden rolu nedise onu o area aparsin ya admin yada oz application
                 //string role = (await userManager.GetRolesAsync(founderUser))[0];
@@ -181,24 +208,13 @@ namespace Riode.WebUI.Controllers
 
                 //}
 
-                if (sRuselt.Succeeded != true) // Eger giriw zamani ugurlu deyilse yeni gire bilmirse 
-                {
-                    ViewBag.Ms = "Isdifadeci sifresi ve parol sefdir gagas";
-                    return View(user);
 
-                }
 
                 // Eger biz login olduqdan sonra isdediymiz yere getsin
-                var redirectUrl = Request.Query["ReturnUrl"];
 
-                if (!string.IsNullOrWhiteSpace(redirectUrl))
-                {
-                    return Redirect(redirectUrl);
-                }
 
 
                 // yox eger bosdusa home aparsin
-                return RedirectToAction("Index", "Home");
             }
             ViewBag.Ms = "Melumatlari doldur gagas";
             return View(user);

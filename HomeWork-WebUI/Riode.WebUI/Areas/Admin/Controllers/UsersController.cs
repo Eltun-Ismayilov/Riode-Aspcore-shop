@@ -116,11 +116,57 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 UserName = user.UserName,
                 Activated = user.Activates,
                 Role = ((await userManager.GetRolesAsync(user))[0]),
-                Roles= new List<string> { "SuperAdmin","User"}
+                Roles = new List<string> { "SuperAdmin", "User" }
             };
 
             return null;
         }
 
+
+        public async Task<IActionResult> RessetPassword(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            RiodeUser riode = await userManager.FindByIdAsync(id);
+            if (riode == null)
+            {
+                return NotFound();
+
+            }
+            return View(riode);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RessetPassword(string id, string newPassword)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            RiodeUser user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+
+            }
+
+            string token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var identityResult = await userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!identityResult.Succeeded)
+            {
+                foreach (var item in identityResult.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+                return View(user);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
