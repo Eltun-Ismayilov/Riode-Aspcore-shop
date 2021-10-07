@@ -1,0 +1,35 @@
+﻿@model SpecificationCreateCommand
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1 style="text-align:center">Specification Create</h1>
+
+
+
+<div class="col-6 offset-3">
+    <form method="post">
+
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+            <input type="text" class="form-control" asp-for="Name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+      
+     
+
+
+        <button type="submit" class="btn btn-outline-success">
+            <i class="fas fa-plus"></i>
+
+            Creat
+        </button>
+        <a asp-action="index" class="btn btn-outline-info">Geriye qayit</a>
+
+
+    </form>
+</div>
+
+

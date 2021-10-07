@@ -149,5 +149,23 @@ namespace Resources {
                 return ResourceManager.GetString("Sizes", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gosdericiler.
+        /// </summary>
+        public static string Specification {
+            get {
+                return ResourceManager.GetString("Specification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Isdifadeciler.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
     }
 }

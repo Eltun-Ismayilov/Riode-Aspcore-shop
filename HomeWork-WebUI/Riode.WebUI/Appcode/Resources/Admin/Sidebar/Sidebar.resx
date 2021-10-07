@@ -147,4 +147,10 @@
   <data name="Sizes" xml:space="preserve">
     <value>Olculer</value>
   </data>
+  <data name="Specification" xml:space="preserve">
+    <value>Gosdericiler</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Isdifadeciler</value>
+  </data>
 </root>

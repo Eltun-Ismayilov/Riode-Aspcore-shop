@@ -147,4 +147,10 @@
   <data name="Sizes" xml:space="preserve">
     <value>Sizes</value>
   </data>
+  <data name="Specification" xml:space="preserve">
+    <value>Specification</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
 </root>

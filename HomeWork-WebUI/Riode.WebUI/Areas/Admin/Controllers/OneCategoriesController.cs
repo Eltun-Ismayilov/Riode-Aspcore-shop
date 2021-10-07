@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Appcode.Application.OneCategoryModelu;
+using Riode.WebUI.AppCode.Application.CategoryModule;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 
@@ -28,17 +29,17 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         [Authorize(Policy = "admin.OneCategory.Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CategoryPagedQuery request)
         {
 
-            //CategoryPagedQuery request
-            ViewBag.Count = db.OneCategories.Count();
-          //  var response = await mediator.Send(request);
 
-          //  return View(response);
-            return View(await db.OneCategories.Where(c => c.DeleteByUserId == null).ToListAsync());
+            ViewBag.Count = db.OneCategories.Count();
+            var response = await mediator.Send(request);
+
+            return View(response);
+            //   return View(await db.OneCategories.Where(c => c.DeleteByUserId == null).ToListAsync());
         }
-        [Authorize(Policy = "admin.OneCategory.Details")]
+        [Authorize(Policy = "admin.OneCategory.Details")]//+
         public async Task<IActionResult> Details(CategorySingleQuery query)
         {
             var respons = await mediator.Send(query);
@@ -64,62 +65,62 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         [Authorize(Policy = "admin.OneCategory.Create")]
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OneCategory oneCategory)
+        public async Task<IActionResult> Create(CategoryCreatCommand command)
         {
+
             if (ModelState.IsValid)
             {
-                db.Add(oneCategory);
-                await db.SaveChangesAsync();
+                await mediator.Send(command);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
-            return View(await db.OneCategories.Where(o => o.DeleteData == null).ToListAsync());
+
+            ViewData["ParentId"] = new SelectList(await mediator.Send(new CategoryChooseQuery()), "Id", "Name", command.ParendId);
+            return View(command);
         }
 
         [Authorize(Policy = "admin.OneCategory.Edit")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(CategorySingleQuery query)
         {
-            if (id == null)
-            {
+            if (query?.Id == null)
                 return NotFound();
-            }
 
-            var oneCategory = await db.OneCategories.FindAsync(id);
-            if (oneCategory == null)
-            {
+            var response = await mediator.Send(query);
+
+            if (response == null)
                 return NotFound();
-            }
-            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
-            return View(oneCategory);
+
+            ViewData["ParentId"] = new SelectList(await mediator.Send(new CategoryChooseQuery()), "Id", "Name", response.ParentId);
+
+            CategoryViewModel vm = new CategoryViewModel();
+            vm.Id = response.Id;
+            vm.Name = response.Name;
+            vm.Description = response.Description;
+            vm.ParentId = response.ParentId;
+            return View(vm);
+
         }
 
         [Authorize(Policy = "admin.OneCategory.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ParentId,Name,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] OneCategory oneCategory)
+        public async Task<IActionResult> Edit([FromRoute] int id, CategoryEditCommand command)
         {
-            if (id != oneCategory.Id)
-            {
+
+            if (id != command.Id)
                 return NotFound();
-            }
+
 
             if (ModelState.IsValid)
             {
-               
-                    db.Update(oneCategory);
-                    await db.SaveChangesAsync();
-                
-            
+                await mediator.Send(command);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
-            return View(oneCategory);
+            ViewData["ParentId"] = new SelectList(await mediator.Send(new CategoryChooseQuery()), "Id", "Name", command.ParentId);
+            return View(command);
         }
 
-        [Authorize(Policy = "admin.OneCategory.Delete")]
-        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "admin.OneCategory.Delete")]//+
         [HttpPost]
         public async Task<IActionResult> Delete(CategoryRemoveCommand requst)
         {
@@ -128,7 +129,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return Json(respons);
         }
 
-       
-      
+
+
     }
 }

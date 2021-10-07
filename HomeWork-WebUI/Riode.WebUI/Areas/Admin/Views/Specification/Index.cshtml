@@ -1,53 +1,46 @@
-﻿@model IEnumerable<OneCategory>
+﻿@model PagedViewModel<Specification>
 
 @{
     ViewData["Title"] = "Index";
 }
-@*<div>
-        @Model.GetPagenation(Url, "index", "Admin")
-    </div>*@
-
-<h1 style="text-align:center">Category  Layout</h1>
 
 
-<a class="btn btn-outline-success" asp-action="Create">Create</a>
+<h1>Specification Layout</h1>
 
-<table class="table  tree">
-    @foreach (var item in Model.Where(c => c.ParentId == null))
-    {
+<div>
+    @Model.GetPagenation(Url, "index", "Admin")
+</div>
+
+<table class="table table-striped" border="1">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th>
+                <a class="btn btn-success" asp-action="Create">Create New</a>
+
+                @*<a class="btn btn-warning">Brands Count=@ViewBag.Count</a>*@
 
 
+            </th>
 
-        <tr class="treegrid-@item.Id box">
-            <td style="color:red">@item.Name</td>
-            <td class="d-flex justify-content-end">
-
-                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a class="btn btn-danger" onclick="remove(@item.Id, '@item.Name')">Delete</a>
-
-            </td>
         </tr>
-
-        @foreach (var child in item.GetChilds())
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
         {
-            <tr class="treegrid-@child.Id treegrid-parent-@child.ParentId box1">
-                <td>@child.Name</td>
-                <td class="d-flex justify-content-end">
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-                    <a class="btn btn-outline-warning" asp-action="edit" asp-route-id="@child.Id">Edit</a>
-                    <a class="btn btn-outline-info" asp-action="details" asp-route-id="@child.Id">details</a>
-                    <a class="btn btn-outline-danger" onclick="remove(@item.Id, '@item.Name')">delete</a>
+
+                    <a class="btn btn-danger" onclick="remove(@item.Id, '@item.Name')">Delete</a>
                 </td>
+
             </tr>
         }
-
-
-
-
-    }
-
-
+    </tbody>
 </table>
 
 
@@ -56,16 +49,10 @@
     <script src="~/libs/sweetalert/sweetalert.min.js"></script>
     <script src="~/libs/toastr.js/toastr.min.js"></script>
 
+
     <script>
 
-        $('.tree').treegrid();
-        $('.box').removeClass("treegrid-expanded").addClass("treegrid-collapsed");
-        $('.box ~ span').removeClass('treegrid-expander-expanded').addClass('treegrid-expander-collapsed');
-        $('.box1').css("display", "none")
-        $('.box1 .treegrid-expander-collapsed ').css("background-image", "url(~/libs/jquery-treegrid/img/expand.png)")
-
-
-         function remove(id, name) {
+        function remove(id, name) {
 
             swal({
                 title: "Eminsiniz?",
@@ -115,19 +102,11 @@
                     }
                 });
         };
-
     </script>
-
-
-
-
 }
+
 
 
 @section addcss{
     <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
 }
-
-
-
-

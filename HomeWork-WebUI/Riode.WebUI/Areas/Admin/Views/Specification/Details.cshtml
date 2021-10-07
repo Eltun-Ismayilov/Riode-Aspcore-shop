@@ -1,0 +1,27 @@
+﻿@model Specification
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 style="text-align:center">Specification Details</h1>
+
+
+
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+    <input type="text" disabled class="form-control" aria-label="Sizing example input" value="@Model.Name" aria-describedby="inputGroup-sizing-default">
+</div>
+
+
+
+
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
+
+
+
+
+
+

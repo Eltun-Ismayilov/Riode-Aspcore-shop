@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Riode.WebUI.Appcode.Application.OneCategoryModelu
 {
-    public class CategoryCreatCommand: IRequest<OneCategory>
+    public class CategoryCreatCommand: IRequest<int>
     {
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Parend { get; set; }
+        public int? ParendId { get; set; }
 
-        public class CategoryCreatCommandHandler : IRequestHandler<CategoryCreatCommand, OneCategory>
+        public class CategoryCreatCommandHandler : IRequestHandler<CategoryCreatCommand, int>
         {
             readonly RiodeDbContext db;
             readonly IActionContextAccessor ctx;
@@ -27,22 +27,22 @@ namespace Riode.WebUI.Appcode.Application.OneCategoryModelu
                 this.db = db;
                 this.ctx = ctx;
             }
-            public async Task<OneCategory> Handle(CategoryCreatCommand model, CancellationToken cancellationToken)
+            public async Task<int> Handle(CategoryCreatCommand model, CancellationToken cancellationToken)
             {
 
                 if (ctx.ModelStateValid())
                 {
-                    OneCategory brands = new OneCategory();
-                    brands.Name = model.Name;
-                    brands.Description = model.Description;
-                    brands.ParentId = model.Parend;
-                    db.OneCategories.Add(brands);
+                    OneCategory category = new OneCategory();
+                    category.Name = model.Name;
+                    category.Description = model.Description;
+                    category.ParentId = model.ParendId;
+                    db.OneCategories.Add(category);
                     await db.SaveChangesAsync(cancellationToken);
 
-                    return brands;
+                    return category.Id;
                 }
 
-                return null;
+                return 0;
 
                 //ctx.ActionContext.ModelState.IsValid if icinde bu cur yoxlamamaq ucun extension yaziiriq.
             }

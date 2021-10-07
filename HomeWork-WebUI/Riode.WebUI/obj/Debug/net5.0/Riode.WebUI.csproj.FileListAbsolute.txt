@@ -494,3 +494,7 @@ C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\ne
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Users\Activated.cshtml.g.cs
 C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Users\RessetPassword.cshtml.g.cs
 C:\Users\User\Desktop\Riode-aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Views\MyAccount\SubscibeConfirm.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Specification\Create.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Specification\Details.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Specification\Edit.cshtml.g.cs
+C:\Users\User\Desktop\Riode-Aspcore-shop\HomeWork-WebUI\Riode.WebUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Specification\Index.cshtml.g.cs
