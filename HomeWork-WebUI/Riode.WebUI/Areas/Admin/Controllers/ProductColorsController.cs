@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Riode.WebUI.Appcode.Application.ProductColorModelu;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
 
@@ -15,36 +17,37 @@ namespace Riode.WebUI.Areas.Admin.Controllers
     public class ProductColorsController : Controller
     {
         private readonly RiodeDbContext db;
+        private readonly IMediator mediator;
 
-        public ProductColorsController(RiodeDbContext db)
+
+        public ProductColorsController(RiodeDbContext db, IMediator mediator)
         {
            this.db = db;
+           this.mediator = mediator;
         }
 
         [Authorize(Policy = "admin.ProductColor.Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ColorPagedQuery request)
         {
             ViewBag.Count = db.ProductColors.Count();
-            return View(await db.ProductColors.Where(c=>c.DeleteByUserId==null).ToListAsync());
+
+            var response = await mediator.Send(request);
+
+            return View(response);
         }
 
         [Authorize(Policy = "admin.ProductColor.Details")]
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(ColorSingleQuery query)
         {
-            if (id == null)
+            var respons = await mediator.Send(query);
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var productColor = await db.ProductColors
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productColor == null)
-            {
-                return NotFound();
-            }
-
-            return View(productColor);
+            return View(respons);
         }
 
         [Authorize(Policy = "admin.ProductColor.Create")]
@@ -57,31 +60,38 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,SkuCode,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] ProductColor productColor)
+        public async Task<IActionResult> Create(ColorCreateCommand command)
         {
-            if (ModelState.IsValid)
-            {
-                db.Add(productColor);
-                await db.SaveChangesAsync();
+            ProductColor model = await mediator.Send(command);
+
+            if (model != null)
+
                 return RedirectToAction(nameof(Index));
-            }
-            return View(productColor);
+
+
+
+
+            return View(command);
         }
 
         [Authorize(Policy = "admin.ProductColor.Edit")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(ColorSingleQuery query)
         {
-            if (id == null)
+
+            var respons = await mediator.Send(query);
+
+
+            if (respons == null)
             {
                 return NotFound();
             }
 
-            var productColor = await db.ProductColors.FindAsync(id);
-            if (productColor == null)
-            {
-                return NotFound();
-            }
-            return View(productColor);
+            ColorViewModel vm = new ColorViewModel();
+            vm.Id = respons.Id;
+            vm.Name = respons.Name;
+            vm.SkuCode = respons.SkuCode;
+            vm.Description = respons.description;
+            return View(vm);
         }
 
 
@@ -89,69 +99,26 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,SkuCode,description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")] ProductColor productColor)
+        public async Task<IActionResult> Edit(ColorEditCommand command)
         {
-            if (id != productColor.Id)
-            {
-                return NotFound();
-            }
+            var id = await mediator.Send(command);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    db.Update(productColor);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductColorExists(productColor.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+            if (id > 0)
+
                 return RedirectToAction(nameof(Index));
-            }
-            return View(productColor);
+
+            return View(command);
         }
 
         [Authorize(Policy = "admin.ProductColor.Delete")]
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+
+        public async Task<IActionResult> Delete(ColorRemoveCommand requst)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var respons = await mediator.Send(requst);
 
-            var productColor = await db.ProductColors
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productColor == null)
-            {
-                return NotFound();
-            }
-
-            return View(productColor);
+            return Json(respons);
         }
 
-        [Authorize(Policy = "admin.ProductColor.Delete")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var productColor = await db.ProductColors.FindAsync(id);
-            productColor.DeleteData = DateTime.Now;
-            productColor.DeleteByUserId = 1;
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProductColorExists(int id)
-        {
-            return db.ProductColors.Any(e => e.Id == id);
-        }
     }
 }

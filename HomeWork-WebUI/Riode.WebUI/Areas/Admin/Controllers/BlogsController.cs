@@ -90,7 +90,6 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             vm.Id = respons.Id;
             vm.Title = respons.Title;
             vm.Body = respons.Body;
-            vm.imagepati = respons.ImagePati;
             return View(vm);
 
 

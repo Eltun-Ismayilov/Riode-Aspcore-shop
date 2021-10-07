@@ -31,8 +31,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
 
-
+            //CategoryPagedQuery request
             ViewBag.Count = db.OneCategories.Count();
+          //  var response = await mediator.Send(request);
+
+          //  return View(response);
             return View(await db.OneCategories.Where(c => c.DeleteByUserId == null).ToListAsync());
         }
         [Authorize(Policy = "admin.OneCategory.Details")]
@@ -104,22 +107,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
+               
                     db.Update(oneCategory);
                     await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OneCategoryExists(oneCategory.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                
+            
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ParentId"] = new SelectList(db.OneCategories, "Id", "Name", oneCategory.ParentId);
@@ -127,39 +119,16 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         [Authorize(Policy = "admin.OneCategory.Delete")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var oneCategory = await db.OneCategories
-                .Include(o => o.Parent)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (oneCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(oneCategory);
-        }
-
-        [Authorize(Policy = "admin.OneCategory.Delete")]
-        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(CategoryRemoveCommand requst)
         {
-            var oneCategory = await db.OneCategories.FindAsync(id);
-            oneCategory.DeleteData = DateTime.Now;
-            oneCategory.DeleteByUserId = 1;
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var respons = await mediator.Send(requst);
+
+            return Json(respons);
         }
 
-        private bool OneCategoryExists(int id)
-        {
-            return db.OneCategories.Any(e => e.Id == id);
-        }
+       
+      
     }
 }

@@ -13,7 +13,7 @@ namespace Riode.WebUI.Appcode.Application.OneCategoryModelu
     public class CategoryPagedQuery : IRequest<PagedViewModel<OneCategory>>
     {
         public int pageIndex { get; set; } = 1;
-        public int pageSize { get; set; } = 3;
+        public int pageSize { get; set; } = 2;
 
         public class CategoryPagedQueryHandler : IRequestHandler<CategoryPagedQuery, PagedViewModel<OneCategory>>
         {

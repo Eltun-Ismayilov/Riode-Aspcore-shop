@@ -4,8 +4,8 @@
     ViewData["Title"] = "Index";
 }
 @*<div>
-    @Model.GetPagenation(Url, "index", "Admin")
-</div>*@
+        @Model.GetPagenation(Url, "index", "Admin")
+    </div>*@
 
 <h1 style="text-align:center">Category  Layout</h1>
 
@@ -24,7 +24,7 @@
 
                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-danger" onclick="remove(@item.Id, '@item.Name')">Delete</a>
 
             </td>
         </tr>
@@ -37,7 +37,7 @@
 
                     <a class="btn btn-outline-warning" asp-action="edit" asp-route-id="@child.Id">Edit</a>
                     <a class="btn btn-outline-info" asp-action="details" asp-route-id="@child.Id">details</a>
-                    <a class="btn btn-outline-danger" asp-action="delete" asp-route-id="@child.Id">delete</a>
+                    <a class="btn btn-outline-danger" onclick="remove(@item.Id, '@item.Name')">delete</a>
                 </td>
             </tr>
         }
@@ -53,20 +53,79 @@
 
 @section addjs{
 
+    <script src="~/libs/sweetalert/sweetalert.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
 
     <script>
 
-        $('.tree').treegrid();
-        $('.box').removeClass("treegrid-expanded").addClass("treegrid-collapsed");
-        $('.box ~ span').removeClass('treegrid-expander-expanded').addClass('treegrid-expander-collapsed');
-        $('.box1').css("display", "none")
-        $('.box1 .treegrid-expander-collapsed ').css("background-image", "url(~/libs/jquery-treegrid/img/expand.png)")
+        //$('.tree').treegrid();
+        //$('.box').removeClass("treegrid-expanded").addClass("treegrid-collapsed");
+        //$('.box ~ span').removeClass('treegrid-expander-expanded').addClass('treegrid-expander-collapsed');
+        //$('.box1').css("display", "none")
+        //$('.box1 .treegrid-expander-collapsed ').css("background-image", "url(~/libs/jquery-treegrid/img/expand.png)")
 
+
+         function remove(id, name) {
+
+            swal({
+                title: "Eminsiniz?",
+                text: `Testik etdiyiniz teqdirde  '${name}' sistemden  silinecek!`,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                buttons: ["No", "Yes"]
+            }).then(
+                function (isConfirm) {
+                    if (isConfirm) {
+
+
+                        $.ajax({
+                            url: '@Url.Action("Delete")',
+                            type: 'POST',
+                            data: { id },
+                            contentType: 'application/x-www-form-urlencoded', // ne tip  gedecek?   2side model binding rolnu oynayir datani back gondermek ucun isdifade edilir  yeni back gonderilmeye xirmet edilir
+                            dataType: 'json',
+                    beforeSend: function () {
+                        console.log("sorgudan evvel")   // loadir acmaq
+
+                    },
+                    success: function (response) {   // sorgunun neticesi ugurlu olsa
+                        console.log(response)
+
+                        if (response.error == false) {
+
+                            toastr.success(response.Message, "Ugurludur");
+                            window.location.reload();
+
+                        } else {
+                            toastr.error(response.Message, "xeta");
+
+                        }
+                    },
+                            error: function (response) {   // sorgunun neticesi ugursuz olsa
+                                console.log(response)
+                    },
+
+
+                }).always(function () {
+                         console.log("sorgudan sonra")  //loadir baglamaq
+
+                });
+
+                    }
+                });
+        };
 
     </script>
 
 
 
+
+}
+
+
+@section addcss{
+    <link href="~/libs/toastr.js/toastr.css" rel="stylesheet" />
 }
 
 

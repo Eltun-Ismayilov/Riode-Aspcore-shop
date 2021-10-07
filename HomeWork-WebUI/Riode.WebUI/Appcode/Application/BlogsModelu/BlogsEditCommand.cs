@@ -30,56 +30,61 @@ namespace Riode.WebUI.Appcode.Application.BlogsModelu
                 this.ctx = ctx;
                 this.env = env;
             }
-            public async Task<int> Handle(BlogsEditCommand model, CancellationToken cancellationToken)
+            public async Task<int> Handle(BlogsEditCommand request, CancellationToken cancellationToken)
             {
-                Blog blog = new Blog();
 
-                //if (model.Id != blog.Id)
-                //{
-                //    return null;
-                //}
+                if (request.Id != request.Id)
+                {
+                    return 0;
+                }
 
-                //if (string.IsNullOrWhiteSpace(model.fileTemp) && model.file == null)
-                //{
-                //    ModelState.AddModelError("file", "sekil secilmeyib");
-                //}
+                if (string.IsNullOrWhiteSpace(request.fileTemp) && request.file == null)
+                {
 
+                    ctx.ActionContext.ModelState.AddModelError("file", "Not Chosen");
+                }
+
+                var entity = await db.Blogs.FirstOrDefaultAsync(b => b.Id == request.Id && b.DeleteByUserId == null);
+
+                if (entity == null)
+                {
+                    return 0;
+                }
 
                 if (ctx.ModelStateValid())
                 {
-                    
-                        //db.Update(blog);
-
-                        var entity = await db.Blogs.FirstOrDefaultAsync(b => b.Id == model.Id && b.DeleteByUserId == null);
-
-                        model.Title = blog.Title;
-                       model.Body = blog.Body;
+                    entity.Title = request.Title;
+                    entity.Body = request.Body;
 
 
-                        if (model.file != null)
+
+
+
+                    if (request.file != null)
+                    {
+
+                        string extension = Path.GetExtension(request.file.FileName);  //.jpg tapmaq ucundur.
+
+                        request.fileTemp = $"{Guid.NewGuid()}{extension}";//imagenin name 
+
+
+                        string phsicalFileName = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", request.fileTemp);
+
+                        using (var stream = new FileStream(phsicalFileName, FileMode.Create, FileAccess.Write))
                         {
-
-                            string extension = Path.GetExtension(model.file.FileName);  //.jpg tapmaq ucundur.
-
-                            blog.ImagePati = $"{Guid.NewGuid()}{extension}";//imagenin name 
-
-
-                            string phsicalFileName = Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", blog.ImagePati);
-
-                            using (var stream = new FileStream(phsicalFileName, FileMode.Create, FileAccess.Write))
-                            {
-                                await model.file.CopyToAsync(stream);
-                            }
-
-                            if (!string.IsNullOrWhiteSpace(entity.ImagePati))
-                            {
-                                System.IO.File.Delete(Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", entity.ImagePati));
-
-                            }
-                            entity.ImagePati = blog.ImagePati;
+                            await request.file.CopyToAsync(stream);
                         }
 
-                        await db.SaveChangesAsync();
+                        if (!string.IsNullOrWhiteSpace(entity.ImagePati))
+                        {
+                            System.IO.File.Delete(Path.Combine(env.ContentRootPath, "wwwroot", "uploads", "images", "blog", "mask", entity.ImagePati));
+
+                        }
+                        entity.ImagePati = request.fileTemp;
+                    }
+
+                    await db.SaveChangesAsync(cancellationToken);
+                    return entity.Id;
 
 
 

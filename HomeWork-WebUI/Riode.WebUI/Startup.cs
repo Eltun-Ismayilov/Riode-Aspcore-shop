@@ -1,4 +1,4 @@
-using MediatR;
+    using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -88,7 +88,7 @@ namespace Riode.WebUI
                 // ve burda cagirib yaziriq appsettings adini 
                 cfg.UseSqlServer(configuration.GetConnectionString("cString"));
 
-            }, ServiceLifetime.Scoped);
+            },ServiceLifetime.Scoped);
 
 
 
@@ -103,7 +103,7 @@ namespace Riode.WebUI
             //Membership ucun yazilmis kod(Datazbazaya bax)
             //(Microsoft.AspNetCore.Identity.EntityFrameworkCore+)
             services.AddIdentity<RiodeUser, RiodeRole>()
-               .AddEntityFrameworkStores<RiodeDbContext>(); 
+               .AddEntityFrameworkStores<RiodeDbContext>().AddDefaultTokenProviders(); 
 
             services.AddScoped<UserManager<RiodeUser>>(); // user idare etmek ucun menecer
             services.AddScoped<SignInManager<RiodeUser>>(); //giriw edende idare etmek ucun menecer;

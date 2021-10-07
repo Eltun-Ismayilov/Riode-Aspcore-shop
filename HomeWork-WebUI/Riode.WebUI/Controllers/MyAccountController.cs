@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Riode.WebUI.Appcode;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity.FormModels;
@@ -8,6 +9,7 @@ using Riode.WebUI.Model.Entity.Membership;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Riode.WebUI.Controllers
@@ -20,11 +22,15 @@ namespace Riode.WebUI.Controllers
         readonly UserManager<RiodeUser> userManager;
         readonly SignInManager<RiodeUser> signInManager;
         readonly RiodeDbContext db;
-        public MyAccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager, RiodeDbContext db)
+        readonly IConfiguration configuration;
+
+        public MyAccountController(UserManager<RiodeUser> userManager, SignInManager<RiodeUser> signInManager, RiodeDbContext db, IConfiguration configuration)
+
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.db = db;
+            this.configuration = configuration;
         }
 
 
@@ -71,13 +77,25 @@ namespace Riode.WebUI.Controllers
 
                 UserName = register.UserName,
                 Email = register.Email,
-                EmailConfirmed = true
+                Activates = true
+
 
 
             };
 
 
-           var person=await userManager.FindByNameAsync(user.UserName);
+            string token = $"subscribetoken-{register.UserName}-{DateTime.Now:yyyyMMddHHmmss}"; // token yeni id goturuk
+
+            token = token.Encrypt("");
+
+            string path = $"{Request.Scheme}://{Request.Host}/subscribe-confirmm?token={token}"; // path duzeldirik
+
+
+
+            var mailSended = configuration.SendEmail(user.Email, "Riode seyfesi gagas", $"Zehmet olmasa <a href={path}>Link</a> vasitesile abuneliyi tamamlayin");
+
+
+            var person = await userManager.FindByNameAsync(user.UserName);
 
 
             if (person == null)
@@ -104,7 +122,7 @@ namespace Riode.WebUI.Controllers
             }
 
 
-            if (person.UserName!=null)
+            if (person.UserName != null)
             {
                 ViewBag.ms = "Bu username evvelceden qeydiyyatdan kecib";
 
@@ -113,6 +131,43 @@ namespace Riode.WebUI.Controllers
 
             }
             return null;
+        }
+
+        [HttpGet]
+        [Route("subscribe-confirmm")]
+        public IActionResult SubscibeConfirm(string token)
+        {
+
+
+            token = token.Decrypte("");
+
+            Match match = Regex.Match(token, @"subscribetoken-(?<id>[a-zA-Z0-9]*)(.*)-(?<timeStampt>\d{14})");
+
+            if (match.Success)
+            {
+                string id = match.Groups["id"].Value;
+                string executeTimeStamp = match.Groups["executeTimeStamp"].Value;
+
+                var subsc = db.Users.FirstOrDefault(s => s.UserName == id);
+
+                if (subsc == null)
+                {
+                    ViewBag.ms = Tuple.Create(true, "Token xetasi");
+                    goto end;
+                }
+                if (subsc.EmailConfirmed == true)
+                {
+                    ViewBag.ms = Tuple.Create(true, "Artiq tesdiq edildi");
+                    goto end;
+                }
+                subsc.EmailConfirmed = true;
+                db.SaveChanges();
+
+                ViewBag.ms = Tuple.Create(false, "Abuneliyiniz tesdiq edildi");
+
+            }
+            end:
+            return View();
         }
 
 
@@ -163,6 +218,12 @@ namespace Riode.WebUI.Controllers
 
                 }
 
+                if (founderUser.EmailConfirmed == false)
+                {
+                    ViewBag.Ms = "Get vizqirt email tesdiq ele sora gel coban..";
+                    return View(user);
+                }
+
                 //Eger database isdifadeci user deyilse onda gire bilmez.
 
                 if (!await userManager.IsInRoleAsync(founderUser, "User"))
@@ -171,15 +232,15 @@ namespace Riode.WebUI.Controllers
                     return View(user);
                 }
 
-                
-              
 
-                if (founderUser.Activates==false)
+
+
+                if (founderUser.Activates == false)
                 {
                     ViewBag.ms = "Zehmet olmasa Admin aktiv etmesini gozleyin";
                     return View(user);
                 }
-                if (founderUser.Activates==true)
+                if (founderUser.Activates == true)
                 {
                     var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
 
