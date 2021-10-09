@@ -35,5 +35,8 @@ namespace Riode.WebUI.Model.Entity
         public virtual ImageItemFormModel[] Files { get; set; }
 
 
+
     }
+
+
 }

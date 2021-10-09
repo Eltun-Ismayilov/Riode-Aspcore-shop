@@ -1,14 +1,11 @@
-﻿@model Riode.WebUI.Model.Entity.Product
+﻿@model Riode.WebUI.Model.Entity.FormModels.ProductCreateCommand
 
-@{
-    ViewData["Title"] = "Create";
-}
 
 
 
 <h4>Product / Create </h4>
 <hr />
-<form class="row" enctype="multipart/form-data" method="post">
+<form class="row" enctype="multipart/form-data" id="create" method="post">
     <div class="col-md-4">
         <div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,17 +33,51 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-          
-           
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
+
     
     <div class="col-md-8">
         <div style="width: 600px;" class="imager-container" id="viewer1" name="images">
-        
+
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="tab-control" role="tabcontrol">
+            <div class="tab-page" id="specifications" aria-title="Rollar" selected>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Gösdərici</th>
+                            <th scope="col">Dəyəri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int index = 0;}
+                        @foreach (Specification item in ViewBag.Spec)
+                        {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>
+                                <input type="hidden" name="selected[@index].Id" value="@item.Id" />
+                                <input type="text" class="form-control" name="selected[@(index++)].Value" />
+                            </td>
+
+                        </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-page" id="asdasdas" aria-title="Camo babay" >
+            </div>
         </div>
     </div>
 </form>
@@ -59,13 +90,19 @@
 @section addcss{
 
     <link href="~/libs/multiple-imager-js/css/imager.css" rel="stylesheet" />
-
+    <link href="~/libs/Tap-Content(speci)/StyleSheet.css" rel="stylesheet" />
+<style>
+    .tab-control > .tab-navs {
+        background-color: #1b1e24;
+        padding: 5px 5px;
+    }
+</style>
 }
 
 @section addjs{
 
 
-
+    <script src="~/libs/Tap-Content(speci)/JavaScript.js"></script>
     <script src="~/libs/multiple-imager-js/js/imager.js"></script>
 
     <script>
@@ -76,6 +113,26 @@
             plusInnerHtml: '',
             plusBtnClass: undefined
             // cox sekil getirmek ucun yazilmis js ve css aagdakdir;(multiple-image-js)
+        });
+
+
+        $('create').submit((e) => {
+            e.preventDefault();
+
+            let formdata = new FormData(e.currentTarget);
+            $.ajax({
+
+                type: 'POST',
+                url: `@Url.Action("Create")`,
+                data: formdata,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function (respons) {
+                    console.log(respons);
+                }
+            });
+
         });
     </script>
 }

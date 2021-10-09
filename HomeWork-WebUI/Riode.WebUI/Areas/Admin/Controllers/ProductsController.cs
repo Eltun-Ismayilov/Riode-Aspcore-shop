@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Riode.WebUI.Model.DataContexts;
 using Riode.WebUI.Model.Entity;
+using Riode.WebUI.Model.Entity.FormModels;
 using Riode.WebUI.Model.Entity.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -62,7 +63,9 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         [Authorize(Policy = "admin.Product.Create")]
         public IActionResult Create()
         {
-            ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Name");
+            //Burda biz isnin NAME getirik
+            ViewData["BrandsId"] = new SelectList(db.Brands.Where(b => b.DeleteByUserId == null), "Id", "Name");
+            ViewBag.Spec = db.Specifications.ToList();//Burada biz specication hamsini elde edirik databaseden
             return View();
         }
 
@@ -70,17 +73,59 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // [Bind("Name,Sku,BrandsId,ShopDescription,Description,Id,CreateByUserId,CreateData,DeleteByUserId,DeleteData")]
-        public async Task<IActionResult> Create(Product product, ImageItemFormModel[] images)
+
+        public async Task<IActionResult> Create( ImageItemFormModel[] images, ProductCreateCommand product)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var specifications = product?.selected?.Where(s => !string.IsNullOrWhiteSpace(s.Value))?.ToArray();
+
+                var productEntity = new Product
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    BrandsId = product.BrandsId,
+                    ShopDescription = product.ShopDescription,
+                    Sku = product.Sku,
+                    
+                };
+
+                db.products.Add(productEntity);
+                await db.SaveChangesAsync();
+
+
+
+                if (specifications != null)
+                {
+                    var availablesSpecifications = (from Scoming in specifications
+                                                    join s in db.Specifications on Scoming.Id equals s.Id
+                                                    select Scoming).ToArray();
+
+                    foreach (var item in specifications)
+                    {
+                        db.SpecificationValues.Add(new SpecificationValue
+                        {
+                            SpecificationId = item.Id,
+                            ProductId = productEntity.Id,
+                            Value = item.Value
+
+                        });
+                    }
+                }
+            }
+
             if (images == null || !images.Any(i => i.File != null))
             {
                 ModelState.AddModelError("Images", "Sekil Secilmeyib");
             }
 
+
+
+
             if (ModelState.IsValid)
             {
-                product.Images = new List<ProductImage>();
+               product.Images = new List<ProductImage>();
                 foreach (var image in images.Where(i => i.File != null))
                 {
                     string extension = Path.GetExtension(image.File.FileName);
@@ -102,14 +147,17 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                     });
                 }
 
-                db.products.Add(product);
+              //
+              //
+                db.Add(product);
                 await db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["BrandsId"] = new SelectList(db.Brands, "Id", "Id", product.BrandsId);
+            ViewData["BrandsId"] = new SelectList(db.Brands.Where(b=>b.DeleteByUserId==null), "Id", "Name", product.BrandsId);
             return View(product);
+            //return View();
         }
 
         [Authorize(Policy = "admin.Product.Edit")]
