@@ -95,7 +95,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a >
+                            <a asp-controller="MyAccount" asp-action="Index" >
                                 @User.Identity.Name
                             </a>
                             <a asp-controller="MyAccount" asp-action="Logout" asp-area="">

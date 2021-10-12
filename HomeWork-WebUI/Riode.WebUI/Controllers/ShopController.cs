@@ -17,6 +17,7 @@ namespace Riode.WebUI.Controllers
         }
 
         // Shop index+
+        [Route("/shop.html")]
         public IActionResult Index()
         {
             ShopIndexViewModel vm = new ShopIndexViewModel();
@@ -55,7 +56,8 @@ namespace Riode.WebUI.Controllers
 
             return View(vm);
         }
-        // Shop details+ 
+        // Shop details+
+
         public IActionResult Details(int id)
         {
 

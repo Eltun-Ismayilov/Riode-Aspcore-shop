@@ -57,6 +57,7 @@
                     @ViewBag.Ms
                     <div class="tab-content">
                         <div class="tab-pane active" id="signin">
+                            <div asp-validation-summary="All"></div>
                             <form method="post">
                                 <div class="form-group mb-3">
                                     <input asp-for="Email"

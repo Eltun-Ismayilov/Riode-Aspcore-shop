@@ -21,6 +21,8 @@ namespace Riode.WebUI.Controllers
         }
 
         //Blog Layout+
+        [Route("/blog.html")]
+
         public IActionResult Index(int page=1)
         {
 
@@ -42,6 +44,8 @@ namespace Riode.WebUI.Controllers
         }
 
         //Blog Details+
+      //  [Route("/blogDetails.html")]
+
         public IActionResult Details(int id)
         {
             BlogGategoryViewModel vm = new BlogGategoryViewModel();

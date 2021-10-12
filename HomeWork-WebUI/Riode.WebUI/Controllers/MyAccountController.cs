@@ -33,17 +33,20 @@ namespace Riode.WebUI.Controllers
             this.configuration = configuration;
         }
 
+        [Route("/MyAccount.html")]
 
         public IActionResult Index()
         {
             return View();
         }
+        [Route("/Wishlist.html")]
 
         public IActionResult Wishlist()
         {
             return View();
         }
         [AllowAnonymous]
+        [Route("/Registir.html")]
 
         public IActionResult Registir()
         {
@@ -58,6 +61,8 @@ namespace Riode.WebUI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("/Registir.html")]
+
         public async Task<IActionResult> Registir(RegisterFormModel register)
         {
             //Eger giris edibse routda myaccount/sing yazanda o seyfe acilmasin homa tulaasin
@@ -78,9 +83,6 @@ namespace Riode.WebUI.Controllers
                 UserName = register.UserName,
                 Email = register.Email,
                 Activates = true
-
-
-
             };
 
 
@@ -127,8 +129,6 @@ namespace Riode.WebUI.Controllers
                 ViewBag.ms = "Bu username evvelceden qeydiyyatdan kecib";
 
                 return View(register);
-
-
             }
             return null;
         }
@@ -151,7 +151,7 @@ namespace Riode.WebUI.Controllers
                 var subsc = db.Users.FirstOrDefault(s => s.UserName == id);
 
                 if (subsc == null)
-                {
+                {   
                     ViewBag.ms = Tuple.Create(true, "Token xetasi");
                     goto end;
                 }
@@ -172,6 +172,7 @@ namespace Riode.WebUI.Controllers
 
 
         [AllowAnonymous]
+        [Route("/Singin.html")]
 
         public IActionResult Singin()
         {
@@ -187,6 +188,7 @@ namespace Riode.WebUI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("/Singin.html")]
 
         public async Task<IActionResult> Singin(LoginFormModel user)
         {
@@ -220,7 +222,7 @@ namespace Riode.WebUI.Controllers
 
                 if (founderUser.EmailConfirmed == false)
                 {
-                    ViewBag.Ms = "Get vizqirt email tesdiq ele sora gel coban..";
+                    ViewBag.Ms = "Zehmet olmasa Emailinizi testiq edin....";
                     return View(user);
                 }
 
@@ -237,9 +239,10 @@ namespace Riode.WebUI.Controllers
 
                 if (founderUser.Activates == false)
                 {
-                    ViewBag.ms = "Zehmet olmasa Admin aktiv etmesini gozleyin";
+                    ViewBag.ms = "Siz admin terefinden banlanmisiz";
                     return View(user);
                 }
+
                 if (founderUser.Activates == true)
                 {
                     var sRuselt = await signInManager.PasswordSignInAsync(founderUser, user.Password, true, true); //Burda giwi edirik.
@@ -280,6 +283,7 @@ namespace Riode.WebUI.Controllers
             ViewBag.Ms = "Melumatlari doldur gagas";
             return View(user);
         }
+        [Route("/Logout.html")]
 
         public async Task<IActionResult> Logout()
         {

@@ -36,12 +36,14 @@ namespace Riode.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+
         public IActionResult Contact(ContactPost model)
         {
 
             if (ModelState.IsValid)
             {
-                db.Add(model);
+                db.ContactPosts.Add(model);
 
                 db.SaveChanges();
 
@@ -66,11 +68,14 @@ namespace Riode.WebUI.Controllers
 
         }
         // about+
+        [Route("/about.html")]
         public IActionResult AboutUS()
         {
             return View();
         }
         // Fak+
+        [Route("/fak.html")]
+
         public IActionResult Faq()
         {
 
@@ -84,6 +89,8 @@ namespace Riode.WebUI.Controllers
 
 
         [HttpPost]
+        [Route("/Subscrice.html")]
+
         public IActionResult Subscrice([Bind("Email")] Subscrice model)
         {
 

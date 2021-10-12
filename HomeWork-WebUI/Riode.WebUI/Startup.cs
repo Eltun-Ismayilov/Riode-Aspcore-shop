@@ -268,28 +268,33 @@ namespace Riode.WebUI
 
 
                 //Membersip ucun yazmisiq routda olanda Account/Logout yox html kimi Logout.html cixsin diye yaziriq;+
-                cfg.MapControllerRoute("admin-Logout", "admin/logout.html",
-                  defaults: new
-                  {
-                      controller = "Account",
-                      action = "logout",
-                      area = "Admin"
-                  });
+                //cfg.MapControllerRoute("admin-Logout", "admin/logout.html",
+                //  defaults: new
+                //  {
+                //      controller = "Account",
+                //      action = "logout",
+                //      area = "Admin"
+                //  });
 
 
 
 
                 //+//
-                //Membersip ucun yazmisiq routda olanda myaccount/singin yox html kimi singin.html cixsin diye yaziriq;+
-                cfg.MapControllerRoute("x", "signin.html",
-                  defaults: new
-                  {
-                      controller = "MyAccount",
-                      action = "singIn",
-                      area = ""
-                  });
-                //+//
+                  cfg.MapControllerRoute("x", "Contact.html",
+                    defaults: new
+                    {
+                        controller = "Home",
+                        action = "Contact",
+                        area = ""
+                    });
 
+                      cfg.MapControllerRoute("x", "ShopDetali.html",
+                        defaults: new
+                        {
+                            controller = "Shop",
+                            action = "Details",
+                            area = ""
+                        });
 
 
                 //Multilanguc ucun yazilib(User-teref)
