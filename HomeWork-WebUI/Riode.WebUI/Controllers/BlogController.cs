@@ -23,11 +23,11 @@ namespace Riode.WebUI.Controllers
         //Blog Layout+
         [Route("/blog.html")]
 
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page = 1)
         {
 
 
-            var productcount = 3;                                                                              
+            var productcount = 3;
             ViewBag.PagesCaunt = decimal.Ceiling((decimal)db.Blogs.Where(d => d.DeleteByUserId == null).Count() / productcount);
             ViewBag.Page = page;    // 1
 
@@ -35,8 +35,8 @@ namespace Riode.WebUI.Controllers
 
 
             var data = db.Blogs
-                .Where(b=>b.PublishedDate!=null && b.DeleteByUserId==null)
-                .Skip((page-1)*productcount).Take(productcount)
+                .Where(b => b.PublishedDate != null && b.DeleteByUserId == null)
+                .Skip((page - 1) * productcount).Take(productcount)
                 .ToList();
 
 
@@ -44,25 +44,33 @@ namespace Riode.WebUI.Controllers
         }
 
         //Blog Details+
-      //  [Route("/blogDetails.html")]
+        //  [Route("/blogDetails.html")]
 
         public IActionResult Details(int id)
         {
             BlogGategoryViewModel vm = new BlogGategoryViewModel();
 
             vm.Blogs = db.Blogs
+            .Include(b => b.Comment)
+            .ThenInclude(b => b.Children)
             .FirstOrDefault(b => b.PublishedDate != null && b.DeleteByUserId == null && b.Id == id);
 
 
             vm.OneCategories = db.OneCategories
-            .Include(c => c.Parent)                                
-            .Include(c => c.Children)                              
-            .ThenInclude(c => c.Children)                        
+            .Include(c => c.Parent)
+            .Include(c => c.Children)
+            .ThenInclude(c => c.Children)
             .ThenInclude(c => c.Children)
             .Where(c => c.ParentId == null && c.DeleteByUserId == null)
             .ToList();
 
             return View(vm);
         }
+
+        public IActionResult Comment()
+        {
+            return View();
+        }
+
     }
 }

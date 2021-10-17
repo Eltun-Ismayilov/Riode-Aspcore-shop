@@ -25,7 +25,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             this.mediator = mediator;
         }
 
-        [Authorize(Policy = "admin.Question.Index")]
+      //  [Authorize(Policy = "admin.Question.Index")]
         public async Task<IActionResult> Index(QuestionsPagedQuery request)
         {
             ViewBag.Count = db.Questions.Count();
@@ -36,7 +36,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(response);
         }
 
-        [Authorize(Policy = "admin.Question.Details")]
+      //  [Authorize(Policy = "admin.Question.Details")]
         public async Task<IActionResult> Details(QuestionsSingleQuery query)
         {
             var respons = await mediator.Send(query);
@@ -49,13 +49,13 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(respons);
         }
 
-        [Authorize(Policy = "admin.Question.Create")]
+      //  [Authorize(Policy = "admin.Question.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Policy = "admin.Question.Create")]
+      //  [Authorize(Policy = "admin.Question.Create")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -73,7 +73,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        [Authorize(Policy = "admin.Question.Edit")]
+     //   [Authorize(Policy = "admin.Question.Edit")]
         public async Task<IActionResult> Edit(QuestionsSingleQuery query)
         {
             var respons = await mediator.Send(query);
@@ -90,7 +90,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(vm);
         }
 
-        [Authorize(Policy = "admin.Question.Edit")]
+      //  [Authorize(Policy = "admin.Question.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -107,7 +107,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
                 return View(command);
             }
 
-        [Authorize(Policy = "admin.Question.Delete")]
+      //  [Authorize(Policy = "admin.Question.Delete")]
         public async Task<IActionResult> Delete(QuestionsRemoveCommand requst)
         {
 

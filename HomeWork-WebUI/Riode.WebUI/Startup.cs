@@ -217,7 +217,7 @@ namespace Riode.WebUI
 
 
             //+//
-            // static fayilarin oxunmasi ucun yazilmis kod+
+            // static fayilarin oxunmasi ucun yazilmis kod+(css,js,image,ve s oxunmasiiiii)
             app.UseStaticFiles();
 
 

@@ -37,7 +37,6 @@ namespace Riode.WebUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-
         public IActionResult Contact(ContactPost model)
         {
 

@@ -73,7 +73,7 @@ namespace Riode.WebUI.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(register);
             }
 
             //Yeni user yaradiriq.
@@ -89,7 +89,7 @@ namespace Riode.WebUI.Controllers
             string token = $"subscribetoken-{register.UserName}-{DateTime.Now:yyyyMMddHHmmss}"; // token yeni id goturuk
 
             token = token.Encrypt("");
-
+                               //http vs https    fb.com       
             string path = $"{Request.Scheme}://{Request.Host}/subscribe-confirmm?token={token}"; // path duzeldirik
 
 

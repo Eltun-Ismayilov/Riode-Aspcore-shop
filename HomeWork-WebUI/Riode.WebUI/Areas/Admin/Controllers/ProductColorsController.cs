@@ -26,7 +26,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
            this.mediator = mediator;
         }
 
-        [Authorize(Policy = "admin.ProductColor.Index")]
+      //  [Authorize(Policy = "admin.ProductColor.Index")]
         public async Task<IActionResult> Index(ColorPagedQuery request)
         {
             ViewBag.Count = db.ProductColors.Count();
@@ -36,7 +36,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(response);
         }
 
-        [Authorize(Policy = "admin.ProductColor.Details")]
+      //  [Authorize(Policy = "admin.ProductColor.Details")]
 
         public async Task<IActionResult> Details(ColorSingleQuery query)
         {
@@ -50,13 +50,13 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(respons);
         }
 
-        [Authorize(Policy = "admin.ProductColor.Create")]
+     //   [Authorize(Policy = "admin.ProductColor.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Policy = "admin.ProductColor.Create")]
+       // [Authorize(Policy = "admin.ProductColor.Create")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,7 +74,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        [Authorize(Policy = "admin.ProductColor.Edit")]
+      //  [Authorize(Policy = "admin.ProductColor.Edit")]
         public async Task<IActionResult> Edit(ColorSingleQuery query)
         {
 
@@ -95,7 +95,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
 
-        [Authorize(Policy = "admin.ProductColor.Edit")]
+      //  [Authorize(Policy = "admin.ProductColor.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -110,7 +110,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        [Authorize(Policy = "admin.ProductColor.Delete")]
+      //  [Authorize(Policy = "admin.ProductColor.Delete")]
         [HttpPost]
 
         public async Task<IActionResult> Delete(ColorRemoveCommand requst)

@@ -42,7 +42,9 @@ namespace Riode.WebUI.Model.DataContexts
         public DbSet<Subscrice> Subscrices { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<BlogComment> BlogComments { get; set; }
         
+
 
 
         // Database olan membershiplerin ADi qabaginda ASP isdemirikse gorsensin ozmuz duz qos eliyib burda yaziriq

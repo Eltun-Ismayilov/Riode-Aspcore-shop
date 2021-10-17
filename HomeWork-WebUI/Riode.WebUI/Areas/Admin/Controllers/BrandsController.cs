@@ -10,6 +10,7 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin,Admin")]
 
     public class BrandsController : Controller
     {
@@ -22,9 +23,10 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             this.db = db;
             this.mediator = mediator; 
         }
+                
+       // [Authorize(Policy = "admin.brands.index")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
 
-        [Authorize(Policy = "admin.brands.index")]
-       
         public async Task<IActionResult> Index(BrandPagedQuery request)
         {
 
@@ -34,9 +36,12 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
             return View(response);
         }
-        [Authorize(Policy = "admin.brands.Details")]
+      //  [Authorize(Policy = "admin.brands.Details")]
 
         //+
+
+        [Authorize(Roles = "SuperAdmin,Admin")]
+
         public async Task<IActionResult> Details(BrandSingleQuery query)
         {
 
@@ -58,7 +63,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         //+k
-        [Authorize(Policy = "admin.brands.Create")]
+      //  [Authorize(Policy = "admin.brands.Create")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
 
         public IActionResult Create()
         {
@@ -66,6 +72,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+
         public async Task<IActionResult> Create(BrandCreateCommand command)
         {
 
@@ -81,9 +89,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        [Authorize(Policy = "admin.brands.Edit")]
+        //[Authorize(Policy = "admin.brands.Edit")]
 
         //+
+        [Authorize(Roles = "SuperAdmin,Admin")]
+
         public async Task<IActionResult> Edit(BrandSingleQuery query)
         {
 
@@ -104,10 +114,12 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
         }
 
-        [Authorize(Policy = "admin.brands.Edit")]
+       // [Authorize(Policy = "admin.brands.Edit")]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+
         public async Task<IActionResult> Edit(BrandEditCommand command)
         {
 
@@ -122,9 +134,11 @@ namespace Riode.WebUI.Areas.Admin.Controllers
 
 
 
-        [Authorize(Policy = "admin.brands.Delete")]
+    //    [Authorize(Policy = "admin.brands.Delete")]
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
+
         public async Task<IActionResult> Delete(BrandRemoveCommand requst)
         {
 

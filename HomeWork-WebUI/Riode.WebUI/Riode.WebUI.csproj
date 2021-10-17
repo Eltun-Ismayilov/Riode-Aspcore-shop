@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\uploads\video\**" />
+    <Content Remove="wwwroot\uploads\video\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\video\**" />
+    <None Remove="wwwroot\uploads\video\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="wwwroot\uploads\video\" />
   </ItemGroup>
 
   <ItemGroup>

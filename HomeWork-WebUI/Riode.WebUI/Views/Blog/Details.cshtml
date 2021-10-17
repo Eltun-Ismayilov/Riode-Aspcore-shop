@@ -3,6 +3,18 @@
 
 @{
     ViewData["Title"] = "Details";
+
+    IEnumerable<BlogComment> GetComments(BlogComment parent)
+    {
+        if (parent.ParentId!=null)
+        
+            yield return parent;
+        
+        foreach (var item in parent.Children.SelectMany(c=>GetComments(c)))
+        {
+            yield return item;
+        }
+    }
 }
 
 <nav class="breadcrumb-nav mt-0 mt-lg-3">
@@ -233,8 +245,10 @@
                 <div class="comments">
                     <h3 class="title title-simple text-left text-normal font-weight-bold">3 Comments</h3>
                     <ul>
-                        <li>
-                            <div class="comment">
+                        @foreach (var comment in Model.Blogs.Comment.Where(c=>c.ParentId==null))
+                        {
+
+                            <li class="comment">
                                 <figure class="comment-media">
                                     <a href="#">
                                         <img src="~/uploads/images/blog/comments/1.jpg" alt="avatar">
@@ -242,78 +256,51 @@
                                 </figure>
                                 <div class="comment-body">
                                     <div class="comment-user">
-                                        <span class="comment-date">November 9, 2018 at 2:19 pm</span>
-                                        <h4><a href="#">Jimmy Pearson</a></h4>
+                                        <span class="comment-date">@comment.CreateData.ToString("MMMM d,yyyy HH:mm")</span>
+                                        <h4><a href="#">Eltun Ismayilov</a></h4>
                                     </div>
 
                                     <div class="comment-content mb-2">
                                         <p>
-                                            Sed pretium, ligula sollicitudin laoreet viverra, tortor libero
-                                            sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut
-                                            justo. Suspendisse potenti.
+                                            @comment.Comment
                                         </p>
                                     </div>
                                     <a href="#" class="btn btn-link btn-reveal-right">
                                         REPLY<i class="d-icon-arrow-right"></i>
                                     </a>
                                 </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment">
-                                        <figure class="comment-media">
-                                            <a href="#">
-                                                <img src="~/uploads/images/blog/comments/2.jpg" alt="avatar">
-                                            </a>
-                                        </figure>
+                            </li>
 
-                                        <div class="comment-body">
-                                            <div class="comment-user">
-                                                <span class="comment-date">
-                                                    November 9, 2018 at 2:19
-                                                    pm
-                                                </span>
-                                                <h4><a href="#">Lena Knight</a></h4>
-                                            </div>
-
-                                            <div class="comment-content mb-2">
-                                                <p>Morbi interdum mollis sapien. Sed ac risus.</p>
-                                            </div>
-                                            <a href="#" class="btn btn-link btn-reveal-right">
-                                                REPLY<i class="d-icon-arrow-right"></i>
-                                            </a>
+                            foreach (var subComment in GetComments(comment))
+                            {
+                                <li style="margin-left:100px" class="comment">
+                                    <figure class="comment-media">
+                                        <a href="#">
+                                            <img src="~/uploads/images/blog/comments/1.jpg" alt="avatar">
+                                        </a>
+                                    </figure> 
+                                    <div class="comment-body">
+                                        <div class="comment-user">
+                                            <span class="comment-date">@subComment.CreateData.ToString("MMMM d,yyyy HH:mm")</span>
+                                            <h4><a href="#">Demo Users</a></h4>
                                         </div>
+
+                                        <div class="comment-content mb-2">
+                                            <p>
+                                                @subComment.Comment
+                                            </p>
+                                        </div>
+                                        <a href="#" class="btn btn-link btn-reveal-right">
+                                            REPLY<i class="d-icon-arrow-right"></i>
+                                        </a>
                                     </div>
                                 </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment">
-                                <figure class="comment-media">
-                                    <a href="#">
-                                        <img src="~/uploads/images/blog/comments/1.jpg" alt="avatar">
-                                    </a>
-                                </figure>
 
-                                <div class="comment-body">
-                                    <div class="comment-user">
-                                        <span class="comment-date">November 9, 2018 at 2:19 pm</span>
-                                        <h4><a href="#">Johnathan Castillo</a></h4>
-                                    </div>
+                            }
 
-                                    <div class="comment-content mb-2">
-                                        <p>
-                                            Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod
-                                            dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu,
-                                            dapibus eu, fermentum et, dapibus sed, urna.
-                                        </p>
-                                    </div>
-                                    <a href="#" class="btn btn-link btn-reveal-right">
-                                        REPLY<i class="d-icon-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
+
+                        }
+
                     </ul>
                 </div>
                 <!-- End Comments -->

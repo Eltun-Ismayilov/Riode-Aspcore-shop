@@ -42,6 +42,8 @@ namespace Riode.WebUI.Areas.Admin.Controllers
         }
 
         [Authorize(Policy = "admin.Blog.Details")]
+
+
         public async Task<IActionResult> Details(BlogsSingleQuery query)
         {
 

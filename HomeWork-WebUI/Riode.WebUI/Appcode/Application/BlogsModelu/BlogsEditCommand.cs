@@ -38,6 +38,7 @@ namespace Riode.WebUI.Appcode.Application.BlogsModelu
                     return 0;
                 }
 
+
                 if (string.IsNullOrWhiteSpace(request.fileTemp) && request.file == null)
                 {
 
